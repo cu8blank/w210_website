@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!--
+	Transit by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Tourist Concierge</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/keen-dashboards.css" />
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript>
+		
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		
+		<link rel="stylesheet" href="css/ammap.css" type="text/css">
+        <script src="js/ammap.js" type="text/javascript"></script>
+        <!-- map file should be included after ammap.js -->
+		<script src="js/worldLow.js" type="text/javascript"></script>
+		        <script>
+			AmCharts.makeChart("mapdiv", {
+				type: "map",
+
+				dataProvider: {
+					map: "worldLow",
+					getAreasFromMap: true
+				},
+
+				areasSettings: {
+					autoZoom: true,
+					selectedColor: "#CC0000"
+				},
+
+				smallMap: {}
+			});
+
+        </script>
+		
+		
+		<style>
+			.active { fill: blue !important;}
+			/*.datamaps-key dt, .datamaps-key dd {float: none !important;}
+			.datamaps-key {right: -50px; top: 0;}*/
+
+			.world_map {
+			  position: relative;
+			  margin: auto;
+			  top: 0;
+			  right: 0;
+			  bottom: 0;
+			  left: 0;
+			}						
+		</style>
+		
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+				<h1><a href="index.html">Tourist Concierge</a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="generic.html">Tourist Concierge</a></li>
+						<li><a href="elements.html">Analysis</a></li>
+						<li><a href="#" class="button special">Sign Up</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
+
+					<header class="major">
+						<h2>Tourist Concierge - Try it Now!</h2>
+						<p>Guiding you to your dream destination.</p>
+					</header>
+
+
+<! ************************* Start code here for dashboard ***************************>
+				<section class="application">
+					<script type="text/javascript" src="js/jquery.min.js"></script>
+					<script type="text/javascript" src="js/bootstrap.min.js"></script>
+					<script type="text/javascript" src="js/holder.js"></script>
+					<script>
+						Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
+					</script>
+					<script type="text/javascript" src="js/keen.min.js"></script>
+					
+				<div class="container-fluid">
+				  <!--first and second row -->
+				  <div class="row">
+					<div class="3u 12u$(medium)">
+					  <div class="row">
+						<div class="12u 12u$(medium)">
+						  <div class="chart-wrapper">
+							<div class="chart-title">
+							  User Search Filter
+							</div>
+							<div class="chart-stage">
+							  <img data-src="holder.js/100%x120/white">
+							</div>
+							<div class="chart-notes">
+							  Notes about this chart
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="12u 12u$(medium)">
+						  <div class="chart-wrapper">
+							<div class="chart-title">
+							  Summary of user selection?
+							</div>
+							<div class="chart-stage">
+							  <img data-src="holder.js/100%x120/white">
+							</div>
+							<div class="chart-notes">
+							  Notes about this chart
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+					<div class="6u 12u$(medium)">
+					  <div class="chart-wrapper">
+						<div class="chart-title">
+						  World Map
+						</div>
+						<div class="chart-stage">
+						  <!--img data-src="holder.js/100%x325/white"-->						  
+						  <div id="mapdiv" style="width: 100%; background-color:#EEEEEE; height: 325px;"></div>
+						  
+						</div>
+						<div class="chart-notes">
+						  Notes about this chart
+						</div>
+					  </div>
+					</div>
+					<div class="3u 12u$(medium)">
+					  <div class="row">
+						<div class="12u 12u$(medium)">
+						  <div class="chart-wrapper">
+							<div class="chart-title">
+							  Predictions
+							</div>
+							<div class="chart-stage">
+							  <img data-src="holder.js/100%x120/white">
+							</div>
+							<div class="chart-notes">
+							  Notes about this chart
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="12u 12u$(medium)">
+						  <div class="chart-wrapper">
+							<div class="chart-title">
+							  Recommendations?
+							</div>
+							<div class="chart-stage">
+							  <img data-src="holder.js/100%x120/white">
+							</div>
+							<div class="chart-notes">
+							  Notes about this chart
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  
+				  
+				  <!--3rd row-->
+				  <div class="row">
+					<div class="4u 12u$(medium)">
+					  <div class="chart-wrapper">
+						<div class="chart-title">
+						  Charts on current country selection
+						</div>
+						<div class="chart-stage">
+						  <img data-src="holder.js/100%x120/white">
+						</div>
+						<div class="chart-notes">
+						  Notes about this chart
+						</div>
+					  </div>
+					</div>
+					<div class="8u 12u$(medium)">
+					  <div class="chart-wrapper">
+						<div class="chart-title">
+						  Table comparing multiple selected countries
+						</div>
+						<div class="chart-stage">
+						  <img data-src="holder.js/100%x120/white">
+						</div>
+						<div class="chart-notes">
+						  Notes about this chart
+						</div>
+					  </div>
+					</div>
+					
+				  </div>
+				  
+				  <!--4th row
+				  <div class="row">
+					<div class="4u 12u$(medium)">
+					  <div class="chart-wrapper">
+						<div class="chart-title">
+						  Cell Title
+						</div>
+						<div class="chart-stage">
+						  <img data-src="holder.js/100%x120/white">
+						</div>
+						<div class="chart-notes">
+						  Notes about this chart
+						</div>
+					  </div>
+					</div>
+					<div class="4u 12u$(medium)">
+					  <div class="chart-wrapper">
+						<div class="chart-title">
+						  Cell Title
+						</div>
+						<div class="chart-stage">
+						  <img data-src="holder.js/100%x120/white">
+						</div>
+						<div class="chart-notes">
+						  Notes about this chart
+						</div>
+					  </div>
+					</div>
+					<div class="4u 12u$(medium)">
+					  <div class="chart-wrapper">
+						<div class="chart-title">
+						  Cell Title
+						</div>
+						<div class="chart-stage">
+						  <img data-src="holder.js/100%x120/white">
+						</div>
+						<div class="chart-notes">
+						  Notes about this chart
+						</div>
+					  </div>
+					</div>
+				  </div>  -->
+  
+				</div>
+
+				</section>
+<! ************************* End code here for dashboard ***************************>
+
+
+					<!--   <a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>   
+					<div id="mapdiv" style="width: 100%; background-color:#EEEEEE; height: 500px;"></div> -->
+
+					<div id="container1" class="world_map" style="border:1px dotted blue; width: 1008px; height: 684px;"></div>
+					
+					<p>Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit accumsan sapien blandit ac amet faucibus aliquet placerat commodo. Interdum ante aliquet commodo accumsan vis phasellus adipiscing. Ornare a in lacinia. Vestibulum accumsan ac metus massa tempor. Accumsan in lacinia ornare massa amet. Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan.</p>
+					<p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan commodo odio cubilia ac eu interdum placerat placerat arcu commodo lobortis adipiscing semper ornare pellentesque.</p>
+					<p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet blandit adipiscing arcu ante.</p>
+
+				</section>
+			</section>
+
+<!******************************************* code for center map ***********************************************>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+			<script src="datamaps/datamaps-master/dist/datamaps.world.min.js"></script>
+			
+			<script>
+				// from https://github.com/markmarkoh/datamaps/blob/master/src/examples/highmaps_world.html
+				// example data from server
+				
+				var series = [
+					["BLR",75],["BLZ",43],["RUS",50],["RWA",88],["SRB",21],["TLS",43],
+					["REU",21],["TKM",19],["TJK",60],["ROU",4],["TKL",44],["GNB",38],
+					["GUM",67],["GTM",2],["SGS",95],["GRC",60],["GNQ",57],["GLP",53],
+					["JPN",59],["GUY",24],["GGY",4],["GUF",21],["GEO",42],["GRD",65],
+					["GBR",14],["GAB",47],["SLV",15],["GIN",19],["GMB",63],["GRL",56],
+					["ERI",57],["MNE",93],["MDA",39],["MDG",71],["MAF",16],["MAR",8],
+					["MCO",25],["UZB",81],["MMR",21],["MLI",95],["MAC",33],["MNG",93],
+					["MHL",15],["MKD",52],["MUS",19],["MLT",69],["MWI",37],["MDV",44],
+					["MTQ",13],["MNP",21],["MSR",89],["MRT",20],["IMN",72],["UGA",59],
+					["TZA",62],["MYS",75],["MEX",80],["ISR",77],["FRA",54],["IOT",56],
+					["SHN",91],["FIN",51],["FJI",22],["FLK",4],["FSM",69],["FRO",70],
+					["NIC",66],["NLD",53],["NOR",7],["NAM",63],["VUT",15],["NCL",66],
+					["NER",34],["NFK",33],["NGA",45],["NZL",96],["NPL",21],["NRU",13],
+					["NIU",6],["COK",19],["XKX",32],["CIV",27],["CHE",65],["COL",64],
+					["CHN",16],["CMR",70],["CHL",15],["CCK",85],["CAN",76],["COG",20],
+					["CAF",93],["COD",36],["CZE",77],["CYP",65],["CXR",14],["CRI",31],
+					["CUW",67],["CPV",63],["CUB",40],["SWZ",58],["SYR",96],["SXM",31]];
+				// Datamaps expect data in format:
+				// { "USA": { "fillColor": "#42a844", numberOfWhatever: 75},
+				//   "FRA": { "fillColor": "#8dc386", numberOfWhatever: 43 } }
+				var dataset = {};
+				// We need to colorize every country based on "numberOfWhatever"
+				// colors should be uniq for every value.
+				// For this purpose we create palette(using min/max series-value)
+				var onlyValues = series.map(function(obj){ return obj[1]; });
+				var minValue = Math.min.apply(null, onlyValues),
+						maxValue = Math.max.apply(null, onlyValues);
+				// create color palette function
+				// color can be whatever you wish
+				var paletteScale = d3.scale.linear()
+						.domain([minValue,maxValue])
+						.range(["#EFEFFF","#02386F"]); // blue color
+				// fill dataset in appropriate format
+				series.forEach(function(item){ //
+					// item example value ["USA", 70]
+					var iso = item[0],
+							value = item[1];
+					dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value) };
+				});
+				// render map
+				new Datamap({
+					element: document.getElementById('container1'),
+					projection: 'mercator', // big world map
+					// countries don't listed in dataset will be painted with this color
+					fills: { defaultFill: '#F5F5F5' },
+					data: dataset,
+					geographyConfig: {
+						borderColor: '#DEDEDE',
+						highlightBorderWidth: 2,
+						// don't change color on mouse hover
+						highlightFillColor: function(geo) {
+							return geo['fillColor'] || '#F5F5F5';
+						},
+						// only change border
+						highlightBorderColor: '#B7B7B7',
+						// show desired information in tooltip
+						popupTemplate: function(geo, data) {
+							// don't show tooltip if country don't present in dataset
+							if (!data) { return ; }
+							// tooltip content
+							return ['<div class="hoverinfo">',
+								'<strong>', geo.properties.name, '</strong>',
+								'<br>Count: <strong>', data.numberOfThings, '</strong>',
+								'</div>'].join('');
+						}
+					}
+				});
+			</script>
+
+
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<section class="links">
+						<div class="row">
+							<section class="3u 6u(medium) 12u$(small)">
+								<h3>Lorem ipsum dolor</h3>
+								<ul class="unstyled">
+									<li><a href="#">Lorem ipsum dolor sit</a></li>
+									<li><a href="#">Nesciunt itaque, alias possimus</a></li>
+									<li><a href="#">Optio rerum beatae autem</a></li>
+									<li><a href="#">Nostrum nemo dolorum facilis</a></li>
+									<li><a href="#">Quo fugit dolor totam</a></li>
+								</ul>
+							</section>
+							<section class="3u 6u$(medium) 12u$(small)">
+								<h3>Culpa quia, nesciunt</h3>
+								<ul class="unstyled">
+									<li><a href="#">Lorem ipsum dolor sit</a></li>
+									<li><a href="#">Reiciendis dicta laboriosam enim</a></li>
+									<li><a href="#">Corporis, non aut rerum</a></li>
+									<li><a href="#">Laboriosam nulla voluptas, harum</a></li>
+									<li><a href="#">Facere eligendi, inventore dolor</a></li>
+								</ul>
+							</section>
+							<section class="3u 6u(medium) 12u$(small)">
+								<h3>Neque, dolore, facere</h3>
+								<ul class="unstyled">
+									<li><a href="#">Lorem ipsum dolor sit</a></li>
+									<li><a href="#">Distinctio, inventore quidem nesciunt</a></li>
+									<li><a href="#">Explicabo inventore itaque autem</a></li>
+									<li><a href="#">Aperiam harum, sint quibusdam</a></li>
+									<li><a href="#">Labore excepturi assumenda</a></li>
+								</ul>
+							</section>
+							<section class="3u$ 6u$(medium) 12u$(small)">
+								<h3>Illum, tempori, saepe</h3>
+								<ul class="unstyled">
+									<li><a href="#">Lorem ipsum dolor sit</a></li>
+									<li><a href="#">Recusandae, culpa necessita nam</a></li>
+									<li><a href="#">Cupiditate, debitis adipisci blandi</a></li>
+									<li><a href="#">Tempore nam, enim quia</a></li>
+									<li><a href="#">Explicabo molestiae dolor labore</a></li>
+								</ul>
+							</section>
+						</div>
+					</section>
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved.</li>
+								<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+								<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+							</ul>
+						</div>
+						<div class="4u$ 12u$(medium)">
+							<ul class="icons">
+								<li>
+									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+								</li>
+								<li>
+									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li>
+									<a class="icon rounded fa-google-plus"><span class="label">Google+</span></a>
+								</li>
+								<li>
+									<a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+
+	</body>
+</html>
