@@ -30,8 +30,10 @@
 		
         <!-- map file should be included after ammap.js -->
 		<link rel="stylesheet" type="text/css" href="css/ammap.css" />
-        <script src="js/ammap.js" type="text/javascript"></script>		
-		<script src="js/worldLow.js" type="text/javascript"></script>
+        <script src="js/ammap.js" type="text/javascript"></script>			
+		<script src="js/worldLow.js" type="text/javascript"></script>		
+		
+		
         <script type="text/javascript">
 			
 			
@@ -55,9 +57,11 @@
 				var map = AmCharts.makeChart("mapdiv", {
 					type: "map",
 					theme: "light",
+					projection: "Eckert5",
+					
 	
 					dataProvider: {
-						map: "worldLow",
+						map: "worldLow",						
 						getAreasFromMap: true,
 						
 						//***** Modify this section to change the hover over pop up boxes *****//
