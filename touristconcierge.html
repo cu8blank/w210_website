@@ -18,25 +18,13 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
+		<script type="text/javascript" src="js/holder.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-xlarge.css" />
 		</noscript>
 		
-        <style>
-        #currency-table {
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-			font-size: 12px;
-			overflow:scroll;
-			height:500px;
-        }
-
-        td, th { border: 1px solid #CCC;} /* Add borders to cells */        
-        </style>
-				
 	</head>
 	<body class="landing">
 
@@ -87,79 +75,6 @@
 								<img src="images/03_currencyexchange.gif" alt="" width="80"/>
 								<h3>Currency Prediction</h3>
 								<p>Below is a table of currency predictions.</p>
-								<div id="currency-table" class="4u 12u$(medium)"></div>
-								
-								<script type="text/javascript" src="js/d3.min.js"></script>
-								<script type="text/javascript">
-									
-									var svg = d3.select("body").append("svg")
-										.attr("height", 1)
-										.attr("width", 1);
-									
-									var table = d3.select("#currency-table")
-										.append("table")
-										.attr("class", "table table-condensed table-striped"),
-										thead = table.append("thead"),
-										tbody = table.append("tbody");
-						
-									d3.csv("data/March_1_Currency_Predictions.csv", function(error, data) {
-										
-										// Get every column value
-										//var columns = ["Currency","Current_Rate","7_Day_Prediction","30_Day_Prediction","90_Day_Prediction"];
-										var columns = Object.keys(data[0])
-										
-										var header = thead.append("tr")
-											.selectAll("th")
-											.data(columns)
-											.enter()
-											.append("th")
-												.text(function(d){ return d;})
-												.on("click", function(d){
-													if (d == "Currency"){
-														rows.sort(function(a, b) {
-															if (a[d] < b[d]){
-																return -1;
-															}
-															if (a[d] > b[d]){
-																return 1;
-															}
-															else{
-																return 0;
-															}
-														});
-													}
-													else {
-														rows.sort(function(a, b){
-															return +b[d] - +a[d];
-														})
-													}
-												});
-									
-										var rows = tbody.selectAll("tr")
-											.data(data)
-											.enter()
-											.append("tr")
-											.on("mouseover", function(d){
-												d3.select(this)
-													.style("background-color", "green");
-											})
-											.on("mouseout", function(d){
-												d3.select(this)
-													.style("background-color","transparent");
-											});
-									
-										var cells = rows.selectAll("td")
-											.data(function(row){
-												return columns.map(function(d, i){
-													return {i: d, value: row[d]};
-												});
-											})
-											.enter()
-											.append("td")
-											.html(function(d){ return d.value;});
-						
-									});
-								</script>
 
 							</section>
 						</div>
@@ -175,8 +90,57 @@
 				</div>
 			</section>
 
+
 		<!-- Two -->
 			<section id="two" class="wrapper style2 special">
+				<div class="container">
+					<header class="major">
+						<h2>Give more info on product here</h2>
+						<p>More details here</p>
+					</header>
+					<hr class="featurette-divider">
+					<div class="row">
+						<div class="7u 12u$(medium)">
+								<h2>Safety and Stability Prediction</h2>
+								<p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+						</div>
+						<section class="box">
+							<div class="5u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt="">
+							</div>
+						</section>
+					</div>
+					<hr class="featurette-divider">
+					<div class="row">
+						<section class="box">
+							<div class="5u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt="">
+							</div>
+						</section>
+						<div class="7u 12u$(medium)">
+								<h2>Currency Prediction</h2>
+								<p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+						</div>
+					</div>
+					<hr class="featurette-divider">
+					<div class="row">
+						<div class="7u 12u$(medium)">
+							<h2>Country Information Prediction</span></h2>
+							<p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+						</div>
+						<section class="box">
+							<div class="5u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt="">
+							</div>
+						</section>
+					</div>
+					<hr class="featurette-divider">
+				</div>
+			</section>
+
+
+		<!-- Three -->
+			<section id="three" class="wrapper style2 special">
 				<div class="container">
 					<header class="major">
 						<h2 id="theteam">Meet The Team</h2>
@@ -215,13 +179,12 @@
 
 		<!-- Footer -->
 			<footer id="footer">
-					<div class="row">
-						<div class="8u 12u$(medium)">
-							<ul class="copyright">
-								<li>&copy; Untitled. All rights reserved.</li>
-								<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-							</ul>
-						</div>
+				<div class="row">
+					<div class="8u 12u$(medium)">
+						<ul class="copyright">
+							<li>&copy; Untitled. All rights reserved.</li>
+							<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+						</ul>
 					</div>
 				</div>
 			</footer>
