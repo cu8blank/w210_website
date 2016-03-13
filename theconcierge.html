@@ -23,6 +23,43 @@
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
 		
+		<style>
+			#filter_buttons {
+				margin-top: 10px;
+				margin-left: 5px;
+			}
+			
+			#season_buttons {
+				display: none;
+				margin-left: 35px;
+			}
+			
+			#filter_container {
+				overflow:scroll;
+				height:200px;
+			}
+			
+			#filter_results_container {
+				overflow:scroll;
+				height:200px;
+			}
+			
+			#country_rec_container {
+				overflow:scroll;
+				height:250px;
+			}
+			
+			#country_results_container {
+				overflow:scroll;
+				height:250px;
+			}
+   
+        </style>
+
+			
+		</style>
+		
+		
 		<script type="text/javascript" src="js/d3.min.js"></script>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 		<!--link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /-->
@@ -35,7 +72,6 @@
 		
 		
         <script type="text/javascript">
-			
 			
 			/*******************   Read CSV    *******************/
             //read in CSV and draw table
@@ -50,16 +86,15 @@
                   d.rate_7 = +d.rate_7;
                 });
 				
-                var csvval = d3.select(".inputcsvdata")
-                    .text(data[1]["countrycode"])
-					.style('color', '#f0f');;
+                /*var csvval = d3.select(".inputcsvdata")
+                    .text(data[1]["countrycode"])   
+					.style('color', '#f0f');;*/   ///******example
 
 				var map = AmCharts.makeChart("mapdiv", {
 					type: "map",
 					theme: "light",
 					projection: "Eckert5",
 					
-	
 					dataProvider: {
 						map: "worldLow",						
 						getAreasFromMap: true,
@@ -522,19 +557,16 @@
 				
 				//******* change this color for the zoomed in country *******//
 				map.addListener("clickMapObject", function(event) {
-				  alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
+				  //alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
 				  
-					if (event.mapObject.id == "US") {
-						var csvval = d3.select(".inputcsvdata")
-											.text(data[2]["countrycode"])
-											.style('color', '#0f0');;					
-					}  
-					else    { 
-						var csvval = d3.select(".inputcsvdata")
-											.text(data[0]["countrycode"])
-											.style('color', '#3b6');;					
-					}   
-				  
+					var val1 = d3.select(".inputcsvdata1")
+											.text(event.mapObject.id)
+											.style('color', '#3b6');; ///******example
+											
+					var val2 = d3.select(".inputcsvdata2")
+											.text(event.mapObject.id)
+											.style('color', '#3b6');;	///******example
+			  
 				  
 				});
 				
@@ -552,7 +584,6 @@
 					<ul>
 						<li><a href="touristconcierge.html">Home</a></li>
 						<li><a href="theconcierge.html">Take Me to the Tourist Concierge</a></li>
-						<!--li><a href="elements.html">Analysis</a></li-->
 						<li><a href="touristconcierge.html#theteam">Meet the Team</a></li>
 					</ul>
 				</nav>
@@ -584,31 +615,108 @@
 					<div class="3u 12u$(medium)">
 					  <div class="row">
 						<div class="12u 12u$(medium)">
-						  <div class="chart-wrapper">
+						  <div class="chart-wrapper" id="filter_container">
 							<div class="chart-title">
-							  User Search Filter
+							  User Search Filter  
 							</div>
 							<div class="chart-stage">
-							  <!--img data-src="holder.js/100%x120/white"-->
-							  <div class="inputcsvdata"></div></br> 
-							</div>
-							<div class="chart-notes">
-							  Notes about this chart
+							    <!--img data-src="holder.js/100%x120/white"-->
+
+								<form method="post" action="#" id="filter_buttons">
+									<div class="row uniform 50%">
+										<div class="2u 12u$(3)">
+											<input type="checkbox" id="activity" name="activity">
+											<label for="activity">Activity</label>
+										</div>
+									</div>
+									<div class="row uniform 50%">
+										<div class="2u 12u$(3)">									
+											<input type="checkbox" id="season" name="season" onchange="button_click()">
+											<label for="season">Season</label>
+										</div>
+									</div>
+									<div id="season_buttons">
+										<div class="row uniform 50%">
+											<div class="2u 12u$(3)">		
+												<input type="checkbox" id="season_1" name="season_1" checked>
+												<label for="season_1">Season_1</label>
+											</div>
+										</div>
+										<div class="row uniform 50%">
+											<div class="2u 12u$(3)">		
+												<input type="checkbox" id="season_2" name="season_2" checked>
+												<label for="season_2">Season_2</label>
+											</div>
+										</div>
+										<div class="row uniform 50%">
+											<div class="2u 12u$(3)">		
+												<input type="checkbox" id="season_3" name="season_3" checked>
+												<label for="season_3">Season_3</label>
+											</div>
+										</div>
+									</div>
+									<div class="row uniform 50%">
+										<div class="2u 12u$(3)">
+											<input type="checkbox" id="region" name="region">
+											<label for="region">Region</label>
+										</div>
+									</div>
+								</form>
+								<script>
+									
+									/************ For the buttons on the dashboard *******/
+									var button_dash = document.getElementById("season");
+									var buttons = document.getElementById("season_buttons");
+									
+									function button_click() {
+                                        //code
+										if (button_dash.checked==true) {
+											//code
+											showMore();
+												  
+											var filter_list1 = d3.select(".user_filter_list")
+																	.text("HELLO WORLD!")
+																	.style('color', '#000');	///******example
+
+										}
+										else {
+											showLess();
+											
+											var filter_list1 = d3.select(".user_filter_list")
+																	.text("BYE WORLD!")
+																	.style('color', '#3FF');	///******example
+										}
+                                    }
+									
+									function showMore() {
+										button_dash.style.display="none";
+										buttons.style.display="block";
+									}
+									
+									function showLess() {
+										button_dash.style.display="inline-block";
+										buttons.style.display="none";
+									}
+									
+									/************ For the buttons on the dashboard *******/
+								</script> 
+	
 							</div>
 						  </div>
 						</div>
 					  </div>
+					
 					  <div class="row">
 						<div class="12u 12u$(medium)">
-						  <div class="chart-wrapper">
+						  <div class="chart-wrapper" id="filter_results_container">
 							<div class="chart-title">
-							  Summary of user selection?
+							  Summary of user selection
 							</div>
 							<div class="chart-stage">
-							  <img data-src="holder.js/100%x120/white">
-							</div>
-							<div class="chart-notes">
-							  Notes about this chart
+							  <!--img data-src="holder.js/100%x120/white"-->
+							  
+							  <div class="user_filter_list"></div>
+							  
 							</div>
 						  </div>
 						</div>
@@ -636,28 +744,34 @@
 				  <!--3rd row-->
 				  <div class="row">
 					<div class="4u 12u$(medium)">
-					  <div class="chart-wrapper">
+					  <div class="chart-wrapper" id="country_rec_container">
 						<div class="chart-title">
 						  Recommendations based on current country selection
 						</div>
 						<div class="chart-stage">
-						  <img data-src="holder.js/100%x120/white">
-						</div>
-						<div class="chart-notes">
-						  Notes about this chart
+						  <!--img data-src="holder.js/100%x120/white"-->
+						  
+						  
+						  <div class="inputcsvdata1"></div>
+						  
+						  
+						  
 						</div>
 					  </div>
 					</div>
 					<div class="8u 12u$(medium)">
-					  <div class="chart-wrapper">
+					  <div class="chart-wrapper" id="country_results_container">
 						<div class="chart-title">
 						  Information on current country selection
 						</div>
 						<div class="chart-stage">
-						  <img data-src="holder.js/100%x120/white">
-						</div>
-						<div class="chart-notes">
-						  Notes about this chart
+						  <!--img data-src="holder.js/100%x120/white"-->
+						  
+						  
+						  <div class="inputcsvdata2"></div>
+						  
+						  
+						  
 						</div>
 					  </div>
 					</div>
@@ -673,6 +787,7 @@
 					<p>We might decide to put more text here.</p>
 					<p>Maybe give scenarios, use cases and examples of our product in action.</p>
 					<p>And/or we can put additional charts that show our analysis and Machine Learning techniques that we used.</p>
+
 			</section>
 			
 
