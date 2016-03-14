@@ -53,13 +53,8 @@
 				overflow:scroll;
 				height:250px;
 			}
-   
         </style>
 
-			
-		</style>
-		
-		
 		<script type="text/javascript" src="js/d3.min.js"></script>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 		<!--link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /-->
@@ -70,508 +65,612 @@
         <script src="js/ammap.js" type="text/javascript"></script>			
 		<script src="js/worldLow.js" type="text/javascript"></script>		
 		
-		
         <script type="text/javascript">
 			
-			/*******************   Read CSV    *******************/
-            //read in CSV and draw table
-			//columns: countrycode	country	currencycode	currency	rate_current	rate_7	rate_30	rate_90
-            d3.csv("data/example_flat_file.csv", function(data) {
-                
-				// change string (from CSV) into number format
-                data.forEach(function(d) {
-                  d.countrycode = d.countrycode;
-                  d.currencycode = d.currencycode;
-                  d.rate_current = +d.rate_current;
-                  d.rate_7 = +d.rate_7;
-                });
+			var map = AmCharts.makeChart("mapdiv", {
+				type: "map",
+				theme: "light",
+				projection: "Eckert5",
 				
-                /*var csvval = d3.select(".inputcsvdata")
-                    .text(data[1]["countrycode"])   
-					.style('color', '#f0f');;*/   ///******example
-
-				var map = AmCharts.makeChart("mapdiv", {
-					type: "map",
-					theme: "light",
-					projection: "Eckert5",
+				dataProvider: {
+					map: "worldLow",						
+					getAreasFromMap: true,
 					
-					dataProvider: {
-						map: "worldLow",						
-						getAreasFromMap: true,
-						
-						//***** Modify this section to change the hover over pop up boxes *****//
-						//***** Or you can also modify each country in the worldLow.js file *****//
-						areas: [{
-							id: "BR",
-							title: "First Line: Hello World!<br>Second Line: MIDS",
-						  },
-						  {
-							id: "AU",
-							title: "First Line: Hello AU!<br>Second Line: MIDS AU ",
-						  },
-						  {
-							id: "CA",
-							title: "<table><tr><td>Row 1, Column 1</td><td>Row 1, Column 2</td></tr><tr><td>Row 2, Column 1</td><td>Row 2, Column 2</td></tr></table>"
-						  },
-						  {
-							id: "DZ",
-							title: "Country code: " + data[0]["countrycode"] + "<br>Current Rate: " + data[0]["rate_current"] + "<br>7-day Prediction: " + data[0]["rate_7"],
-						  },
-						  
-						  
-						  //Gray out all of the countries that are not available
-						  {
-							id: "AX",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "AI",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "AQ",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "BA",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "BV",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "IO",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "VG",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "CV",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "KY",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "CX",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "CC",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "CK",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "DM",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "FK",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "FO",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GF",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "PF",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "TF",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GI",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GL",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GP",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GU",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GG",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "HM",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "HK",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "IM",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "JE",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "KI",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MO",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MH",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MQ",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MU",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "YT",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "ME",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MS",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "NR",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "AN",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "NC",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "NU",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "NF",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MP",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "PW",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "PS",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "PN",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "PR",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "RE",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SH",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "PM",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "VC",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "BL",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "MF",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "WS",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SM",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "ST",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SC",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SI",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SB",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "GS",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SS",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "SJ",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "TK",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "TO",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "TC",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "TV",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "UM",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "VU",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "VI",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "WF",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "EH",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  {
-							id: "US",
-							selectable: false,
-							title: "Not Available",
-							color: "#c2c2a3",
-						  },
-						  // end of grayed out unavailable countries
-						  
+					//***** Modify this section to change the hover over pop up boxes *****//
+					//***** Or you can also modify each country in the worldLow.js file *****//
+					areas: [{
+						id: "BR",
+						title: "First Line: Hello World!<br>Second Line: MIDS",
+					  },
+					  {
+						id: "AU",
+						title: "First Line: Hello AU!<br>Second Line: MIDS AU ",
+					  },
+					  {
+						id: "CA",
+						title: "<table><tr><td>Row 1, Column 1</td><td>Row 1, Column 2</td></tr><tr><td>Row 2, Column 1</td><td>Row 2, Column 2</td></tr></table>"
+					  },
+					  
+					  
+					  //Gray out all of the countries that are not available
+					  {
+						id: "AX",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "AI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "AQ",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "BA",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "BV",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "IO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VG",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CV",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "KY",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CX",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "DM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "FK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "FO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GL",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GP",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GG",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "HM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "HK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "IM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "JE",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "KI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MH",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MQ",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "YT",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "ME",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NR",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "AN",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MP",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PW",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PN",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PR",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "RE",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SH",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "BL",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "WS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "ST",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SB",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SJ",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TV",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "UM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "WF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "EH",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "US",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  // end of grayed out unavailable countries
+					  
 
-						  ]
-						//***** Modify the above code to edit the pop up boxes *****//					
-					},
-	
-					areasSettings: {
-						autoZoom: true,
-						selectedColor: "#CC0000"  //******* change this color for the zoomed in country *******//
-					},
-	
-					smallMap: {}
-				});
-				
-				//******* change this color for the zoomed in country *******//
-				map.addListener("clickMapObject", function(event) {
-				  //alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
-				  
-					var val1 = d3.select(".inputcsvdata1")
-											.text(event.mapObject.id)
-											.style('color', '#3b6');; ///******example
-											
-					var val2 = d3.select(".inputcsvdata2")
-											.text(event.mapObject.id)
-											.style('color', '#3b6');;	///******example
-			  
-				  
-				});
-				
+					  ]
+					//***** Modify the above code to edit the pop up boxes *****//					
+				},
+
+				areasSettings: {
+					autoZoom: true,
+					selectedColor: "#CC0000"  //******* change this color for the zoomed in country *******//
+				},
+
+				smallMap: {}
 			});
 
+				
+			//******* change this color for the zoomed in country *******//
+			map.addListener("clickMapObject", function(event) {
+				//alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
+			    
+				var data = $.getJSON('data/final.json', function(data) {
+						console.log( "success" );
+							
+							//***Helper function to get the data for the selected country**//	
+							function get_data(name, data) {
+								for (var i = 0, len = 175; i < len; i++) {
+									if (data[i]["country_code"] == name)
+										
+										return data[i]; // Return as soon as the object is found
+									}
+								return null;
+							};		
+								
+						/************************** Display Recommendations******************************/
+						var raw_data = get_data(event.mapObject.id, data);
+						
+						//get list of safer countries
+						var safer = $.grep(data, function( n, i ) {
+							return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 < raw_data.curr_week_pct_4
+						});
+						
+						//randomly select one country
+						if (safer.length === 0) {
+							var randsafe = 'No Safer Country'
+						}else {
+							var randsafe = safer[Math.floor(Math.random() * safer.length)].Name
+						};
+						
+						//list of cheaper countries
+						var cheaper = $.grep(data, function( n, i ) {
+							return n.cluster_id == raw_data.cluster_id && n.price < raw_data.price && n.price != null && randsafe != n.Name 
+						});
+						
+						//randomly select cheaper country - not same country as safest
+						if (raw_data.price == null) {
+							var randcheap = 'No Data'
+						} else if (cheaper.length == 0) {
+							var randcheap = 'No Safer Country'
+						}else {
+							var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].Name
+						};
+
+						var recommendation_text = d3.select("#recommendations")
+													.text(randsafe + "      |||||||||||||      " + randcheap)      //-------modify display here-----///
+													.style('color', '#f0f');;
+						
+						/************************** End of Display Recommendations******************************/
+			
+		
+						/************************** Display Country Table ******************************/
+			
+						//Function checks if there is a value for curr, returns no data if null
+						function no_data(value) {
+							if (value == null) {
+								return 'No Data'
+							}else { return value}
+						
+						};
+			
+						//Function returns data in format to be used by table
+						function format_data(country,data) {
+							var raw_data = data;
+							var safety = ['Safety Score', raw_data.curr_week_pct_4.toFixed(1)];
+							var curr = ['Exchange Rate',no_data(raw_data.rate_curr)];
+							
+							var safetypred = [raw_data.pred_1_week, raw_data.pred_1_month, raw_data.pred_3_months];
+							var currpred = [raw_data.rate_7, raw_data.rate_30, raw_data.rate_90];
+							
+							for (var i = 0, len = 3; i < len; i++) {		
+								if ((raw_data.curr_week_pct_4/10).toFixed(0)-safetypred[i] == 0){
+										safety.push('Minimal Change')		
+								}else if ((raw_data.curr_week_pct_4/10).toFixed(0)-safetypred[i] == 1){
+										safety.push('Decrease')	
+								}else if ((raw_data.curr_week_pct_4/10).toFixed(0)-safetypred[i] == -1){
+										safety.push('Increase')
+								}else if ((raw_data.curr_week_pct_4/10).toFixed(0)-safetypred[i] > 1){
+										safety.push('Large Decrease')	
+								}else {
+										safety.push('Large Increase');		
+								};
+							
+		
+								if (currpred[i] == null) {
+									curr.push('No Data')																
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= 0.05 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= - 0.05 )) {
+									curr.push('Minimal Change')	
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) < 0.1 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) > 0.05 )) {
+									curr.push('Decrease')	
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) < -0.05 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) > -0.1 )) {
+									curr.push('Increase')	
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= 0.1 )) {
+									curr.push('Large Decrease')	
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= -0.1 ) ) {
+									curr.push('Large Increase')	
+								};
+							
+							};
+							
+							var country_data =[safety,curr];
+							  
+							var table = d3.select("#forecast_table")
+							var rows = table.selectAll("tbody tr").data(country_data);
+						 
+							// add new rows
+							rows.enter().append("tr")
+									.selectAll("td")
+									.data(function(d) { return d; })
+								.enter()
+									.append("td");
+						 
+							// insert/update existing rows
+							rows.selectAll("td")
+									.data(function(d) { return d; })
+									.text(function(d) { return d; });
+						 
+							// delete missing rows off the end of the table
+							rows.exit()
+									.remove();		
+
+							return [safety,curr]
+						
+						};
+
+						var country_data = format_data(event.mapObject.id,raw_data);
+						
+
+					})
+						.done(function() {
+							console.log( "second success" );							
+					})
+						.fail(function() {
+							console.log( "error" );
+					})
+						.always(function() {
+							console.log( "complete" );
+					});
+				
+			});
         </script>
 				
 	</head>
@@ -595,7 +694,7 @@
 
 					<header class="major">
 						<h2>Tourist Concierge - Try it Now!</h2>
-						<p>Guiding you to your dream destination.</p>
+						<p id="foo">Guiding you to your dream destination.</p>
 					</header>
 
 
@@ -686,19 +785,21 @@
 																	.text("BYE WORLD!")
 																	.style('color', '#3FF');	///******example
 										}
-                                    }
+                                    };
 									
 									function showMore() {
 										button_dash.style.display="none";
 										buttons.style.display="block";
-									}
+									};
 									
 									function showLess() {
 										button_dash.style.display="inline-block";
 										buttons.style.display="none";
-									}
+									};
 									
 									/************ For the buttons on the dashboard *******/
+									//console.log(document.getElementById("foo").innerHTML)
+
 								</script> 
 	
 							</div>
@@ -751,10 +852,7 @@
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x120/white"-->
 						  
-						  
-						  <div class="inputcsvdata1"></div>
-						  
-						  
+						  <div id="recommendations"></div>
 						  
 						</div>
 					  </div>
@@ -762,13 +860,52 @@
 					<div class="8u 12u$(medium)">
 					  <div class="chart-wrapper" id="country_results_container">
 						<div class="chart-title">
-						  Information on current country selection
+						  Forecasted Changes in Selected Country
 						</div>
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x120/white"-->
+						  <div id="forecast_table"></div>
 						  
-						  
-						  <div class="inputcsvdata2"></div>
+						  <script type="text/javascript" src="js/d3.min.js"></script>
+						  <script type="text/javascript">
+							
+							var country_data = [["Safety Score","","","",""],["Exchange Rate","","","",""]];   //initialize table
+							
+							var svg = d3.select("body").append("svg")
+								.attr("height", 1)
+								.attr("width", 1);
+									
+							var table = d3.select("#forecast_table")
+										.append("table")
+										.attr("class", "table table-condensed table-striped"),
+										thead = table.append("thead"),
+										tbody = table.append("tbody");
+											
+							var columns = ['Category','Current Value','One Week Change','One Month Change','3 Month Change'];
+								
+							var header = thead.append("tr")
+											.selectAll("th")
+											.data(columns)
+											.enter()
+											.append("th")
+												.text(function(d){ return d;})
+						
+							var rows = tbody.selectAll("tr")
+								.data(country_data)
+								.enter()
+								.append("tr");
+								
+							var cells = rows.selectAll("td")
+								.data(function(row) {
+									return columns.map(function(column) {
+									return {column: column, value: row[columns.indexOf(column)]};
+										});
+										})
+								.enter()
+								.append("td")
+								.html(function(d) { return d.value; });
+									
+						  </script>
 						  
 						  
 						  
@@ -784,7 +921,7 @@
 
 <!-- ************************* End code here for dashboard ***************************-->
 					<p></p>
-					<p>We might decide to put more text here.</p>
+					<p id="foo">We might decide to put more text here.</p>
 					<p>Maybe give scenarios, use cases and examples of our product in action.</p>
 					<p>And/or we can put additional charts that show our analysis and Machine Learning techniques that we used.</p>
 
