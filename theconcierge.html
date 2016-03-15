@@ -575,9 +575,19 @@
 							var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].Name
 						};
 
+						
+						var country_title = d3.select("#rec_title")													
+													.text("Country Recommendations Similar to " + raw_data.Name)												
+													.attr("align","center");
+						
+						
+						
+						
+						
 						var recommendation_text = d3.select("#recommendations")
-													.text(randsafe + "      |||||||||||||      " + randcheap)      //-------modify display here-----///
-													.style('color', '#f0f');;
+													.text(randsafe + " is a similar country to " + raw_data.Name + "  but safer." +
+													randcheap + " is a similar country to " + raw_data.Name + "  but cheaper.")
+													;
 						
 						/************************** End of Display Recommendations******************************/
 			
@@ -657,6 +667,11 @@
 						};
 
 						var country_data = format_data(event.mapObject.id,raw_data);
+						
+						var country_title = d3.select("#forecast_table_title")													
+													.text("Forecasted Changes for " + raw_data.Name)													
+													.attr("align","center");
+						
 						
 
 					})
@@ -846,8 +861,16 @@
 				  <div class="row">
 					<div class="4u 12u$(medium)">
 					  <div class="chart-wrapper" id="country_rec_container">
-						<div class="chart-title">
-						  Recommendations based on current country selection
+						<div class="chart-title" id="rec_title">				
+						
+						
+						  <script type="text/javascript">
+						  var country_title = d3.select("#rec_title")													
+													.text("Country Recommendations Similar to Selected Country")													
+													.attr("align","center");
+													
+													
+						  </script>
 						</div>
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x120/white"-->
@@ -859,8 +882,13 @@
 					</div>
 					<div class="8u 12u$(medium)">
 					  <div class="chart-wrapper" id="country_results_container">
-						<div class="chart-title">
-						  Forecasted Changes in Selected Country
+						<div class="chart-title" id="forecast_table_title">
+						  <script type="text/javascript">
+						  var country_title = d3.select("#forecast_table_title")													
+													.text("Forecasted Changes for Selected Country")													
+													.attr("align","center");
+						  </script>
+						  
 						</div>
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x120/white"-->
@@ -904,6 +932,7 @@
 								.enter()
 								.append("td")
 								.html(function(d) { return d.value; });
+								
 									
 						  </script>
 						  
