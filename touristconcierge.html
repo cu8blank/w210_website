@@ -25,6 +25,33 @@
 			<link rel="stylesheet" href="css/style-xlarge.css" />
 		</noscript>
 		
+        <style>
+        #currency-table {
+            margin-left: 0;
+            margin-right: 0;
+			margin: 0;
+			padding: 0;
+            width: 450px;
+			font-size: 10px;
+			font-weight: bold;
+			height: 450px;
+			overflow:scroll;
+			border-collapse: separate;
+        }
+		#currency-title {
+			width: 450px;
+		}
+        td, th { border: 1px solid #CCC;} /* Add borders to cells */
+		
+		#frontpage {
+			height: 420px;
+		}
+		
+		#midpage {
+			height: 300px;
+		}
+        </style>
+		
 	</head>
 	<body class="landing">
 
@@ -56,19 +83,28 @@
 				<div class="container">
 					<header class="major">
 						<h2>About the Tourist Concierge</h2>
-						<p>Give overview of dashboard</p>
+						
+						<p>We provide data-driven analytics to help you discover your next dream destination.</p>
 					</header>
 					<div class="row 150%">
-						<div class="12u 12u$(medium)">
-							<section class="box">
-								<img class="featurette-image img-responsive center-block" data-src="holder.js/1000x400/auto" alt="">
+						<div class="6u 12u$(medium)">
+							<section class="box" id="frontpage">
+								<h2>What We Offer</h2>
+								<img src="images/whatwedo.jpg" alt="" width=500px>
+							</section>
+						</div>
+						<div class="6u 12u$(medium)">
+							<section class="box" id="frontpage">
+								<!--img class="featurette-image img-responsive center-block" data-src="holder.js/500x400/auto" alt=""-->
+								<h2>Our Product</h2>
+								<img src="images/dashboard.jpg" alt="" width=500px>
 							</section>
 						</div>
 					</div>					
 					<hr class="featurette-divider">
 					<div class="row 150%">
 						<div class="4u 12u$(medium)">
-							<section class="box">
+							<section class="box" id="midpage">
 								<!--i class="icon big rounded color1 fa-cloud"></i-->
 								<img src="images/05_firstaid.gif" alt="" width="55"/>
 								<h3>Safety Prediction</h3>
@@ -76,16 +112,16 @@
 							</section>
 						</div>
 						<div class="4u 12u$(medium)">
-							<section class="box">
+							<section class="box" id="midpage">
 								<!--i class="icon big rounded color9 fa-desktop"></i-->
 								<img src="images/03_currencyexchange.gif" alt="" width="80"/>
 								<h3>Currency Prediction</h3>
-								<p>Below is a table of currency predictions.</p>
+								<p>Analyzing International Monetary Fund (IMF) currency data to help identify the countries where your money will go the furthest.</p>
 
 							</section>
 						</div>
 						<div class="4u$ 12u$(medium)">
-							<section class="box">
+							<section class="box" id="midpage">
 								<!--i class="icon big rounded color6 fa-rocket"></i-->
 								<img src="images/18_information.gif" alt="" width="60"/>
 								<h3>Country Prediction</h3>
@@ -101,8 +137,8 @@
 			<section id="two" class="wrapper style2 special">
 				<div class="container">
 					<header class="major">
-						<h2>Give more info on product here</h2>
-						<p>More details here</p>
+						<h2>How The Tourist Concierge Works</h2>
+						<p>Behind our power of prediction</p>
 					</header>
 					<hr class="featurette-divider">
 					<div class="row">
@@ -120,12 +156,88 @@
 					<div class="row">
 						<section class="box">
 							<div class="5u$ 12u$(medium)">
-									<img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt="">
+
+								<!--img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt=""-->
+								<h4 id="currency-title">Exchange Rate SDR Predictions</h4>
+								<div id="currency-table"></div>
+							
+									<script type="text/javascript" src="js/d3.min.js"></script>
+									<script type="text/javascript">
+										
+										var svg = d3.select("body").append("svg")
+											.attr("height", 1)
+											.attr("width", 1);
+										
+										var table = d3.select("#currency-table")
+											.append("table")
+											.attr("class", "table table-condensed table-striped"),
+											thead = table.append("thead"),
+											tbody = table.append("tbody");
+							
+										d3.csv("data/March_1_Currency_Predictions.csv", function(error, data) {
+											
+											// Get every column value
+											//var columns = ["Currency","Current_Rate","7_Day_Prediction","30_Day_Prediction","90_Day_Prediction"];
+											var columns = Object.keys(data[0])
+											
+											var header = thead.append("tr")
+												.selectAll("th")
+												.data(columns)
+												.enter()
+												.append("th")
+													.text(function(d){ return d;})
+													.on("click", function(d){
+														if (d == "Currency"){
+															rows.sort(function(a, b) {
+																if (a[d] < b[d]){
+																	return -1;
+																}
+																if (a[d] > b[d]){
+																	return 1;
+																}
+																else{
+																	return 0;
+																}
+															});
+														}
+														else {
+															rows.sort(function(a, b){
+																return +b[d] - +a[d];
+															})
+														}
+													});
+										
+											var rows = tbody.selectAll("tr")
+												.data(data)
+												.enter()
+												.append("tr")
+												.on("mouseover", function(d){
+													d3.select(this)
+														.style("background-color", "green");
+												})
+												.on("mouseout", function(d){
+													d3.select(this)
+														.style("background-color","transparent");
+												});
+										
+											var cells = rows.selectAll("td")
+												.data(function(row){
+													return columns.map(function(d, i){
+														return {i: d, value: row[d]};
+													});
+												})
+												.enter()
+												.append("td")
+												.html(function(d){ return d.value;});
+							
+										});
+									</script>
 							</div>
 						</section>
 						<div class="7u 12u$(medium)">
-								<h2>Currency Prediction</h2>
-								<p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+							<h2>Currency Prediction</h2>
+							<p>We analyze currency exchange rate data from the International Monetary Fund (IMF). By applying an ARIMA model to each dataset, we forecast Special Drawing Right (SDR) data for all currencies tracked by the IMF. We provide the user with 7-day, 30-day, and 90-day forecasts.</p>
+							<img src="images/pred_7daycurr.png" alt="" height="350" width="650">
 						</div>
 					</div>
 					<hr class="featurette-divider">
@@ -189,7 +301,7 @@
 					<div class="8u 12u$(medium)">
 						<ul class="copyright">
 							<li>&copy; Untitled. All rights reserved.</li>
-							<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+							<li></li>
 						</ul>
 					</div>
 				</div>
