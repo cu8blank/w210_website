@@ -581,10 +581,13 @@
 						
 						
 						
-						var recommendation_text = d3.select("#recommendations")
-													.text(randsafe + " is a similar country to " + raw_data.Name + "  but safer." +
-													randcheap + " is a similar country to " + raw_data.Name + "  but cheaper.")
-													;
+						
+						
+						var recommendation_text = d3.select("#recommendations")													
+													.text(function (d) {
+													if (randcheap == 'No Data') {return randsafe + " is a similar country to " + raw_data.Name + "  but safer."}
+													else {return randsafe + " is a similar country to " + raw_data.Name + "  but safer while " + randcheap + " is a similar country to " + raw_data.Name + "  but cheaper." }
+													});
 						
 						/************************** End of Display Recommendations******************************/
 			
