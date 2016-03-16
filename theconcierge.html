@@ -33,6 +33,15 @@
 				display: none;
 				margin-left: 35px;
 			}
+            #activity_buttons {
+                display: none;
+                margin-left: 35px;
+            }
+            #traveler_buttons {
+                display: none;
+                margin-left: 35px;
+            }
+
 			
 			#filter_container {
 				overflow:scroll;
@@ -686,10 +695,232 @@
 					});
 				
 			});
+            
+            // SARUS CODE
+            function toggleCheckbox(element)
+            {
+                
+                
+                //get season
+                var checkboxes = document.getElementsByName('season');
+                var checkboxesChecked = [];
+                // loop over them all
+                for (var i=0; i<checkboxes.length; i++) {
+                    // And stick the checked ones onto an array...
+                    if (checkboxes[i].checked) {
+                        checkboxesChecked.push(checkboxes[i].value);
+                    }
+                }
+                x= checkboxesChecked.length > 0 ? checkboxesChecked : [];
+                
+                // get tt
+                var checkboxes_t = document.getElementsByName('tt');
+                var checkboxesChecked_t = [];
+                // loop over them all
+                for (var i=0; i<checkboxes_t.length; i++) {
+                    // And stick the checked ones onto an array...
+                    if (checkboxes_t[i].checked) {
+                        checkboxesChecked_t.push(checkboxes_t[i].value);
+                    }
+                }
+                y= checkboxesChecked_t.length > 0 ? checkboxesChecked_t : [];
+                
+                //get at
+                var checkboxes_at = document.getElementsByName('at');
+                var checkboxesChecked_at = [];
+                // loop over them all
+                for (var i=0; i<checkboxes_at.length; i++) {
+                    // And stick the checked ones onto an array...
+                    if (checkboxes_at[i].checked) {
+                        checkboxesChecked_at.push(checkboxes_at[i].value);
+                    }
+                }
+                z= checkboxesChecked_at.length > 0 ? checkboxesChecked_at : [];
+   
+                //call a function to pass the checked values to summary
+                filternow(x,y,z)
+     
+            } //end function
+        
+        function filternow(filters,filtert,filterdt){
+            d3.csv("data/allcountry_data.csv", function(error, data2) {
+                        data2.forEach(function(d) {
+                                  d.country_code= d.country_code;
+                                  d.mar_may = +d.mar_may;
+                                  d.jun_aug = +d.jun_aug;
+                                  d.family = +d.family;
+                                  d.vgood = +d.vgood;
+                                  d.sep_nov = +d.sep_nov;
+                                  d.cluster_id = +d.cluster_id;
+                                  d.at = d.at;
+                                  d.visa_req= d.visa_req;
+                                  d.friend= +d.friend;
+                                  d.poor = +d.poor;
+                                  d.solo = +d.solo;
+                                  d.business = +d.business;
+                                  d.couple = +d.couple;
+                                  d.allowed_stay = d.allowed_stay;
+                                  d.excellent = +d.excellent;
+                                  //d.dt = JSON.parse(JSON.stringify(d.dt)); // this is an array of floats, needs to be converted later
+                                  d.dt = d.dt;
+                                  d.dec_feb = +d.dec_feb;
+                                  d.country = d.country;
+                                  d.average = +d.average;
+                                  d.terrible = +d.terrible;
+                                  
+                        });
+                        //******* USER SEARCH FILTER*******//
+                   
+                
+                   
+                    //sort the filter_list by category
+                   
+                   
+                    //choose all countries that have at least 1 of the following filter tags
+                    filtered_season = data2.filter(function(r){
+                        result = 0; //start with false
+                        //if no filters, return the row -- no restrictions
+                        if(filters.length ==0){
+                            return 1;
+                        }
+                                                
+                        for(var i=0; i< filters.length; i++){
+                              //First filter on one season
+                              if(filters[i] == 'dec_feb'){
+                                result = result || r.dec_feb >=1.0;
+                              }else if(filters[i] == 'mar_may'){
+                                result = result || r.mar_may >=1.0;
+                              }else if(filters[i] == 'jun_aug'){
+                                result = result || r.jun_aug >=1.0;
+                              }else if(filters[i] == 'sep_nov'){
+                                                   //alert("sep");
+                                result = result || r.sep_nov >=1.0;
+                              }
+                        }
+                        return result;
+             
+                     }) //end filter_season
+                   
+                   //alert(JSON.stringify(filtered_season.length));
+                   
+                    //Now filter season results on travel type
+                   //alert(JSON.stringify(filtert));
+                   
+                    filtered_tt = filtered_season.filter(function(r){
+                                                         
+                                                         
+                        result = 0; //start with false
+                         //if no filters, return the row -- no restrictions
+                         if(filtert.length ==0){
+                            return 1;
+                         }
+                        for(var i=0; i< filtert.length; i++){
+                                                       
+                            //First filter on one season
+                            if(filtert[i] == "couple"){
+                                                        
+                                    result = result || r.couple >=1.0;
+                            }else if(filtert[i] == "friend"){
+                                                         
+                                   result = result || r.friend >=1.0;
+                            }else if(filtert[i] == "family"){
+                                            
+                                    result = result || r.family >=1.0;
+                            }else if(filtert[i] == "solo"){
+                                   result = result || r.solo >=1.0;
+                            }else if(filtert[i] == "business"){
+                                   result = result ||r.business >=1.0;
+                            }
+                        }
+                        return result;
+                      }) //end filter_season
+                  
+                      //alert(JSON.stringify(filtered_tt.length))
+                  
+                      //Lastly filter dt on multiple activity types
+                   
+                     filtered_dt = filtered_tt.filter(function(r){ //OR logic for the filterss
+                                        result = 0; //start with false
+                                        //if no filters, return the row -- no restrictions
+                                        if(filterdt.length ==0){
+                                                return 1;
+                                        }
+                                        array = r.dt;
+                                            
+                                        for(var i=0; i< filterdt.length; i++){
+                                                topic_no= parseInt(filterdt[i]);
+                                                var arr_val= eval(array);
+                                                if(arr_val== null){ //some dt is null
+                                                      result= 1;
+                                                }
+                                                else{
+                                                      result = result || arr_val[topic_no] >=0.10;
+                                                }
+                                        }
+                                        return result;
+                                                      
+                      });
+                   
+                
+                   // Create a function that returns a particular property of its parameter.
+                   // If that property is a function, invoke it (and pass optional params).
+                   function ƒ(name){
+                       var v,params=Array.prototype.slice.call(arguments,1);
+                       return function(o){
+                       return (typeof (v=o[name])==='function' ? v.apply(o,params) : v );
+                       };
+                   }
+                    var columns = [
+                    { head: 'Country', cl: 'title', html: ƒ('country') },
+                    { head: 'Fun Rating', cl: 'center', html: ƒ('excellent') },
+                    { head: 'Popular Activities', cl: 'center', html: ƒ('at') },
+                    ];
+                    
+                   //Clear a table if exists
+                   d3.select(".user_filter_list").html("");
+                   // create table
+                    var table = d3.select(".user_filter_list")
+                        .append('table');
+
+                    // create table header
+                    table.append('thead').append('tr')
+                        .selectAll('th')
+                        .data(columns).enter()
+                        .append('th')
+                        .attr('class', ƒ('cl'))
+                        .text(ƒ('head'));
+
+                    // create table body
+                    table.append('tbody')
+                        .selectAll('tr')
+                        .data(filtered_dt).enter()
+                        .append('tr')
+                        .selectAll('td')
+                        .data(function(row, i) {
+                            return columns.map(function(c) {
+                                // compute cell values for this specific row
+                                var cell = {};
+                                               
+                                d3.keys(c).forEach(function(k) {
+                                    cell[k] = typeof c[k] == 'function' ? c[k](row,i) : c[k];
+                                     
+                                                   
+                                });
+                                return cell;
+                            });
+                        }).enter()
+                        .append('td')
+                        .html(ƒ('html'))
+                        .attr('class', ƒ('cl'));
+
+              }); //end csv2
+        } //end function
+
+
         </script>
 				
 	</head>
-	<body>
+	<body onload="filternow([],[],[]);">
 
 		<!-- Header -->
 			<header id="header">
@@ -739,78 +970,170 @@
 								<form method="post" action="#" id="filter_buttons">
 									<div class="row uniform 50%">
 										<div class="2u 12u$(3)">
-											<input type="checkbox" id="activity" name="activity">
+											<input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
 											<label for="activity">Activity</label>
 										</div>
 									</div>
+                                    <div id="activity_buttons">
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox"  onchange="toggleCheckbox(this)" id="0" name="at" value="0" >
+                                                    <label for="0">Parks-Gardens</label>
+                                                    </div>
+                                        </div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="1" name="at" value="1">
+                                                    <label for="1">Relax@Beach</label>
+                                                    </div>
+                                        </div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="2" name="at" value="2">
+                                                    <label for="2">H20 Adventures</label>
+                                                    </div>
+                                        </div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="3" name="at" value="3">
+                                                    <label for="3">Admiring Architecture</label>
+                                                    </div>
+                                        </div>
+                                    </div>
+                                    
+ 
 									<div class="row uniform 50%">
 										<div class="2u 12u$(3)">									
-											<input type="checkbox" id="season" name="season" onchange="button_click()">
+											<input type="checkbox" id="season" name="seasons" onchange="button_click()">
 											<label for="season">Season</label>
 										</div>
 									</div>
 									<div id="season_buttons">
 										<div class="row uniform 50%">
 											<div class="2u 12u$(3)">		
-												<input type="checkbox" id="season_1" name="season_1" checked>
-												<label for="season_1">Season_1</label>
+												<input type="checkbox"  onchange="toggleCheckbox(this)" id="season_1" name="season" value="dec_feb" >
+												<label for="season_1">December-February</label>
 											</div>
 										</div>
 										<div class="row uniform 50%">
 											<div class="2u 12u$(3)">		
-												<input type="checkbox" id="season_2" name="season_2" checked>
-												<label for="season_2">Season_2</label>
+												<input type="checkbox" onchange="toggleCheckbox(this)" id="season_2" name="season" value="mar_may">
+												<label for="season_2">March-May</label>
 											</div>
 										</div>
 										<div class="row uniform 50%">
 											<div class="2u 12u$(3)">		
-												<input type="checkbox" id="season_3" name="season_3" checked>
-												<label for="season_3">Season_3</label>
+												<input type="checkbox" onchange="toggleCheckbox(this)" id="season_3" name="season" value="jun_aug">
+												<label for="season_3">June-August</label>
 											</div>
 										</div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="season_4" name="season" value="sep_nov">
+                                                    <label for="season_4">September-November</label>
+                                            </div>
+                                        </div>
 									</div>
+                                    
+                                    
 									<div class="row uniform 50%">
 										<div class="2u 12u$(3)">
-											<input type="checkbox" id="region" name="region">
-											<label for="region">Region</label>
+											<input type="checkbox" id="traveler" onchange="button_click_tt()">
+											<label for="traveler">Traveler Type</label>
 										</div>
 									</div>
+                                    <div id="traveler_buttons">
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="fam" name="tt" value="family" >
+                                                    <label for="fam">Family</label>
+                                            </div>
+                                        </div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="cou" name="tt" value="couple">
+                                                    <label for="cou">Couple</label>
+                                            </div>
+                                        </div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="fri" name="tt" value="friend">
+                                                    <label for="fri">Friend</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="bus" name="tt" value="business">
+                                                    <label for="bus">Business</label>
+                                            </div>
+                                        </div>
+                                        <div class="row uniform 50%">
+                                            <div class="2u 12u$(3)">
+                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="sol" name="tt" value="solo">
+                                                    <label for="sol">Solo</label>
+                                            </div>
+                                        </div>
+                                    </div>
 								</form>
-								<script>
+                                <script>
 									
 									/************ For the buttons on the dashboard *******/
 									var button_dash = document.getElementById("season");
 									var buttons = document.getElementById("season_buttons");
+                                    
+                                    var button_dash_at = document.getElementById("activity");
+                                    var buttons_at = document.getElementById("activity_buttons");
+                                    
+                                    var button_dash_tt = document.getElementById("traveler");
+                                    var buttons_tt = document.getElementById("traveler_buttons");
 									
 									function button_click() {
                                         //code
 										if (button_dash.checked==true) {
 											//code
-											showMore();
-												  
-											var filter_list1 = d3.select(".user_filter_list")
-																	.text("HELLO WORLD!")
-																	.style('color', '#000');	///******example
+                                            button_dash.style.display="none";
+                                            buttons.style.display="block";
 
 										}
 										else {
-											showLess();
-											
-											var filter_list1 = d3.select(".user_filter_list")
-																	.text("BYE WORLD!")
-																	.style('color', '#3FF');	///******example
+                                            button_dash.style.display="inline-block";
+                                            buttons.style.display="none";
 										}
-                                    };
+                                    }
 									
-									function showMore() {
-										button_dash.style.display="none";
-										buttons.style.display="block";
-									};
-									
-									function showLess() {
-										button_dash.style.display="inline-block";
-										buttons.style.display="none";
-									};
+                                    function button_click_at() {
+                                        //code
+                                        if (button_dash_at.checked==true) {
+                                            
+                                            //code
+                                            button_dash_at.style.display="none";
+                                            buttons_at.style.display="block";
+                                            
+                                        }
+                                        else {
+                                            
+                                            button_dash_at.style.display="inline-block";
+                                            buttons_at.style.display="none";
+                                        }
+                                    }
+                                
+                                function button_click_tt() {
+                                    
+                                    //code
+                                    if (button_dash_tt.checked==true) {
+                                        //code
+                                        button_dash_tt.style.display="none";
+                                        buttons_tt.style.display="block";
+                                        
+                                    }
+                                    else {
+                                    
+                                        button_dash_tt.style.display="inline-block";
+                                        buttons_tt.style.display="none";
+                                    }
+                                }
+
 									
 									/************ For the buttons on the dashboard *******/
 									//console.log(document.getElementById("foo").innerHTML)
