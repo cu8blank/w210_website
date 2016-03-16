@@ -49,7 +49,21 @@
 		
 		#midpage {
 			height: 300px;
-		}
+			
+		#safety-table {
+            margin-left: 0;
+            margin-right: 0;
+			margin: 0;
+			padding: 0;
+            width: 450px;
+			font-size: 10px;
+			font-weight: bold;
+			height: 450px;
+			overflow:scroll;
+			border-collapse: separate;
+        }
+			
+		
         </style>
 		
 	</head>
@@ -141,14 +155,99 @@
 						<p>Behind our power of prediction</p>
 					</header>
 					<hr class="featurette-divider">
+					
 					<div class="row">
 						<div class="7u 12u$(medium)">
 								<h2>Safety and Stability Prediction</h2>
-								<p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-						</div>
-						<section class="box">
+								<p>Using the <a href="http://gdeltproject.org/">GDELT dataset</a> we are able to predict the safety and stability of a country using a machine learning algorithm.  The safety for a
+									country is defined as follows;</p>
+									<img src="images/equation.png">
+								<p>Using historical results as a baseline, we are able to accurately predict the stability of a country 80% of the time.	
+						</div>						
+						
+											
+						<section class="box">						
 							<div class="5u$ 12u$(medium)">
-									<img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt="">
+								<div id="safety-table"></div>
+							
+								<script type="text/javascript" src="js/d3.min.js"></script>
+								<script src="js/jquery.min.js"></script>
+								<script type="text/javascript">
+										
+									
+								var jqXHR = $.getJSON('data/final.json');
+									jqXHR.complete(function(response) {
+												
+								countries = (response.responseJSON);
+									
+								var safe_list = [];
+								
+								for (var i = 0, len = 1; i < len; i++) {
+																				
+										safety=[countries[i].Name, countries[i].curr_week_pct_4.toFixed(1)];
+										safetypred=[countries[i].pred_1_week,  countries[i].pred_1_month ,  countries[i].pred_3_months];
+										
+										for (var j = 0, len = 172; j < len; j++) {		
+											if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] == 0){
+													safety.push('Minimal Change')		
+											}else if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] == 1){
+													safety.push('Decrease')	
+											}else if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] == -1){
+													safety.push('Increase')
+											}else if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] > 1){
+													safety.push('Large Decrease')	
+											}else {
+													safety.push('Large Increase');		
+											};
+
+									};
+									safe_list.push(safety);
+									var j = 0;
+									};			
+												
+										
+												
+							var svg = d3.select("body").append("svg")
+											.attr("height", 1)
+											.attr("width", 1);
+										
+										var table = d3.select("#safety-table")
+											.append("table")
+											.attr("class", "table table-condensed table-striped"),
+											thead = table.append("thead"),
+											tbody = table.append("tbody");
+											
+							var columns = ['Country','Current Value','One Week Change','One Month Change','3 Month Change'];
+								
+							var header = thead.append("tr")
+											.selectAll("th")
+											.data(columns)
+											.enter()
+											.append("th")
+												.text(function(d){ return d;});
+												
+						
+							var rows = tbody.selectAll("tr")
+								.data(safe_list)
+								.enter()
+								.append("tr");
+								
+							var cells = rows.selectAll("td")
+								.data(function(row) {
+									return columns.map(function(column) {
+									return {column: column, value: row[columns.indexOf(column)]};
+										});
+										})
+								.enter()
+								.append("td")
+								.html(function(d) { return d.value; });
+												
+												
+												});
+												
+												
+							</script>
+									
 							</div>
 						</section>
 					</div>
