@@ -41,26 +41,27 @@
                 display: none;
                 margin-left: 35px;
             }
-
 			
 			#filter_container {
 				overflow:scroll;
-				height:200px;
+				height:360px;
 			}
 			
 			#filter_results_container {
 				overflow:scroll;
-				height:200px;
+				height:190px;
 			}
 			
 			#country_rec_container {
+				margin: 0px;
 				overflow:scroll;
-				height:250px;
+				height:175px;
 			}
 			
 			#country_results_container {
+				margin: 0px
 				overflow:scroll;
-				height:250px;
+				height:175px;
 			}
         </style>
 
@@ -87,20 +88,7 @@
 					
 					//***** Modify this section to change the hover over pop up boxes *****//
 					//***** Or you can also modify each country in the worldLow.js file *****//
-					areas: [{
-						id: "BR",
-						title: "First Line: Hello World!<br>Second Line: MIDS",
-					  },
-					  {
-						id: "AU",
-						title: "First Line: Hello AU!<br>Second Line: MIDS AU ",
-					  },
-					  {
-						id: "CA",
-						title: "<table><tr><td>Row 1, Column 1</td><td>Row 1, Column 2</td></tr><tr><td>Row 2, Column 1</td><td>Row 2, Column 2</td></tr></table>"
-					  },
-					  
-					  
+					areas: [				  
 					  //Gray out all of the countries that are not available
 					  {
 						id: "AX",
@@ -935,7 +923,7 @@
 			</header>
 
 		<!-- Main -->
-			<section id="main" class="wrapper">
+			<section id="main" class="wrapper style2 special">
 				<div class="container">
 
 					<header class="major">
@@ -955,212 +943,193 @@
 					<script type="text/javascript" src="js/keen.min.js"></script>
 					
 				<div class="container-fluid">
-				  <!--first and second row -->
+				  <!--first row -->
 				  <div class="row">
 					<div class="3u 12u$(medium)">
-					  <div class="row">
-						<div class="12u 12u$(medium)">
-						  <div class="chart-wrapper" id="filter_container">
-							<div class="chart-title">
-							  User Search Filter  
-							</div>
-							<div class="chart-stage">
-							    <!--img data-src="holder.js/100%x120/white"-->
+						<div class="chart-wrapper" id="filter_container">
+						  <div class="chart-title">
+							User Search Filter  
+						  </div>
+						  <div class="chart-stage">
+							  <!--img data-src="holder.js/100%x120/white"-->
 
-								<form method="post" action="#" id="filter_buttons">
-									<div class="row uniform 50%">
-										<div class="2u 12u$(3)">
-											<input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
-											<label for="activity">Activity</label>
-										</div>
-									</div>
-                                    <div id="activity_buttons">
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox"  onchange="toggleCheckbox(this)" id="0" name="at" value="0" >
-                                                    <label for="0">Parks-Gardens</label>
-                                                    </div>
-                                        </div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="1" name="at" value="1">
-                                                    <label for="1">Relax@Beach</label>
-                                                    </div>
-                                        </div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="2" name="at" value="2">
-                                                    <label for="2">H20 Adventures</label>
-                                                    </div>
-                                        </div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="3" name="at" value="3">
-                                                    <label for="3">Admiring Architecture</label>
-                                                    </div>
-                                        </div>
-                                    </div>
-                                    
- 
-									<div class="row uniform 50%">
-										<div class="2u 12u$(3)">									
-											<input type="checkbox" id="season" name="seasons" onchange="button_click()">
-											<label for="season">Season</label>
-										</div>
-									</div>
-									<div id="season_buttons">
-										<div class="row uniform 50%">
-											<div class="2u 12u$(3)">		
-												<input type="checkbox"  onchange="toggleCheckbox(this)" id="season_1" name="season" value="dec_feb" >
-												<label for="season_1">December-February</label>
-											</div>
-										</div>
-										<div class="row uniform 50%">
-											<div class="2u 12u$(3)">		
-												<input type="checkbox" onchange="toggleCheckbox(this)" id="season_2" name="season" value="mar_may">
-												<label for="season_2">March-May</label>
-											</div>
-										</div>
-										<div class="row uniform 50%">
-											<div class="2u 12u$(3)">		
-												<input type="checkbox" onchange="toggleCheckbox(this)" id="season_3" name="season" value="jun_aug">
-												<label for="season_3">June-August</label>
-											</div>
-										</div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="season_4" name="season" value="sep_nov">
-                                                    <label for="season_4">September-November</label>
-                                            </div>
-                                        </div>
-									</div>
-                                    
-                                    
-									<div class="row uniform 50%">
-										<div class="2u 12u$(3)">
-											<input type="checkbox" id="traveler" onchange="button_click_tt()">
-											<label for="traveler">Traveler Type</label>
-										</div>
-									</div>
-                                    <div id="traveler_buttons">
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="fam" name="tt" value="family" >
-                                                    <label for="fam">Family</label>
-                                            </div>
-                                        </div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="cou" name="tt" value="couple">
-                                                    <label for="cou">Couple</label>
-                                            </div>
-                                        </div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="fri" name="tt" value="friend">
-                                                    <label for="fri">Friend</label>
-                                            </div>
-                                        </div>
+							  <form method="post" action="#" id="filter_buttons">
+								  <div class="row uniform 50%">
+									  <div class="2u 12u$(3)">
+										  <input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
+										  <label for="activity">Activity</label>
+									  </div>
+								  </div>
+								  <div id="activity_buttons">
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox"  onchange="toggleCheckbox(this)" id="0" name="at" value="0" >
+												  <label for="0">Parks-Gardens</label>
+												  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="1" name="at" value="1">
+												  <label for="1">Relax@Beach</label>
+												  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="2" name="at" value="2">
+												  <label for="2">H20 Adventures</label>
+												  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="3" name="at" value="3">
+												  <label for="3">Admiring Architecture</label>
+												  </div>
+									  </div>
+								  </div>
+								  
 
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="bus" name="tt" value="business">
-                                                    <label for="bus">Business</label>
-                                            </div>
-                                        </div>
-                                        <div class="row uniform 50%">
-                                            <div class="2u 12u$(3)">
-                                                <input type="checkbox" onchange="toggleCheckbox(this)" id="sol" name="tt" value="solo">
-                                                    <label for="sol">Solo</label>
-                                            </div>
-                                        </div>
-                                    </div>
-								</form>
-                                <script>
-									
-									/************ For the buttons on the dashboard *******/
-									var button_dash = document.getElementById("season");
-									var buttons = document.getElementById("season_buttons");
-                                    
-                                    var button_dash_at = document.getElementById("activity");
-                                    var buttons_at = document.getElementById("activity_buttons");
-                                    
-                                    var button_dash_tt = document.getElementById("traveler");
-                                    var buttons_tt = document.getElementById("traveler_buttons");
-									
-									function button_click() {
-                                        //code
-										if (button_dash.checked==true) {
-											//code
-                                            button_dash.style.display="none";
-                                            buttons.style.display="block";
+								  <div class="row uniform 50%">
+									  <div class="2u 12u$(3)">									
+										  <input type="checkbox" id="season" name="seasons" onchange="button_click()">
+										  <label for="season">Season</label>
+									  </div>
+								  </div>
+								  <div id="season_buttons">
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">		
+											  <input type="checkbox"  onchange="toggleCheckbox(this)" id="season_1" name="season" value="dec_feb" >
+											  <label for="season_1">December-February</label>
+										  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">		
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="season_2" name="season" value="mar_may">
+											  <label for="season_2">March-May</label>
+										  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">		
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="season_3" name="season" value="jun_aug">
+											  <label for="season_3">June-August</label>
+										  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="season_4" name="season" value="sep_nov">
+												  <label for="season_4">September-November</label>
+										  </div>
+									  </div>
+								  </div>
+								  
+								  
+								  <div class="row uniform 50%">
+									  <div class="2u 12u$(3)">
+										  <input type="checkbox" id="traveler" onchange="button_click_tt()">
+										  <label for="traveler">Traveler Type</label>
+									  </div>
+								  </div>
+								  <div id="traveler_buttons">
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="fam" name="tt" value="family" >
+												  <label for="fam">Family</label>
+										  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="cou" name="tt" value="couple">
+												  <label for="cou">Couple</label>
+										  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="fri" name="tt" value="friend">
+												  <label for="fri">Friend</label>
+										  </div>
+									  </div>
 
-										}
-										else {
-                                            button_dash.style.display="inline-block";
-                                            buttons.style.display="none";
-										}
-                                    }
-									
-                                    function button_click_at() {
-                                        //code
-                                        if (button_dash_at.checked==true) {
-                                            
-                                            //code
-                                            button_dash_at.style.display="none";
-                                            buttons_at.style.display="block";
-                                            
-                                        }
-                                        else {
-                                            
-                                            button_dash_at.style.display="inline-block";
-                                            buttons_at.style.display="none";
-                                        }
-                                    }
-                                
-                                function button_click_tt() {
-                                    
-                                    //code
-                                    if (button_dash_tt.checked==true) {
-                                        //code
-                                        button_dash_tt.style.display="none";
-                                        buttons_tt.style.display="block";
-                                        
-                                    }
-                                    else {
-                                    
-                                        button_dash_tt.style.display="inline-block";
-                                        buttons_tt.style.display="none";
-                                    }
-                                }
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="bus" name="tt" value="business">
+												  <label for="bus">Business</label>
+										  </div>
+									  </div>
+									  <div class="row uniform 50%">
+										  <div class="2u 12u$(3)">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="sol" name="tt" value="solo">
+												  <label for="sol">Solo</label>
+										  </div>
+									  </div>
+								  </div>
+							  </form>
+							  <script>
+								  
+								  /************ For the buttons on the dashboard *******/
+								  var button_dash = document.getElementById("season");
+								  var buttons = document.getElementById("season_buttons");
+								  
+								  var button_dash_at = document.getElementById("activity");
+								  var buttons_at = document.getElementById("activity_buttons");
+								  
+								  var button_dash_tt = document.getElementById("traveler");
+								  var buttons_tt = document.getElementById("traveler_buttons");
+								  
+								  function button_click() {
+									  //code
+									  if (button_dash.checked==true) {
+										  //code
+										  button_dash.style.display="none";
+										  buttons.style.display="block";
 
-									
-									/************ For the buttons on the dashboard *******/
-									//console.log(document.getElementById("foo").innerHTML)
+									  }
+									  else {
+										  button_dash.style.display="inline-block";
+										  buttons.style.display="none";
+									  }
+								  }
+								  
+								  function button_click_at() {
+									  //code
+									  if (button_dash_at.checked==true) {
+										  
+										  //code
+										  button_dash_at.style.display="none";
+										  buttons_at.style.display="block";
+										  
+									  }
+									  else {
+										  
+										  button_dash_at.style.display="inline-block";
+										  buttons_at.style.display="none";
+									  }
+								  }
+							  
+							  function button_click_tt() {
+								  
+								  //code
+								  if (button_dash_tt.checked==true) {
+									  //code
+									  button_dash_tt.style.display="none";
+									  buttons_tt.style.display="block";
+									  
+								  }
+								  else {
+								  
+									  button_dash_tt.style.display="inline-block";
+									  buttons_tt.style.display="none";
+								  }
+							  }
 
-								</script> 
-	
-							</div>
+								  
+								  /************ For the buttons on the dashboard *******/
+
+							  </script> 
+  
 						  </div>
 						</div>
 					  </div>
 					
-					  <div class="row">
-						<div class="12u 12u$(medium)">
-						  <div class="chart-wrapper" id="filter_results_container">
-							<div class="chart-title">
-							  Summary of user selection
-							</div>
-							<div class="chart-stage">
-							  <!--img data-src="holder.js/100%x120/white"-->
-							  
-							  <div class="user_filter_list"></div>
-							  
-							</div>
-						  </div>
-						</div>
-					  </div>
-					</div>
+					
 					<div class="9u 12u$(medium)">
 					  <div class="chart-wrapper">
 						<div class="chart-title">
@@ -1171,14 +1140,27 @@
 						  <div id="mapdiv" style="width: 100%; background-color:#EEEEEE; height: 325px;"></div>
 						  
 						</div>
-						<div class="chart-notes">
-						  Notes about this chart
+					  </div>
+					</div>
+				  </div>
+				  
+				  
+				  <!--2nd row-->
+				  <div class="row">
+					<div class="12u 12u$(medium)">
+					  <div class="chart-wrapper" id="filter_results_container">
+						<div class="chart-title">
+						  Summary of user selection
+						</div>
+						<div class="chart-stage">
+						  <!--img data-src="holder.js/100%x120/white"-->
+						  
+						  <div class="user_filter_list"></div>
+						  
 						</div>
 					  </div>
 					</div>
-
 				  </div>
-				  
 				  
 				  <!--3rd row-->
 				  <div class="row">
@@ -1273,17 +1255,40 @@
 
 <!-- ************************* End code here for dashboard ***************************-->
 					<p></p>
-					<p id="foo">We might decide to put more text here.</p>
-					<p>Maybe give scenarios, use cases and examples of our product in action.</p>
-					<p>And/or we can put additional charts that show our analysis and Machine Learning techniques that we used.</p>
+					<p id="foo">Put explanatory text and instructions here.</p>
 
 			</section>
+			
+					
+<!-- ************************* Supporting visuals ***************************-->			
+			<section id="two" class="wrapper style1 special">
+				<div class="container">
+					<header class="major">
+						<h2>Supporting Visuals Here</h2>
+						<p>More visualizations and explanatory text.</p>
+					</header>
+					<div class="row">
+						<section class="box">
+							<div class="6u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="">
+							</div>
+						</section>
+						
+						<section class="box">
+							<div class="5u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="">
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+
 			
 
 		<!-- Footer -->
 			<footer id="footer">
 					<div class="row">
-						<div class="8u 12u$(medium)">
+						<div class="12u 12u$(medium)">
 							<ul class="copyright">
 								<li>&copy; Untitled. All rights reserved.</li>
 								<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
