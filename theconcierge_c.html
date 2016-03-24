@@ -76,7 +76,7 @@
 		<script src="js/worldLow.js" type="text/javascript"></script>		
 		
         <script type="text/javascript">
-         //function refresh_map(value) {
+         // function refresh_map(value) {
 			var map = AmCharts.makeChart("mapdiv", {
 				type: "map",
 				theme: "light",
@@ -869,47 +869,39 @@
                         .html(ƒ('html'))
                         .attr('class', ƒ('cl'));
                     
+                    //clear the map except for default ones in areas
+                    //get the prev ids from the prev filter and clear them from the map
+                    var areas = map.dataProvider.areas;
+                    if(map_new.exists()){
+                        for (var i = 0; i < map_new.length; i++) {
+                            for (var j = 0; j < areas.length; j++) {
+                                if(areas[j].id == ){
+                    
+                                }
+                            }
+                        }
+                    }
                     var map_new= [];
                     
-                    //highlight the filtered results in the map - pink color
-                    list_dicts = AmCharts.maps.worldLow.svg.g.path;
                     
+                    //highlight the results in the map
+                    list_dicts = AmCharts.maps.worldLow.svg.g.path;
                     for (var i = 0; i < filtered_dt.length; i++) {
-                    var cc =filtered_dt[i]["country_code"];
-                   
+                        var cc =filtered_dt[i]["country_code"]
+                    //console.log(cc);
                         for (var j = 0; j < list_dicts.length; j++) {
                             if(cc == list_dicts[j].id){
                                 list_dicts[j].color= "pink";
-                                map.dataProvider.areas.push(list_dicts[j]); //push the new filtered countries to map areas
+                                map.dataProvider.areas.push(list_dicts[j]);
                                 map_new.push(list_dicts[j]);
-                    
+                                
                             }
                          }
-                    
+                     //break
                     }
+                    //map_new.validateNow();
+                    
                    
-                    map.validateNow(); //update map
-                    
-                    //delete the new map areas from the map areas definition except for default ones
-                    //this will not be physically shown on the map but only in the definition of the var map.
-                    areas_new = [];
-                    
-                    var areas = map.dataProvider.areas;
-                   
-                    for (var i = 0; i < map_new.length; i++) {
-                            var new_dict = map_new[i];
-                            for (var j = 0; j < areas.length; j++) {
-                                if(areas[j].id == new_dict.id && areas[j].color=='pink'){
-                                    //remove the new dict from the original
-                                    areas.splice(j,1);
-
-                                }
-                            }
-                    }
-                    
-                    
-                    
-                    
               }); //end csv2
         } //end function
 
