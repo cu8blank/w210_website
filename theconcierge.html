@@ -62,6 +62,23 @@
 				margin: 0px
 				overflow:scroll;
 				height:175px;
+			}			
+			
+			.axis path {
+            fill: none;
+            stroke: #777;
+            shape-rendering: crispEdges;
+        }
+        .axis text {
+            font-family: Lato;
+            font-size: 10px;      }
+		
+		
+			
+			
+		.focus circle {
+			fill: none;
+			stroke: steelblue;
 			}
         </style>
 
@@ -76,7 +93,7 @@
 		<script src="js/worldLow.js" type="text/javascript"></script>		
 		
         <script type="text/javascript">
-         //function refresh_map(value) {
+			
 			var map = AmCharts.makeChart("mapdiv", {
 				type: "map",
 				theme: "light",
@@ -523,67 +540,232 @@
 				},
 
 				smallMap: {}
-			}); //end var map
-            
-            //return map1;
-          //} //end refresh_map()
-          //var map = refresh_map();
+			});
 
-//console.log(map);
-
-
-
+				
 			//******* change this color for the zoomed in country *******//
 			map.addListener("clickMapObject", function(event) {
-                            
 				//alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
 			    
+				/************************** Display Recommendations******************************/
+				
+				/***Main data file loaded, used for everything **/
 				var data = $.getJSON('data/final.json', function(data) {
-						console.log( "success" );
+						console.log( "data_success" );				
+				
+				
+				var raw_data = get_data(event.mapObject.id, data);
 							
-							//***Helper function to get the data for the selected country**//	
-							function get_data(name, data) {
-								for (var i = 0, len = 175; i < len; i++) {
-									if (data[i]["country_code"] == name)
+				//***Helper function to get the data for the selected country**//	
+				function get_data(name, data) {
+					for (var i = 0, len = 175; i < len; i++) {
+						if (data[i]["country_code"] == name)										
+						return data[i]; // Return as soon as the object is found
+						}
+				return null;
+					};
+				
+				
+				
+				/***Get one random safer and cheaper country**/		
+									
+						
+				//get list of safer countries
+				var safer = $.grep(data, function( n, i ) {
+					return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 < raw_data.curr_week_pct_4
+				});
+						
+				//randomly select one country
+				if (safer.length === 0) {
+					var randsafe = 'No Safer Country'
+				}else {
+					var randsafe = safer[Math.floor(Math.random() * safer.length)].country_code
+				};
+						
+				//list of cheaper countries
+				var cheaper = $.grep(data, function( n, i ) {
+					return n.cluster_id == raw_data.cluster_id && n.price < raw_data.price && n.price != null && randsafe != n.Name 
+				});
+						
+				//randomly select cheaper country - not same country as safest
+				if (raw_data.price == null) {
+					var randcheap = 'No Data'
+				} else if (cheaper.length == 0) {
+					var randcheap = 'No Cheaper Country'
+				}else {
+					var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].country_code
+				};
+				
+															
+					/***END Get one random safer and cheaper country**/
+				
+				
+				
+				
+				
+				//load gdelt hist file
+				var gdelt_hist_data = $.getJSON('data/gdelt_hist.json', function(data) {
+						console.log( "gdelt_hist_success" );
+							
+					
+				
+				
+				//reorders the data for loading later
+				var dataGroup = d3.nest()
+					.key(function(d) {
+					return d.country_code;
+						})
+					.entries(gdelt_hist_data.responseJSON);					
+					
+					
+							
+				//***Helper function to get the data for the selected country**//	
+				function get_data_gdelt_hist(name, data) {
+					for (var i = 0, len = 175; i < len; i++) {
+						if (data[i]["key"] == name)										
+							return data[i]; // Return as soon as the object is found
+							}
+						return null;
+							};									
+					
+					
+				//function to return dates and scores and name of country
+				function scores(data, period)  {
+					var scores =[]
+						for (var i = 53 - period, len = 53; i < len; i++) {									
+							week = new Date(data.values[i].date*1000);							
+							score = data.values[i].roll_pct;
+									
+							scores.push({'Name':data.values[i].Name, 'Week':week,'Score':score})									
 										
-										return data[i]; // Return as soon as the object is found
-									}
-								return null;
-							};		
-								
-						/************************** Display Recommendations******************************/
-						var raw_data = get_data(event.mapObject.id, data);
-						
-						//get list of safer countries
-						var safer = $.grep(data, function( n, i ) {
-							return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 < raw_data.curr_week_pct_4
-						});
-						
-						//randomly select one country
-						if (safer.length === 0) {
-							var randsafe = 'No Safer Country'
-						}else {
-							var randsafe = safer[Math.floor(Math.random() * safer.length)].Name
+							}
+						return scores;
 						};
-						
-						//list of cheaper countries
-						var cheaper = $.grep(data, function( n, i ) {
-							return n.cluster_id == raw_data.cluster_id && n.price < raw_data.price && n.price != null && randsafe != n.Name 
-						});
-						
-						//randomly select cheaper country - not same country as safest
-						if (raw_data.price == null) {
-							var randcheap = 'No Data'
-						} else if (cheaper.length == 0) {
-							var randcheap = 'No Safer Country'
-						}else {
-							var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].Name
-						};
+							
+				
+				
+				
+				
+				
+				
+				
+				//dataset for the selected country
+				var raw_data_gdelt = get_data_gdelt_hist(event.mapObject.id, dataGroup);
+				
+				//dataset for the randomly selected safer country
+				var rand_safe_gdelt = get_data_gdelt_hist(randsafe, dataGroup);
+				
+				
+				//dataset for median - in flat file		
+				var med_gdelt = get_data_gdelt_hist("Med", dataGroup);
+				
+				
+					
+					
+				//main data to be graphed.
+					
+				//variable to set how many weeks back to go
+				back = 26
+					
+					
+				//get subset for main, random safer and median
+				curr_stab_scores = scores(raw_data_gdelt,back);
+				rand_scores = scores(rand_safe_gdelt,back);	
+				med_scores = scores(med_gdelt,back);
 
+				
+				console.log(curr_stab_scores);
+				console.log(rand_scores);
+				console.log(med_scores);
+				
+					//begin chart vis
+
+					
+					//removes the current vis and puts in a blank canvas.  necessary when a new country is clicked on
+					d3.selectAll("#graphs > *").remove()					
+					d3.select("#graphs").append("svg").attr("id","visualisation");
+4                                    		
+					
+							
+					var vis = d3.select("#visualisation"),
+						WIDTH = 250,
+						HEIGHT = 120,
+						MARGINS = {
+							top: 30,
+							right: 30,
+							bottom: 30,
+							left: 30
+							},	
+						xScale = d3.time.scale()
+								.range([MARGINS.left, WIDTH - MARGINS.right])
+								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week])
+								//.tickFormat(d3.time.format('%H'))
+								,
+						yScale = d3.scale.linear()
+								.range([HEIGHT - MARGINS.top, MARGINS.bottom])
+								.domain([d3.min(curr_stab_scores.concat(rand_scores), function(d) {
+							return d.Score;
+						}), d3.max(curr_stab_scores.concat(rand_scores), function(d) {
+							return d.Score;
+						})]),
 						
-						var country_title = d3.select("#rec_title")													
-													.text("Country Recommendations Similar to " + raw_data.Name)												
-													.attr("align","center");
+						xAxis = d3.svg.axis()
+							.scale(xScale),  
+						yAxis = d3.svg.axis()
+							.scale(yScale)
+							.orient("left");			
+						
+					
+					var x_axis = vis.append("svg:g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                        .call(xAxis);
+						
+                    var y_axis = vis.append("svg:g")
+                        .attr("class", "y axis")
+                        .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                        .call(yAxis);
+
+					
+					var lineFunc = d3.svg.line()
+						.x(function(d) {
+						return xScale(d.Week);
+					})
+						.y(function(d) {
+						return yScale(d.Score);
+					})
+					.interpolate('linear');
+					
+					
+					//main line
+					var line_path = vis.append('svg:path')
+						.attr('d', lineFunc(curr_stab_scores))
+						.attr('fill', 'none')
+						.attr('stroke', 'steelblue')
+						.attr('stroke-width', '2px');
+						
+						
+					
+					
+					//median line
+					var med_line_path = vis.append('svg:path')
+						.attr('d', lineFunc(med_scores))
+						.attr('fill', 'none')
+						.attr('stroke', 'red')
+						.style("stroke-dasharray", ("3, 3"))
+						.attr('stroke-width', '1.5px');
+					
+					
+					//safer country line
+					var med_line_path = vis.append('svg:path')
+						.attr('d', lineFunc(rand_scores))
+						.attr('fill', 'none')
+						.attr('stroke', 'grey')						
+						.attr('stroke-width', '1.5px');
+					
+						
+						
+						});
 						
 						
 						
@@ -591,16 +773,18 @@
 						
 						
 						
-						var recommendation_text = d3.select("#recommendations")													
-													.text(function (d) {
-													if (randcheap == 'No Data') {return randsafe + " is a similar country to " + raw_data.Name + "  but safer."}
-													else {return randsafe + " is a similar country to " + raw_data.Name + "  but safer while " + randcheap + " is a similar country to " + raw_data.Name + "  but cheaper." }
-													});
+						
 						
 						/************************** End of Display Recommendations******************************/
 			
 		
 						/************************** Display Country Table ******************************/
+			
+			
+						
+							
+							
+			
 			
 						//Function checks if there is a value for curr, returns no data if null
 						function no_data(value) {
@@ -729,7 +913,7 @@
                 var checkboxesChecked_at = [];
                 // loop over them all
                 for (var i=0; i<checkboxes_at.length; i++) {
-                    // And stick the checked ones into an array...
+                    // And stick the checked ones onto an array...
                     if (checkboxes_at[i].checked) {
                         checkboxesChecked_at.push(checkboxes_at[i].value);
                     }
@@ -742,9 +926,36 @@
             } //end function
         
         function filternow(filters,filtert,filterdt){
-            d3.json("data/finalc.json", function(data2) {
-                    
-                    //******* USER SEARCH FILTER*******//
+            d3.csv("data/allcountry_data.csv", function(error, data2) {
+                        data2.forEach(function(d) {
+                                  d.country_code= d.country_code;
+                                  d.mar_may = +d.mar_may;
+                                  d.jun_aug = +d.jun_aug;
+                                  d.family = +d.family;
+                                  d.vgood = +d.vgood;
+                                  d.sep_nov = +d.sep_nov;
+                                  d.cluster_id = +d.cluster_id;
+                                  d.at = d.at;
+                                  d.visa_req= d.visa_req;
+                                  d.friend= +d.friend;
+                                  d.poor = +d.poor;
+                                  d.solo = +d.solo;
+                                  d.business = +d.business;
+                                  d.couple = +d.couple;
+                                  d.allowed_stay = d.allowed_stay;
+                                  d.excellent = +d.excellent;
+                                  //d.dt = JSON.parse(JSON.stringify(d.dt)); // this is an array of floats, needs to be converted later
+                                  d.dt = d.dt;
+                                  d.dec_feb = +d.dec_feb;
+                                  d.country = d.country;
+                                  d.average = +d.average;
+                                  d.terrible = +d.terrible;
+                                  
+                        });
+                        //******* USER SEARCH FILTER*******//
+                   
+                
+                   
                     //sort the filter_list by category
                    
                    
@@ -757,13 +968,23 @@
                         }
                                                 
                         for(var i=0; i< filters.length; i++){
-                                result = result || r.top_season ==filters[i];
+                              //First filter on one season
+                              if(filters[i] == 'dec_feb'){
+                                result = result || r.dec_feb >=1.0;
+                              }else if(filters[i] == 'mar_may'){
+                                result = result || r.mar_may >=1.0;
+                              }else if(filters[i] == 'jun_aug'){
+                                result = result || r.jun_aug >=1.0;
+                              }else if(filters[i] == 'sep_nov'){
+                                                   //alert("sep");
+                                result = result || r.sep_nov >=1.0;
+                              }
                         }
                         return result;
              
                      }) //end filter_season
                    
-                   //alert(JSON.stringify(filtered_season));
+                   //alert(JSON.stringify(filtered_season.length));
                    
                     //Now filter season results on travel type
                    //alert(JSON.stringify(filtert));
@@ -777,16 +998,30 @@
                             return 1;
                          }
                         for(var i=0; i< filtert.length; i++){
-                                result = result || r.top_tt == filtert[i]
+                                                       
+                            //First filter on one season
+                            if(filtert[i] == "couple"){
+                                                        
+                                    result = result || r.couple >=1.0;
+                            }else if(filtert[i] == "friend"){
+                                                         
+                                   result = result || r.friend >=1.0;
+                            }else if(filtert[i] == "family"){
+                                            
+                                    result = result || r.family >=1.0;
+                            }else if(filtert[i] == "solo"){
+                                   result = result || r.solo >=1.0;
+                            }else if(filtert[i] == "business"){
+                                   result = result ||r.business >=1.0;
+                            }
                         }
                         return result;
                       }) //end filter_season
                   
-                      //alert(JSON.stringify(filtered_tt))
+                      //alert(JSON.stringify(filtered_tt.length))
                   
                       //Lastly filter dt on multiple activity types
                    
-                    
                      filtered_dt = filtered_tt.filter(function(r){ //OR logic for the filterss
                                         result = 0; //start with false
                                         //if no filters, return the row -- no restrictions
@@ -794,28 +1029,22 @@
                                                 return 1;
                                         }
                                         array = r.dt;
-                                        var arr_val= eval(array);
+                                            
                                         for(var i=0; i< filterdt.length; i++){
                                                 topic_no= parseInt(filterdt[i]);
-                                                
-                                                if(arr_val== null){ //some dt is null, dont return the row
-                                                      return result;
+                                                var arr_val= eval(array);
+                                                if(arr_val== null){ //some dt is null
+                                                      result= 1;
                                                 }
                                                 else{
-                                                      
-                                                      result = result || arr_val[topic_no] >=0.20;
+                                                      result = result || arr_val[topic_no] >=0.10;
                                                 }
                                         }
-                                                      
                                         return result;
                                                       
                       });
-                    //sort by fun rating
-                    filtered_dt = filtered_dt.sort(function(a, b) {
-                                                   return parseFloat(b.excellent)-parseFloat(a.excellent) ;
-                    });
                    
-                    //alert(JSON.stringify(filtered_dt));
+                
                    // Create a function that returns a particular property of its parameter.
                    // If that property is a function, invoke it (and pass optional params).
                    function ƒ(name){
@@ -825,11 +1054,9 @@
                        };
                    }
                     var columns = [
-                    { head: 'Country', cl: 'title', html: ƒ('Name') },
-                    { head: 'Fun Rating', cl: 'center', html: ƒ('fun_rating') },
+                    { head: 'Country', cl: 'title', html: ƒ('country') },
+                    { head: 'Fun Rating', cl: 'center', html: ƒ('excellent') },
                     { head: 'Popular Activities', cl: 'center', html: ƒ('at') },
-                    { head: 'Visa Requirements', cl: 'left', html: ƒ('visa_req') },
-                    { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') }
                     ];
                     
                    //Clear a table if exists
@@ -868,48 +1095,7 @@
                         .append('td')
                         .html(ƒ('html'))
                         .attr('class', ƒ('cl'));
-                    
-                    var map_new= [];
-                    
-                    //highlight the filtered results in the map - pink color
-                    list_dicts = AmCharts.maps.worldLow.svg.g.path;
-                    
-                    for (var i = 0; i < filtered_dt.length; i++) {
-                    var cc =filtered_dt[i]["country_code"];
-                   
-                        for (var j = 0; j < list_dicts.length; j++) {
-                            if(cc == list_dicts[j].id){
-                                list_dicts[j].color= "pink";
-                                map.dataProvider.areas.push(list_dicts[j]); //push the new filtered countries to map areas
-                                map_new.push(list_dicts[j]);
-                    
-                            }
-                         }
-                    
-                    }
-                   
-                    map.validateNow(); //update map
-                    
-                    //delete the new map areas from the map areas definition except for default ones
-                    //this will not be physically shown on the map but only in the definition of the var map.
-                    areas_new = [];
-                    
-                    var areas = map.dataProvider.areas;
-                   
-                    for (var i = 0; i < map_new.length; i++) {
-                            var new_dict = map_new[i];
-                            for (var j = 0; j < areas.length; j++) {
-                                if(areas[j].id == new_dict.id && areas[j].color=='pink'){
-                                    //remove the new dict from the original
-                                    areas.splice(j,1);
 
-                                }
-                            }
-                    }
-                    
-                    
-                    
-                    
               }); //end csv2
         } //end function
 
@@ -917,7 +1103,7 @@
         </script>
 				
 	</head>
-	<body onload="filternow([],[],[]); ">
+	<body onload="filternow([],[],[]);">
 
 		<!-- Header -->
 			<header id="header">
@@ -1146,7 +1332,7 @@
 						</div>
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x325/white"-->						  
-						  <div id="mapdiv" style="width: 100%; background-color:#3EEEEE; height: 325px;"></div>
+						  <div id="mapdiv" style="width: 100%; background-color:#EEEEEE; height: 325px;"></div>
 						  
 						</div>
 					  </div>
@@ -1186,10 +1372,15 @@
 													
 						  </script>
 						</div>
-						<div class="chart-stage">
-						  <!--img data-src="holder.js/100%x120/white"-->
+						<div class="chart-stage" id="graphs">
+							
+							
+							
+						 
+								<svg id="visualisation"></svg>
+							
+														
 						  
-						  <div id="recommendations"></div>
 						  
 						</div>
 					  </div>
