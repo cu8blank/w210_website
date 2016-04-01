@@ -32,8 +32,7 @@
 			margin: 0;
 			padding: 0;
             width: 450px;
-			font-size: 10px;
-			font-weight: bold;
+			font-size: 10px;			
 			height: 450px;
 			overflow:scroll;
 			border-collapse: separate;
@@ -57,13 +56,25 @@
 			margin: 0;
 			padding: 0;
             width: 450px;
-			font-size: 10px;
-			font-weight: bold;
+			font-size: 10px;			
 			height: 450px;
 			overflow:scroll;
 			border-collapse: separate;
         }
-			
+		
+		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+		background-color: LightSteelBlue;
+		font-weight: bold;
+		}
+		
+		th.des:after {
+      content: "\21E9";
+    }
+    
+    th.aes:after {
+      content: "\21E7";
+    }
+		
 		
         </style>
 		
@@ -163,7 +174,8 @@
 								<p>Using the <a href="http://gdeltproject.org/">GDELT dataset</a> we are able to predict the safety and stability of a country using a machine learning algorithm.  The safety for a
 									country is defined as follows;</p>
 									<img src="images/equation1.png" width=500px>
-								<p>Using historical results as a baseline, we are able to accurately predict the stability of a country 80% of the time.	
+								<p>Using historical results as a baseline, we are able to accurately predict the stability of a country 80% of the time.</p>
+								<p>Experiment with the table to the right to see what countries current scores are and where they are predicted to be in the future 								
 						</div>						
 						
 											
@@ -173,81 +185,10 @@
 							
 								<script type="text/javascript" src="js/d3.min.js"></script>
 								<script src="js/jquery.min.js"></script>
-								<script type="text/javascript">
-										
-									
-								var jqXHR = $.getJSON('data/final.json');
-									jqXHR.complete(function(response) {
-												
-								countries = (response.responseJSON);
-									
-								var safe_list = [];
 								
-								for (var i = 0, len = 1; i < len; i++) {
-																				
-										safety=[countries[i].Name, countries[i].curr_week_pct_4.toFixed(1)];
-										safetypred=[countries[i].pred_1_week,  countries[i].pred_1_month ,  countries[i].pred_3_months];
-										
-										for (var j = 0, len = 172; j < len; j++) {		
-											if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] == 0){
-													safety.push('Minimal Change')		
-											}else if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] == 1){
-													safety.push('Decrease')	
-											}else if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] == -1){
-													safety.push('Increase')
-											}else if ((countries[j].curr_week_pct_4/10).toFixed(0)-safetypred[j] > 1){
-													safety.push('Large Decrease')	
-											}else {
-													safety.push('Large Increase');		
-											};
-
-									};
-									safe_list.push(safety);
-									var j = 0;
-									};			
-												
-										
-												
-							var svg = d3.select("body").append("svg")
-											.attr("height", 1)
-											.attr("width", 1);
-										
-										var table = d3.select("#safety-table")
-											.append("table")
-											.attr("class", "table table-condensed table-striped"),
-											thead = table.append("thead"),
-											tbody = table.append("tbody");
-											
-							var columns = ['Country','Current Value','One Week Change','One Month Change','3 Month Change'];
 								
-							var header = thead.append("tr")
-											.selectAll("th")
-											.data(columns)
-											.enter()
-											.append("th")
-												.text(function(d){ return d;});
-												
-						
-							var rows = tbody.selectAll("tr")
-								.data(safe_list)
-								.enter()
-								.append("tr");
-								
-							var cells = rows.selectAll("td")
-								.data(function(row) {
-									return columns.map(function(column) {
-									return {column: column, value: row[columns.indexOf(column)]};
-										});
-										})
-								.enter()
-								.append("td")
-								.html(function(d) { return d.value; });
-												
-												
-												});
-												
-												
-							</script>
+								<!--SCRIPT THAT GENERATES SAFETY TABLE-->
+								<SCRIPT SRC="js/safety_table.js"></SCRIPT>
 									
 							</div>
 						</section>
@@ -262,76 +203,12 @@
 								<div id="currency-table"></div>
 							
 									<script type="text/javascript" src="js/d3.min.js"></script>
-									<script type="text/javascript">
-										
-										var svg = d3.select("body").append("svg")
-											.attr("height", 1)
-											.attr("width", 1);
-										
-										var table = d3.select("#currency-table")
-											.append("table")
-											.attr("class", "table table-condensed table-striped"),
-											thead = table.append("thead"),
-											tbody = table.append("tbody");
-							
-										d3.csv("data/March_1_Currency_Predictions.csv", function(error, data) {
-											
-											// Get every column value
-											//var columns = ["Currency","Current_Rate","7_Day_Prediction","30_Day_Prediction","90_Day_Prediction"];
-											var columns = Object.keys(data[0])
-											
-											var header = thead.append("tr")
-												.selectAll("th")
-												.data(columns)
-												.enter()
-												.append("th")
-													.text(function(d){ return d;})
-													.on("click", function(d){
-														if (d == "Currency"){
-															rows.sort(function(a, b) {
-																if (a[d] < b[d]){
-																	return -1;
-																}
-																if (a[d] > b[d]){
-																	return 1;
-																}
-																else{
-																	return 0;
-																}
-															});
-														}
-														else {
-															rows.sort(function(a, b){
-																return +b[d] - +a[d];
-															})
-														}
-													});
-										
-											var rows = tbody.selectAll("tr")
-												.data(data)
-												.enter()
-												.append("tr")
-												.on("mouseover", function(d){
-													d3.select(this)
-														.style("background-color", "green");
-												})
-												.on("mouseout", function(d){
-													d3.select(this)
-														.style("background-color","transparent");
-												});
-										
-											var cells = rows.selectAll("td")
-												.data(function(row){
-													return columns.map(function(d, i){
-														return {i: d, value: row[d]};
-													});
-												})
-												.enter()
-												.append("td")
-												.html(function(d){ return d.value;});
-							
-										});
-									</script>
+									
+									
+									<!--SCRIPT THAT GENERATES CURRENCY TABLE-->
+								<SCRIPT SRC="js/currency_table.js"></SCRIPT>
+									
+									
 							</div>
 						</section>
 						<div class="7u 12u$(medium)">
