@@ -1,0 +1,57 @@
+    #filter_buttons {
+        margin-top: 10px;
+        margin-left: 5px;
+    }
+    
+    #season_buttons {
+        display: none;
+        margin-left: 35px;
+    }
+    #activity_buttons {
+        display: none;
+        margin-left: 35px;
+    }
+    #traveler_buttons {
+        display: none;
+        margin-left: 35px;
+    }
+    
+    #filter_container {
+        overflow:scroll;
+        height:287px;
+    }
+    
+    #filter_results_container {
+        overflow:scroll;
+        height:150px;
+    }
+    
+    #country_rec_container {
+        margin: 0px;
+        overflow:scroll;
+        height:175px;
+    }
+    
+    #country_results_container {
+        margin: 0px
+        overflow:scroll;
+        height:175px;
+    }			
+    
+    .axis path {
+    fill: none;
+    stroke: #777;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    font-family: Lato;
+    font-size: 10px;      }
+    
+body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
+ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
+ul#tabs li { display: inline; }
+ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
+ul#tabs li a:hover { background-color: #f1f0ee; }
+ul#tabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
+div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
+div.tabContent.hide { display: none; }
