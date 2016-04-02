@@ -48,7 +48,7 @@
 			/************************** Display Recommendations******************************/
 				
 				/***Main data file loaded, used for everything **/
-				var data = $.getJSON('data/final.json', function(data) {
+				var data = $.getJSON('data/finalc.json', function(data) {
 						console.log( "data_success" );				
 				
 				
@@ -75,7 +75,10 @@
 				if (safer.length === 0) {
 					var randsafe = 'No Safer Country'
 				}else {
-					var randsafe = safer[Math.floor(Math.random() * safer.length)].country_code
+					var randnum = Math.random() 
+					var randsafe = safer[Math.floor(randnum* safer.length)].country_code
+					var randsafe_name = safer[Math.floor(randnum* safer.length)].Name
+					
 				};
 						
 				//list of cheaper countries
@@ -89,12 +92,62 @@
 				} else if (cheaper.length == 0) {
 					var randcheap = 'No Cheaper Country'
 				}else {
-					var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].country_code
+					var randnum = Math.random() 
+					var randcheap = cheaper[Math.floor(randnum * cheaper.length)].country_code
+					var randcheap_name = cheaper[Math.floor(randnum * cheaper.length)].Name
 				};
+				
 				
 															
 					/***END Get one random safer and cheaper country**/
 
+					
+					/***Display Cheaper and Safer Country**/
+					
+					var country_title = d3.select("#rec_title")													
+													.text(" Similar to " + raw_data.Name + "....")												
+													.attr("align","center")
+													.style("font-style","italic");
+													
+								
+					
+					
+					//creates array for displaying cheaper and safer country.  if its empty, then nothing is appended.
+					var output = [];
+					
+					if (randsafe_name  != null) {
+						output.push(["...but safer.", "desc"]);
+						output.push([randsafe_name, "cty"])					
+					};
+					
+										
+					if (randcheap_name  != null) {
+						output.push(["...but cheaper.", "desc"]);
+						output.push([randcheap_name, "cty"])					
+					};
+										
+					
+					
+					d3.selectAll("#recs > *").remove()					
+					
+					
+					
+					var table = d3.select("#recs")
+											.append("table")
+											.attr("class", "table-condensed"),											
+											tbody = table.append("tbody");
+											
+					var rows = tbody.selectAll("tr")
+								.data(output)
+								.enter()
+								.append("tr")
+								.text(function(d){return d[0]})
+								.attr("class", function(d){return d[1]});
+								
+					/***END Display Cheaper and Safer Country**/							
+													
+					
+					
 				
 				//load gdelt hist file
 				var gdelt_hist_data = $.getJSON('data/gdelt_hist.json', function(data) {
@@ -153,9 +206,21 @@
 
 					//begin chart vis
 
-					//removes the current vis and puts in a blank canvas.  necessary when a new country is clicked on
+					var graph_title = d3.select("#graph_title")													
+													.text("Historical Graphs for " + raw_data.Name )												
+													.attr("align","center")	;
+					
+					
+					
+					//removes the current vis and puts in a blank canvas.  necessary when a new country is clicked on	
+					
 					d3.selectAll("#graphs > *").remove()					
-					d3.select("#graphs").append("svg").attr("id","visualisation");
+					var svg = d3.select("#graphs").append("svg").attr("id","visualisation");
+					svg.attr('width',parseInt(d3.select('#graphs').style('width')));
+					svg.attr('height',parseInt(d3.select('#graphs').style('height')));
+							
+							
+					console.log(parseInt(d3.select('#graphs').style('width'), 10));
 							
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
@@ -164,17 +229,17 @@
 							bottom: 40,
 							left: 30
 							},	
-						 WIDTH = parseInt(d3.select('#graphs').style('width'), 10),
-						 WIDTH = WIDTH - MARGINS.left - MARGINS.right,
-						 HEIGHT = parseInt(d3.select('#graphs').style('height'), 10),
-						 HEIGHT = HEIGHT - MARGINS.top - MARGINS.bottom,
+						 width = parseInt(d3.select('#graphs').style('width'), 10),
+						 width = width - MARGINS.left - MARGINS.right,
+						 height = parseInt(d3.select('#graphs').style('height'), 10),
+						 height = height - MARGINS.top - MARGINS.bottom,
 						 xScale = d3.time.scale()
-								.range([MARGINS.left, WIDTH - MARGINS.right])
+								.range([MARGINS.left, width - MARGINS.right])
 								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week])
 								//.tickFormat(d3.time.format('%H'))
 								,
 						yScale = d3.scale.linear()
-								.range([HEIGHT - MARGINS.top, MARGINS.bottom])
+								.range([height - MARGINS.top, MARGINS.bottom])
 								.domain([d3.min(curr_stab_scores.concat(rand_scores), function(d) {
 							return d.Score;
 						}), d3.max(curr_stab_scores.concat(rand_scores), function(d) {
@@ -187,9 +252,12 @@
 							.scale(yScale)
 							.orient("left");			
 						
+					console.log(width);
+					console.log(height);
+					
 					var x_axis = vis.append("svg:g")
                         .attr("class", "x axis")
-                        .attr("transform", "translate(0," + (HEIGHT) + ")")
+                        .attr("transform", "translate(0," + (height) + ")")
                         .call(xAxis);
 						
                     var y_axis = vis.append("svg:g")
@@ -338,7 +406,9 @@
 				
 			});
             
+			/**
 			//dict to convert country name to iso2
+			
 			var countries = (function () {
 				var json = null;
 				$.ajax({
@@ -352,6 +422,183 @@
 				});
 				return json;
 			})();
+			**/
+			
+			countries = {'Afghanistan': 'AF',
+ 'Albania': 'AL',
+ 'Algeria': 'DZ',
+ 'Angola': 'AO',
+ 'Antigua and Barbuda': 'AG',
+ 'Argentina': 'AR',
+ 'Armenia': 'AM',
+ 'Australia': 'AU',
+ 'Austria': 'AT',
+ 'Azerbaijan': 'AZ',
+ 'Bahamas': 'BS',
+ 'Bahrain': 'BH',
+ 'Bangladesh': 'BD',
+ 'Barbados': 'BB',
+ 'Belarus': 'BY',
+ 'Belgium': 'BE',
+ 'Belize': 'BZ',
+ 'Benin': 'BJ',
+ 'Bermuda': 'BM',
+ 'Bhutan': 'BT',
+ 'Bolivia': 'BO',
+ 'Botswana': 'BW',
+ 'Brazil': 'BR',
+ 'Brunei Darussalam': 'BN',
+ 'Bulgaria': 'BG',
+ 'Burkina Faso': 'BF',
+ 'Burundi': 'BI',
+ 'Cambodia': 'KH',
+ 'Cameroon': 'CM',
+ 'Canada': 'CA',
+ 'Central African Republic': 'CF',
+ 'Chad': 'TD',
+ 'Chile': 'CL',
+ 'China': 'CN',
+ 'Colombia': 'CO',
+ 'Comoros': 'KM',
+ 'Costa Rica': 'CR',
+ 'Croatia': 'HR',
+ 'Cuba': 'CU',
+ 'Cyprus': 'CY',
+ 'Czech Republic': 'CZ',
+ 'Democratic Republic of the Congo': 'CD',
+ 'Denmark': 'DK',
+ 'Djibouti': 'DJ',
+ 'Dominican Republic': 'DO',
+ 'Ecuador': 'EC',
+ 'Egypt': 'EG',
+ 'El Salvador': 'SV',
+ 'Equatorial Guinea': 'GQ',
+ 'Eritrea': 'ER',
+ 'Estonia': 'EE',
+ 'Ethiopia': 'ET',
+ 'Fiji': 'FJ',
+ 'Finland': 'FI',
+ 'France': 'FR',
+ 'Gabon': 'GA',
+ 'Gambia': 'GM',
+ 'Georgia': 'GE',
+ 'Germany': 'DE',
+ 'Ghana': 'GH',
+ 'Greece': 'GR',
+ 'Grenada': 'GD',
+ 'Guatemala': 'GT',
+ 'Guinea': 'GN',
+ 'Guinea-Bissau': 'GW',
+ 'Guyana': 'GY',
+ 'Haiti': 'HT',
+ 'Holy See (Vatican City State)': 'VA',
+ 'Honduras': 'HN',
+ 'Hungary': 'HU',
+ 'Iceland': 'IS',
+ 'India': 'IN',
+ 'Indonesia': 'ID',
+ 'Iran': 'IR',
+ 'Iraq': 'IQ',
+ 'Ireland': 'IE',
+ 'Israel': 'IL',
+ 'Italy': 'IT',
+ 'Jamaica': 'JM',
+ 'Japan': 'JP',
+ 'Jordan': 'JO',
+ 'Kazakhstan': 'KZ',
+ 'Kenya': 'KE',
+ 'Kuwait': 'KW',
+ 'Kyrgyzstan': 'KG',
+ 'Laos': 'LA',
+ 'Latvia': 'LV',
+ 'Lebanon': 'LB',
+ 'Lesotho': 'LS',
+ 'Liberia': 'LR',
+ 'Libya': 'LY',
+ 'Liechtenstein': 'LI',
+ 'Lithuania': 'LT',
+ 'Luxembourg': 'LU',
+ 'Macedonia': 'MK',
+ 'Madagascar': 'MG',
+ 'Malawi': 'MW',
+ 'Malaysia': 'MY',
+ 'Maldives': 'MV',
+ 'Mali': 'ML',
+ 'Malta': 'MT',
+ 'Mauritania': 'MR',
+ 'Mexico': 'MX',
+ 'Micronesia': 'FM',
+ 'Moldova': 'MD',
+ 'Monaco': 'MC',
+ 'Mongolia': 'MN',
+ 'Morocco': 'MA',
+ 'Mozambique': 'MZ',
+ 'Myanmar': 'MM',
+ 'Namibia': 'NA',
+ 'Nepal': 'NP',
+ 'Netherlands': 'NL',
+ 'New Zealand': 'NZ',
+ 'Nicaragua': 'NI',
+ 'Niger': 'NE',
+ 'Nigeria': 'NG',
+ 'North Korea': 'KP',
+ 'Norway': 'NO',
+ 'Oman': 'OM',
+ 'Pakistan': 'PK',
+ 'Panama': 'PA',
+ 'Papua New Guinea': 'PG',
+ 'Paraguay': 'PY',
+ 'Peru': 'PE',
+ 'Philippines': 'PH',
+ 'Poland': 'PL',
+ 'Portugal': 'PT',
+ 'Qatar': 'QA',
+ 'Romania': 'RO',
+ 'Russia': 'RU',
+ 'Rwanda': 'RW',
+ 'Saint Kitts and Nevis': 'KN',
+ 'Saint Lucia': 'LC',
+ 'Saudi Arabia': 'SA',
+ 'Senegal': 'SN',
+ 'Serbia': 'RS',
+ 'Sierra Leone': 'SL',
+ 'Singapore': 'SG',
+ 'Slovakia': 'SK',
+ 'Somalia': 'SO',
+ 'South Africa': 'ZA',
+ 'South Korea': 'KR',
+ 'Spain': 'ES',
+ 'Sri Lanka': 'LK',
+ 'Sudan': 'SD',
+ 'Suriname': 'SR',
+ 'Swaziland': 'SZ',
+ 'Sweden': 'SE',
+ 'Switzerland': 'CH',
+ 'Syria': 'SY',
+ 'Taiwan': 'TW',
+ 'Tajikistan': 'TJ',
+ 'Tanzania': 'TZ',
+ 'Thailand': 'TH',
+ 'Timor-Leste': 'TL',
+ 'Togo': 'TG',
+ 'Trinidad and Tobago': 'TT',
+ 'Tunisia': 'TN',
+ 'Turkey': 'TR',
+ 'Turkmenistan': 'TM',
+ 'Uganda': 'UG',
+ 'Ukraine': 'UA',
+ 'United Arab Emirates': 'AE',
+ 'United Kingdom': 'GB',
+ 'Uruguay': 'UY',
+ 'Uzbekistan': 'UZ',
+ 'Venezuela': 'VE',
+ 'Vietnam': 'VN',
+ 'Yemen': 'YE',
+ 'Zambia': 'ZM',
+ 'Zimbabwe': 'ZW'};
+			
+			
+			
 			
 			
             // SARUS CODE
@@ -490,6 +737,8 @@
                     var columns = [
                     { head: 'Country', cl: 'title', html: ƒ('Name') },
                     { head: 'Fun Rating', cl: 'center', html: ƒ('fun_rating') },
+					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4') },
+					{ head: 'Value Score', cl: 'center', html: ƒ('price') },
                     { head: 'Popular Activities', cl: 'right', html: ƒ('a_string') },
                     { head: 'Visa Requirements', cl: 'left', html: ƒ('visa_req') },
                     { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') }
@@ -498,8 +747,12 @@
                    //Clear a table if exists
                    d3.select(".user_filter_list").html("");
                    // create table
+				   
+				   var sortAscending = true;
+				   
                     var table = d3.select(".user_filter_list")
-                        .append('table');
+                        .append('table')
+						.attr("class", "table table-hover table-condensed");
 
                     // create table header
                     table.append('thead').append('tr')
@@ -507,7 +760,23 @@
                         .data(columns).enter()
                         .append('th')
                         .attr('class', ƒ('cl'))
-                        .text(ƒ('head'));
+                        .text(ƒ('head'))
+						.on('click', function (d) {									
+											
+													header.attr('class', 'header');
+		                	   
+													if (sortAscending) { console.log(d)
+														rows.sort(function(a, b) { 
+														return d3.ascending(a[d], b[d]); });
+														sortAscending = false;
+														this.className = 'aes';
+		                	 
+													} else {
+														rows.sort(function(a, b) { return d3.descending(a[d], b[d]); });
+														sortAscending = true;
+														this.className = 'des';
+													}
+													});
 
                     // create table body
                     table.append('tbody')
@@ -538,12 +807,13 @@
                                     // compute cell values for this specific row
                                     var cell = {};
                                     d3.keys(c).forEach(function(k) {
-                                        cell[k] = typeof c[k] == 'function' ? c[k](row,i) : c[k];
+                                        cell[k] = typeof c[k] == 'function' ? c[k](row,i) : c[k];										
                                     });
                                     return cell;
                              });
                         }).enter()
                         .append('td')
+						.on("click", function(d) {CountrySelect(countries[d.html]); console.log(countries[d.html]); map.clickMapObject(countries[d.html]);})   //when they click on the country, d.html is the country name  
                         .html(ƒ('html'))
                         .attr('class', ƒ('cl'));
                     
@@ -882,10 +1152,16 @@
 					</div>
 					<div class="2u 12u$(medium)">
 					  <div class="chart-wrapper">
-						<div class="chart-title">
-						  Similar countries
+						<div class="chart-title" id ="rec_title">
+						  <script type="text/javascript">
+						  var graph_country_title = d3.select("#rec_title")													
+													.text("Recommendations for Selected Country")													
+													.attr("align","center");
+													
+													
+						  </script>
 						</div>
-						<div class="chart-stage">
+						<div class="chart-stage" id="recs">
 						  <img data-src="holder.js/100%x120/white">
 
 						</div>
@@ -896,13 +1172,13 @@
 				  <!--3rd row-->
 				  <div class="row">
 					<div class="6u 12u$(medium)">
-					  <div class="chart-wrapper" id="country_rec_container">
-						<div class="chart-title" id="rec_title">				
+					  <div class="chart-wrapper" id="graph_container">
+						<div class="chart-title" id="graph_title">				
 						
 						
 						  <script type="text/javascript">
-						  var country_title = d3.select("#rec_title")													
-													.text("Country Recommendations Similar to Selected Country")													
+						  var graph_country_title = d3.select("#graph_title")													
+													.text("Historical Graphs for Selected Country")													
 													.attr("align","center");
 													
 													
