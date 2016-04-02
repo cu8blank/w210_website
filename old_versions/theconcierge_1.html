@@ -22,10 +22,48 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
-		<!-- Pym.js - iframe height handler for the Blog -->
-		<script src="js/pym.min.js"></script>
 		
-		<link rel="stylesheet" href="css/theconcierge.css" />
+		<style>
+			#filter_buttons {
+				margin-top: 10px;
+				margin-left: 5px;
+			}
+			
+			#season_buttons {
+				display: none;
+				margin-left: 35px;
+			}
+            #activity_buttons {
+                display: none;
+                margin-left: 35px;
+            }
+            #traveler_buttons {
+                display: none;
+                margin-left: 35px;
+            }
+			
+			#filter_container {
+				overflow:scroll;
+				height:360px;
+			}
+			
+			#filter_results_container {
+				overflow:scroll;
+				height:190px;
+			}
+			
+			#country_rec_container {
+				margin: 0px;
+				overflow:scroll;
+				height:175px;
+			}
+			
+			#country_results_container {
+				margin: 0px
+				overflow:scroll;
+				height:175px;
+			}
+        </style>
 
 		<script type="text/javascript" src="js/d3.min.js"></script>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
@@ -37,203 +75,533 @@
         <script src="js/ammap.js" type="text/javascript"></script>			
 		<script src="js/worldLow.js" type="text/javascript"></script>		
 		
-		<script src="js/map.js"></script>
         <script type="text/javascript">
-
-			//*****Main function that drives the graphs and forecasts....
-			
-			function CountrySelect (tar_country) {			
-			
-			
-			/************************** Display Recommendations******************************/
+         //function refresh_map(value) {
+			var map = AmCharts.makeChart("mapdiv", {
+				type: "map",
+				theme: "light",
+				projection: "Eckert5",
 				
-				/***Main data file loaded, used for everything **/
+				dataProvider: {
+					map: "worldLow",						
+					getAreasFromMap: true,
+					
+					//***** Modify this section to change the hover over pop up boxes *****//
+					//***** Or you can also modify each country in the worldLow.js file *****//
+					areas: [				  
+					  //Gray out all of the countries that are not available
+					  {
+						id: "AX",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "AI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "AQ",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "BA",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "BV",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "IO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VG",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CV",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "KY",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CX",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "CK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "DM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "FK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "FO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GL",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GP",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GG",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "HM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "HK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "IM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "JE",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "KI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MH",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MQ",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "YT",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "ME",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NR",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "AN",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "NF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MP",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PW",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PN",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PR",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "RE",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SH",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "PM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "BL",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "MF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "WS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "ST",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SB",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "GS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SS",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "SJ",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TK",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TO",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TC",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "TV",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "UM",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VU",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "VI",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "WF",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "EH",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  {
+						id: "US",
+						selectable: false,
+						title: "Not Available",
+						color: "#c2c2a3",
+					  },
+					  // end of grayed out unavailable countries
+					  
+
+					  ]
+					//***** Modify the above code to edit the pop up boxes *****//					
+				},
+
+				areasSettings: {
+					autoZoom: true,
+					selectedColor: "#CC0000"  //******* change this color for the zoomed in country *******//
+				},
+
+				smallMap: {}
+			}); //end var map
+            
+            //return map1;
+          //} //end refresh_map()
+          //var map = refresh_map();
+
+//console.log(map);
+
+
+
+			//******* change this color for the zoomed in country *******//
+			map.addListener("clickMapObject", function(event) {
+                            
+				//alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
+			    
 				var data = $.getJSON('data/final.json', function(data) {
-						console.log( "data_success" );				
-				
-				
-				var raw_data = get_data(tar_country, data);
+						console.log( "success" );
 							
-				//***Helper function to get the data for the selected country**//	
-				function get_data(name, data) {
-					for (var i = 0, len = data.length; i < len; i++) {
-						if (data[i]["country_code"] == name)										
-						return data[i]; // Return as soon as the object is found
-						}
-				return null;
-					};
-				
-				
-				/***Get one random safer and cheaper country**/					
-						
-				//get list of safer countries
-				var safer = $.grep(data, function( n, i ) {
-					return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 < raw_data.curr_week_pct_4
-				});
-						
-				//randomly select one country
-				if (safer.length === 0) {
-					var randsafe = 'No Safer Country'
-				}else {
-					var randsafe = safer[Math.floor(Math.random() * safer.length)].country_code
-				};
-						
-				//list of cheaper countries
-				var cheaper = $.grep(data, function( n, i ) {
-					return n.cluster_id == raw_data.cluster_id && n.price < raw_data.price && n.price != null && randsafe != n.Name 
-				});
-						
-				//randomly select cheaper country - not same country as safest
-				if (raw_data.price == null) {
-					var randcheap = 'No Data'
-				} else if (cheaper.length == 0) {
-					var randcheap = 'No Cheaper Country'
-				}else {
-					var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].country_code
-				};
-				
-															
-					/***END Get one random safer and cheaper country**/
-
-				
-				//load gdelt hist file
-				var gdelt_hist_data = $.getJSON('data/gdelt_hist.json', function(data) {
-						console.log( "gdelt_hist_success" );
-							
-					
-				//reorders the data for loading later
-				var dataGroup = d3.nest()
-					.key(function(d) {
-					return d.country_code;
-						})
-					.entries(gdelt_hist_data.responseJSON);					
-					
-				//***Helper function to get the data for the selected country**//	
-				function get_data_gdelt_hist(name, data) {
-					for (var i = 0, len = 175; i < len; i++) {
-						if (data[i]["key"] == name)										
-							return data[i]; // Return as soon as the object is found
-							}
-						return null;
-							};									
-					
-					
-				//function to return dates and scores and name of country
-				function scores(data, period)  {
-					var scores =[]
-						for (var i = 53 - period, len = 53; i < len; i++) {									
-							week = new Date(data.values[i].date*1000);							
-							score = data.values[i].roll_pct;
-									
-							scores.push({'Name':data.values[i].Name, 'Week':week,'Score':score})									
+							//***Helper function to get the data for the selected country**//	
+							function get_data(name, data) {
+								for (var i = 0, len = 175; i < len; i++) {
+									if (data[i]["country_code"] == name)
 										
-							}
-						return scores;
-						};
-							
-				//dataset for the selected country
-				var raw_data_gdelt = get_data_gdelt_hist(tar_country, dataGroup);
-				
-				//dataset for the randomly selected safer country
-				var rand_safe_gdelt = get_data_gdelt_hist(randsafe, dataGroup);
-				
-				
-				//dataset for median - in flat file		
-				var med_gdelt = get_data_gdelt_hist("Med", dataGroup);
-				
-				//main data to be graphed.
-					
-				//variable to set how many weeks back to go
-				back = 26
-					
-				//get subset for main, random safer and median
-				curr_stab_scores = scores(raw_data_gdelt,back);
-				rand_scores = scores(rand_safe_gdelt,back);	
-				med_scores = scores(med_gdelt,back);
-
-					//begin chart vis
-
-					//removes the current vis and puts in a blank canvas.  necessary when a new country is clicked on
-					d3.selectAll("#graphs > *").remove()					
-					d3.select("#graphs").append("svg").attr("id","visualisation");
-							
-					var vis = d3.select("#visualisation"),						
-						MARGINS = {
-							top: 0,
-							right: 0,
-							bottom: 40,
-							left: 30
-							},	
-						 WIDTH = parseInt(d3.select('#graphs').style('width'), 10),
-						 WIDTH = WIDTH - MARGINS.left - MARGINS.right,
-						 HEIGHT = parseInt(d3.select('#graphs').style('height'), 10),
-						 HEIGHT = HEIGHT - MARGINS.top - MARGINS.bottom,
-						 xScale = d3.time.scale()
-								.range([MARGINS.left, WIDTH - MARGINS.right])
-								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week])
-								//.tickFormat(d3.time.format('%H'))
-								,
-						yScale = d3.scale.linear()
-								.range([HEIGHT - MARGINS.top, MARGINS.bottom])
-								.domain([d3.min(curr_stab_scores.concat(rand_scores), function(d) {
-							return d.Score;
-						}), d3.max(curr_stab_scores.concat(rand_scores), function(d) {
-							return d.Score;
-						})]),
+										return data[i]; // Return as soon as the object is found
+									}
+								return null;
+							};		
+								
+						/************************** Display Recommendations******************************/
+						var raw_data = get_data(event.mapObject.id, data);
 						
-						xAxis = d3.svg.axis()
-							.scale(xScale),  
-						yAxis = d3.svg.axis()
-							.scale(yScale)
-							.orient("left");			
-						
-					var x_axis = vis.append("svg:g")
-                        .attr("class", "x axis")
-                        .attr("transform", "translate(0," + (HEIGHT) + ")")
-                        .call(xAxis);
-						
-                    var y_axis = vis.append("svg:g")
-                        .attr("class", "y axis")
-                        .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-                        .call(yAxis);
-
-					var lineFunc = d3.svg.line()
-						.x(function(d) {
-						return xScale(d.Week);
-					})
-						.y(function(d) {
-						return yScale(d.Score);
-					})
-					.interpolate('linear');
-					
-					//main line
-					var line_path = vis.append('svg:path')
-						.attr('d', lineFunc(curr_stab_scores))
-						.attr('fill', 'none')
-						.attr('stroke', 'steelblue')
-						.attr('stroke-width', '2px');
-						
-					//median line
-					var med_line_path = vis.append('svg:path')
-						.attr('d', lineFunc(med_scores))
-						.attr('fill', 'none')
-						.attr('stroke', 'red')
-						.style("stroke-dasharray", ("3, 3"))
-						.attr('stroke-width', '1.5px');
-					
-					//safer country line
-					var med_line_path = vis.append('svg:path')
-						.attr('d', lineFunc(rand_scores))
-						.attr('fill', 'none')
-						.attr('stroke', 'grey')						
-						.attr('stroke-width', '1.5px');
-
+						//get list of safer countries
+						var safer = $.grep(data, function( n, i ) {
+							return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 < raw_data.curr_week_pct_4
 						});
+						
+						//randomly select one country
+						if (safer.length === 0) {
+							var randsafe = 'No Safer Country'
+						}else {
+							var randsafe = safer[Math.floor(Math.random() * safer.length)].Name
+						};
+						
+						//list of cheaper countries
+						var cheaper = $.grep(data, function( n, i ) {
+							return n.cluster_id == raw_data.cluster_id && n.price < raw_data.price && n.price != null && randsafe != n.Name 
+						});
+						
+						//randomly select cheaper country - not same country as safest
+						if (raw_data.price == null) {
+							var randcheap = 'No Data'
+						} else if (cheaper.length == 0) {
+							var randcheap = 'No Safer Country'
+						}else {
+							var randcheap = cheaper[Math.floor(Math.random() * cheaper.length)].Name
+						};
+
+						
+						var country_title = d3.select("#rec_title")													
+													.text("Country Recommendations Similar to " + raw_data.Name)												
+													.attr("align","center");
+						
+						
+						
+						
+						
+						
+						
+						var recommendation_text = d3.select("#recommendations")													
+													.text(function (d) {
+													if (randcheap == 'No Data') {return randsafe + " is a similar country to " + raw_data.Name + "  but safer."}
+													else {return randsafe + " is a similar country to " + raw_data.Name + "  but safer while " + randcheap + " is a similar country to " + raw_data.Name + "  but cheaper." }
+													});
+						
 						/************************** End of Display Recommendations******************************/
 			
 		
 						/************************** Display Country Table ******************************/
-
+			
 						//Function checks if there is a value for curr, returns no data if null
 						function no_data(value) {
 							if (value == null) {
@@ -306,11 +674,12 @@
 						
 						};
 
-						var country_data = format_data(tar_country,raw_data);
+						var country_data = format_data(event.mapObject.id,raw_data);
 						
 						var country_title = d3.select("#forecast_table_title")													
 													.text("Forecasted Changes for " + raw_data.Name)													
 													.attr("align","center");
+						
 						
 
 					})
@@ -323,37 +692,9 @@
 						.always(function() {
 							console.log( "complete" );
 					});
-
-			}
-			
-			
-			
-			//**** MAP LISTERNER BELOW ***////	
-			
-			//******* change this color for the zoomed in country *******//
-			map.addListener("clickMapObject", function(event) {
-				//alert("Map object id: " + event.mapObject.id + "\nMap object title: " + event.mapObject.title)
-			    
-			CountrySelect(event.mapObject.id);
 				
 			});
             
-			//dict to convert country name to iso2
-			var countries = (function () {
-				var json = null;
-				$.ajax({
-					'async': false,
-					'global': false,
-					'url': 'data/country_name_iso2.json',
-					'dataType': "json",
-					'success': function (data) {
-						json = data;
-					}
-				});
-				return json;
-			})();
-			
-			
             // SARUS CODE
             function toggleCheckbox(element)
             {
@@ -585,7 +926,10 @@
                                 }
                             }
                     }
-     
+                    
+                    
+                    
+                    
               }); //end csv2
         } //end function
 
@@ -593,7 +937,7 @@
         </script>
 				
 	</head>
-	<body onload="filternow([],[],[]);">
+	<body onload="filternow([],[],[]); ">
 
 		<!-- Header -->
 			<header id="header">
@@ -613,7 +957,7 @@
 
 					<header class="major">
 						<h2>Tourist Concierge - Try it Now!</h2>
-						<p>Guiding you to your dream destination.</p>
+						<p id="foo">Guiding you to your dream destination.</p>
 					</header>
 
 
@@ -630,7 +974,7 @@
 				<div class="container-fluid">
 				  <!--first row -->
 				  <div class="row">
-					<div class="5u 12u$(medium)">
+					<div class="3u 12u$(medium)">
 						<div class="chart-wrapper" id="filter_container">
 						  <div class="chart-title">
 							User Search Filter  
@@ -707,6 +1051,7 @@
                                                   </div>
                                       </div>
 								  </div>
+								  
 
 								  <div class="row uniform 50%">
 									  <div class="2u 12u$(3)">									
@@ -850,14 +1195,14 @@
 					  </div>
 					
 					
-					<div class="7u 12u$(medium)">
+					<div class="9u 12u$(medium)">
 					  <div class="chart-wrapper">
 						<div class="chart-title">
 						  World Map
 						</div>
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x325/white"-->						  
-						  <div id="mapdiv" style="width: 100%; background-color:#3EEEEE; height: 255px;"></div>
+						  <div id="mapdiv" style="width: 100%; background-color:#3EEEEE; height: 325px;"></div>
 						  
 						</div>
 					  </div>
@@ -867,7 +1212,7 @@
 				  
 				  <!--2nd row-->
 				  <div class="row">
-					<div class="10u 12u$(medium)">
+					<div class="12u 12u$(medium)">
 					  <div class="chart-wrapper" id="filter_results_container">
 						<div class="chart-title">
 						  Summary of user selection
@@ -880,22 +1225,11 @@
 						</div>
 					  </div>
 					</div>
-					<div class="2u 12u$(medium)">
-					  <div class="chart-wrapper">
-						<div class="chart-title">
-						  Similar countries
-						</div>
-						<div class="chart-stage">
-						  <img data-src="holder.js/100%x120/white">
-
-						</div>
-					  </div>
-					</div>
 				  </div>
 				  
 				  <!--3rd row-->
 				  <div class="row">
-					<div class="6u 12u$(medium)">
+					<div class="4u 12u$(medium)">
 					  <div class="chart-wrapper" id="country_rec_container">
 						<div class="chart-title" id="rec_title">				
 						
@@ -908,20 +1242,15 @@
 													
 						  </script>
 						</div>
-						<div class="chart-stage" id="graphs">
-							
-						<ul id="tabs">
-							<li><a href="#Safety">Safety Score Information</a></li>
-							<li><a href="#Currency">Currency Score Information</a></li>
-  
-							</ul>	
-							
-							
+						<div class="chart-stage">
+						  <!--img data-src="holder.js/100%x120/white"-->
+						  
+						  <div id="recommendations"></div>
 						  
 						</div>
 					  </div>
 					</div>
-					<div class="6u 12u$(medium)">
+					<div class="8u 12u$(medium)">
 					  <div class="chart-wrapper" id="country_results_container">
 						<div class="chart-title" id="forecast_table_title">
 						  <script type="text/javascript">
@@ -931,9 +1260,9 @@
 						  </script>
 						  
 						</div>
-						<div class="chart-stage" id="forecast_table">
-						  
-						  
+						<div class="chart-stage">
+						  <!--img data-src="holder.js/100%x120/white"-->
+						  <div id="forecast_table"></div>
 						  
 						  <script type="text/javascript" src="js/d3.min.js"></script>
 						  <script type="text/javascript">
@@ -980,12 +1309,6 @@
 						  
 						  
 						</div>
-						
-						<!--div class="chart-notes">Notes about this chart</div-->
-						  
-						
-						</div>
-						
 					  </div>
 					</div>
 					
@@ -996,6 +1319,9 @@
 				</section>
 
 <!-- ************************* End code here for dashboard ***************************-->
+					<p></p>
+					<p id="foo">Put explanatory text and instructions here.</p>
+
 			</section>
 			
 					
@@ -1006,31 +1332,22 @@
 						<h2>Supporting Visuals Here</h2>
 						<p>More visualizations and explanatory text.</p>
 					</header>
-
-					<div class="container-fluid">
 					<div class="row">
-						<div class="9u 12u$(medium)">
-							<div class="chart-wrapper">
-							  <div class="chart-title">
-								User Search Filter  
-							  </div>
-							  <div class="chart-stage">
-								  <!--img data-src="holder.js/100%x120/white"-->
-								<div id="chart"></div>
-							  </div>
+						<section class="box">
+							<div class="6u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="">
 							</div>
-						</div>
-						<div class="chart-wrapper">
-							<div class="12u$ 12u$(medium)">
-								<h5>Cluster ID (largest cluster on top)</h5>
-								<div class="chart-stage" id="legend"></div>
+						</section>
+						
+						<section class="box">
+							<div class="5u$ 12u$(medium)">
+									<img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="">
 							</div>
-						</div>
-					</div>
-					<script src="js/bubble_chart.js"></script>
+						</section>
 					</div>
 				</div>
 			</section>
+
 			
 
 		<!-- Footer -->
