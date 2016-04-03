@@ -220,7 +220,7 @@
 					svg.attr('height',parseInt(d3.select('#graphs').style('height')));
 							
 							
-					console.log(parseInt(d3.select('#graphs').style('width'), 10));
+					
 							
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
@@ -252,8 +252,7 @@
 							.scale(yScale)
 							.orient("left");			
 						
-					console.log(width);
-					console.log(height);
+					
 					
 					var x_axis = vis.append("svg:g")
                         .attr("class", "x axis")
@@ -335,15 +334,15 @@
 		
 								if (currpred[i] == null) {
 									curr.push('No Data')																
-								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= 0.05 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= - 0.05 )) {
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= 0.025 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= - 0.025 )) {
 									curr.push('Minimal Change')	
-								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) < 0.1 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) > 0.05 )) {
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) < 0.05 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) > 0.025 )) {
 									curr.push('Decrease')	
-								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) < -0.05 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) > -0.1 )) {
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) < -0.025 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) > -0.05 )) {
 									curr.push('Increase')	
-								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= 0.1 )) {
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= 0.05 )) {
 									curr.push('Large Decrease')	
-								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= -0.1 ) ) {
+								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= -0.05 ) ) {
 									curr.push('Large Increase')	
 								};
 							
@@ -765,7 +764,7 @@
 											
 													header.attr('class', 'header');
 		                	   
-													if (sortAscending) { console.log(d)
+													if (sortAscending) { 
 														rows.sort(function(a, b) { 
 														return d3.ascending(a[d], b[d]); });
 														sortAscending = false;
@@ -786,19 +785,7 @@
                         .selectAll('td')
                         .data(function(row, i) {
                               if (row['at'].length>2){
-                                  attractions= row['at']; //this is an string array
-                                  // remove the unicode u' and convert to string
-                                  //remove the []
-                                  a1= attractions.slice(1,-1);
-                                  a2= a1.split(",");
-                                  var a_string='';
-                                  for(i=0; i<a2.length-1; i++){
-                                        a3= a2[i].replace("u\'",'').replace("\'"," ");
-                                        a_string += a3+',';
-                                  }
-                                  a3= a2[a2.length-1].replace("u\'",'').replace("\'"," ");
-                                  a_string += a3;
-                                  row['a_string']= a_string; //create new field in row dict called attraction string
+                                  row['a_string']=row['att_str']
                               }else{
                                     row['a_string']= '';
                               }

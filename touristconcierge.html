@@ -62,6 +62,26 @@
 			border-collapse: separate;
         }
 		
+		#safety-title {
+			width: 450px;
+		}
+        
+		#country-table {
+            margin-left: 0;
+            margin-right: 0;
+			margin: 0;
+			padding: 0;
+            width: 450px;
+			font-size: 10px;			
+			height: 450px;
+			overflow:scroll;
+			border-collapse: separate;
+        }
+		#country-title {
+			width: 450px;
+		}
+		
+		
 		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
 		background-color: LightSteelBlue;
 		font-weight: bold;
@@ -180,8 +200,10 @@
 						
 											
 						<section class="box">						
-							<div class="5u$ 12u$(medium)">
+							<div class="5u$ 12u$(medium)">								
+								<h4 id="safety-title">Safety Rate Predictions</h4>
 								<div id="safety-table"></div>
+								
 							
 								<script type="text/javascript" src="js/d3.min.js"></script>
 								<script src="js/jquery.min.js"></script>
@@ -199,7 +221,7 @@
 							<div class="5u$ 12u$(medium)">
 
 								<!--img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt=""-->
-								<h4 id="currency-title">Exchange Rate SDR Predictions</h4>
+								<h4 id="currency-title">Exchange Rate Predictions</h4>
 								<div id="currency-table"></div>
 							
 									<script type="text/javascript" src="js/d3.min.js"></script>
@@ -221,13 +243,25 @@
 					<div class="row">
 						<div class="7u 12u$(medium)">
 							<h2>Country Information Prediction</span></h2>
-							<p>Use data from Tripadvisor and Wiki's Visa Requirements for US Tourists to filter
-                            destination countries based on user preferences. The data from Tripadvisor helps us
-                            to create topics on all the countries user review comments. Additionally, we performed another unsupervised learning algorithm to cluster similar countries together based on descriptive attributes.  </p>
+							<p>Using data from Tripadvisor and Wikipedia's Visa Requirements for US Tourists to filter destination countries based on user preferences. The data from Tripadvisor helps us
+                            to create topics on all the countries user review comments. Additionally, we performed another unsupervised learning algorithm to cluster similar countries together based on descriptive attributes.  
+							Finally, the average attraction rating for the country was calculated.</p>
+							<img src="images/country_info.png" alt="" height="350" width="650">
 						</div>
 						<section class="box">
 							<div class="5u$ 12u$(medium)">
-									<img src="images/country_info.png" alt="" height="350" width="650">
+							
+							<!--img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt=""-->
+								<h4 id="country-title">Country Information</h4>
+								<div id="country-table"></div>
+							
+									<script type="text/javascript" src="js/d3.min.js"></script>
+									
+									
+									<!--SCRIPT THAT GENERATES CURRENCY TABLE-->
+								<SCRIPT SRC="js/country_table.js"></SCRIPT>
+							
+									
 							</div>
 						</section>
 					</div>
