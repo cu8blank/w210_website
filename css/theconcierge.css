@@ -1,42 +1,37 @@
     #filter_buttons {
-        margin-top: 10px;
-        margin-left: 5px;
+        margin-top: 5px;
+        margin-left: 15px;
     }
     
-    #season_buttons {
-        display: none;
-        margin-left: 35px;
-    }
-    #activity_buttons {
-        display: none;
-        margin-left: 35px;
-    }
-    #traveler_buttons {
-        display: none;
-        margin-left: 35px;
+    #season_buttons, #activity_buttons, #traveler_buttons{
+        margin-left: 30px;
+        font-size: 11.5px;
     }
     
     #filter_container {
-        overflow:scroll;
-        height:287px;
+        /*overflow:scroll;*/
+        height:230px;
+        margin-right:0px;
     }
     
     #filter_results_container {
         overflow:scroll;
-        height:150px;
+        height:220px;
     }
     
-    #country_rec_container {
+    #user_filter_list {
+        font-size:11px;   
+    }
+    
+    #recs_comp_container {
+        height:220px;
+    }
+    
+    #graph_container, #country_results_container {
         margin: 0px;
-        overflow:scroll;
-        height:175px;
-    }
+        height:165px;
+    }	
     
-    #country_results_container {
-        margin: 0px
-        overflow:scroll;
-        height:175px;
-    }			
     
     .axis path {
     fill: none;

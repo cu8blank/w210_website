@@ -96,22 +96,16 @@
 					var randcheap = cheaper[Math.floor(randnum * cheaper.length)].country_code
 					var randcheap_name = cheaper[Math.floor(randnum * cheaper.length)].Name
 				};
-				
-				
-															
+									
 					/***END Get one random safer and cheaper country**/
 
-					
 					/***Display Cheaper and Safer Country**/
 					
 					var country_title = d3.select("#rec_title")													
 													.text(" Similar to " + raw_data.Name + "....")												
 													.attr("align","center")
 													.style("font-style","italic");
-													
-								
-					
-					
+
 					//creates array for displaying cheaper and safer country.  if its empty, then nothing is appended.
 					var output = [];
 					
@@ -119,18 +113,13 @@
 						output.push(["...but safer.", "desc"]);
 						output.push([randsafe_name, "cty"])					
 					};
-					
 										
 					if (randcheap_name  != null) {
 						output.push(["...but cheaper.", "desc"]);
 						output.push([randcheap_name, "cty"])					
 					};
 										
-					
-					
 					d3.selectAll("#recs > *").remove()					
-					
-					
 					
 					var table = d3.select("#recs")
 											.append("table")
@@ -146,13 +135,10 @@
 								
 					/***END Display Cheaper and Safer Country**/							
 													
-					
-					
-				
+
 				//load gdelt hist file
 				var gdelt_hist_data = $.getJSON('data/gdelt_hist.json', function(data) {
-						console.log( "gdelt_hist_success" );
-							
+						console.log( "gdelt_hist_success" );							
 					
 				//reorders the data for loading later
 				var dataGroup = d3.nest()
@@ -169,7 +155,6 @@
 							}
 						return null;
 							};									
-					
 					
 				//function to return dates and scores and name of country
 				function scores(data, period)  {
@@ -190,7 +175,6 @@
 				//dataset for the randomly selected safer country
 				var rand_safe_gdelt = get_data_gdelt_hist(randsafe, dataGroup);
 				
-				
 				//dataset for median - in flat file		
 				var med_gdelt = get_data_gdelt_hist("Med", dataGroup);
 				
@@ -210,8 +194,7 @@
 													.text("Historical Graphs for " + raw_data.Name )												
 													.attr("align","center")	;
 					
-					
-					
+
 					//removes the current vis and puts in a blank canvas.  necessary when a new country is clicked on	
 					
 					d3.selectAll("#graphs > *").remove()					
@@ -219,19 +202,17 @@
 					svg.attr('width',parseInt(d3.select('#graphs').style('width')));
 					svg.attr('height',parseInt(d3.select('#graphs').style('height')));
 							
-							
-					
-							
+	
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
 							top: 0,
 							right: 0,
-							bottom: 40,
+							bottom: 10,
 							left: 30
 							},	
 						 width = parseInt(d3.select('#graphs').style('width'), 10),
 						 width = width - MARGINS.left - MARGINS.right,
-						 height = parseInt(d3.select('#graphs').style('height'), 10),
+						 height = parseInt(d3.select('#graphs').style('height'), 10) * .6,
 						 height = height - MARGINS.top - MARGINS.bottom,
 						 xScale = d3.time.scale()
 								.range([MARGINS.left, width - MARGINS.right])
@@ -252,8 +233,6 @@
 							.scale(yScale)
 							.orient("left");			
 						
-					
-					
 					var x_axis = vis.append("svg:g")
                         .attr("class", "x axis")
                         .attr("transform", "translate(0," + (height) + ")")
@@ -298,7 +277,6 @@
 						});
 						/************************** End of Display Recommendations******************************/
 			
-		
 						/************************** Display Country Table ******************************/
 
 						//Function checks if there is a value for curr, returns no data if null
@@ -378,8 +356,6 @@
 						var country_title = d3.select("#forecast_table_title")													
 													.text("Forecasted Changes for " + raw_data.Name)													
 													.attr("align","center");
-						
-
 					})
 						.done(function() {
 							console.log( "second success" );							
@@ -393,8 +369,7 @@
 
 			}
 			
-			
-			
+
 			//**** MAP LISTERNER BELOW ***////	
 			
 			//******* change this color for the zoomed in country *******//
@@ -597,14 +572,10 @@
  'Zimbabwe': 'ZW'};
 			
 			
-			
-			
-			
             // SARUS CODE
             function toggleCheckbox(element)
             {
-                
-                
+
                 //get season
                 var checkboxes = document.getElementsByName('season');
                 var checkboxesChecked = [];
@@ -689,8 +660,7 @@
                               //alert(JSON.stringify(filtered_tt))
                           
                               //Lastly filter dt on multiple activity types
-                           
-                            
+
                              filtered_dt = filtered_tt.filter(function(r){ //OR logic for the filterss
                                                 result = 0; //start with false
                                                 //if no filters, return the row -- no restrictions
@@ -732,7 +702,6 @@
                     
                    }
                     
-                   
                     var columns = [
                     { head: 'Country', cl: 'title', html: ƒ('Name') },
                     { head: 'Fun Rating', cl: 'center', html: ƒ('fun_rating') },
@@ -762,20 +731,20 @@
                         .text(ƒ('head'))
 						.on('click', function (d) {									
 											
-													header.attr('class', 'header');
-		                	   
-													if (sortAscending) { 
-														rows.sort(function(a, b) { 
-														return d3.ascending(a[d], b[d]); });
-														sortAscending = false;
-														this.className = 'aes';
-		                	 
-													} else {
-														rows.sort(function(a, b) { return d3.descending(a[d], b[d]); });
-														sortAscending = true;
-														this.className = 'des';
-													}
-													});
+							header.attr('class', 'header');
+	   
+							if (sortAscending) { 
+								rows.sort(function(a, b) { 
+								return d3.ascending(a[d], b[d]); });
+								sortAscending = false;
+								this.className = 'aes';
+	 
+							} else {
+								rows.sort(function(a, b) { return d3.descending(a[d], b[d]); });
+								sortAscending = true;
+								this.className = 'des';
+							}
+						});
 
                     // create table body
                     table.append('tbody')
@@ -802,8 +771,8 @@
                         .append('td')
 						.on("click", function(d) {CountrySelect(countries[d.html]); console.log(countries[d.html]); map.clickMapObject(countries[d.html]);})   //when they click on the country, d.html is the country name  
                         .html(ƒ('html'))
-                        .attr('class', ƒ('cl'));
-                    
+                        .attr('class', ƒ('cl'));		
+			        
                     var map_new= [];
                     
                     //highlight the filtered results in the map - pink color
@@ -845,8 +814,6 @@
      
               }); //end csv2
         } //end function
-
-
         </script>
 				
 	</head>
@@ -873,8 +840,7 @@
 						<p>Guiding you to your dream destination.</p>
 					</header>
 
-
-<! ************************* Start code here for dashboard ***************************>
+<!-- ************************* Start code here for dashboard ***************************-->
 				<section class="application">
 					<script type="text/javascript" src="js/jquery.min.js"></script>
 					<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -887,159 +853,128 @@
 				<div class="container-fluid">
 				  <!--first row -->
 				  <div class="row">
-					<div class="5u 12u$(medium)">
+					<div class="6u 12u$(medium)">
 						<div class="chart-wrapper" id="filter_container">
-						  <div class="chart-title">
+						  <!--div class="chart-title">
 							User Search Filter  
-						  </div>
+						  </div-->
 						  <div class="chart-stage">
 							  <!--img data-src="holder.js/100%x120/white"-->
 
 							  <form method="post" action="#" id="filter_buttons">
-								  <div class="row uniform 50%">
+								  <h5 align="left">User Filter By: Activity</h5>
+								  <!--div class="row">
 									  <div class="2u 12u$(3)">
 										  <input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
 										  <label for="activity">Activity</label>
 									  </div>
-								  </div>
+								  </div-->
 								  <div id="activity_buttons">
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+									  <div class="row">
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox"  onchange="toggleCheckbox(this)" id="0" name="at" value="0" >
-												  <label for="0">Parks-Gardens</label>
-												  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+												  <label for="0">Parks</label>
+										  </div>
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="1" name="at" value="1">
-												  <label for="1">Relax@Beach</label>
-												  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+												  <label for="1">Beach</label>
+										  </div>
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="2" name="at" value="2">
-												  <label for="2">H20 Adventures</label>
-												  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+												  <label for="2">H20_Fun</label>
+										  </div>
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="3" name="at" value="3">
-												  <label for="3">Admiring Architecture</label>
-                                          </div>
+												  <label for="3">Architecture</label>
+										  </div>
+										  <div class="2u 12u$(medium)" align="left">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="4" name="at" value="4">
+                                                  <label for="4">Wildlife</label>
+										  </div>
 									  </div>
-                                      <div class="row uniform 50%">
-                                          <div class="2u 12u$(3)">
-                                              <input type="checkbox" onchange="toggleCheckbox(this)" id="4" name="at" value="4">
-                                                  <label for="4">Wildlife, Zoos</label>
-                                                  </div>
-                                      </div>
-                                      <div class="row uniform 50%">
-                                          <div class="2u 12u$(3)">
-                                              <input type="checkbox" onchange="toggleCheckbox(this)" id="5" name="at" value="5">
-                                                  <label for="5">Exploring the City</label>
-                                                  </div>
-                                      </div>
-                                      <div class="row uniform 50%">
-                                          <div class="2u 12u$(3)">
+									  <div class="row">
+										  <div class="2u 12u$(medium)" align="left">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="5" name="at" value="5">
+                                                  <label for="5">Explore_City</label>
+                                          </div>
+										  <div class="2u 12u$(medium)" align="left">
                                               <input type="checkbox" onchange="toggleCheckbox(this)" id="6" name="at" value="6">
-                                                  <label for="6">War History and Memorials</label>
-                                                  </div>
-                                      </div>
-                                      <div class="row uniform 50%">
-                                          <div class="2u 12u$(3)">
-                                              <input type="checkbox" onchange="toggleCheckbox(this)" id="7" name="at" value="7">
-                                                  <label for="7">Art History</label>
-                                                  </div>
-                                      </div>
-                                      <div class="row uniform 50%">
-                                          <div class="2u 12u$(3)">
-                                              <input type="checkbox" onchange="toggleCheckbox(this)" id="8" name="at" value="8">
-                                                  <label for="8">Nature and Hikes</label>
-                                                  </div>
-                                      </div>
-                                      <div class="row uniform 50%">
-                                          <div class="2u 12u$(3)">
+                                                  <label for="6">Memorials</label>
+										  </div>
+										  <div class="2u 12u$(medium)" align="left">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="7" name="at" value="7">
+                                                  <label for="7">Art/History</label>
+										  </div>
+										  <div class="2u 12u$(medium)" align="left">
+											  <input type="checkbox" onchange="toggleCheckbox(this)" id="8" name="at" value="8">
+                                                  <label for="8">Hiking</label>
+                                          </div>
+                                          <div class="2u 12u$(medium)" align="left">
                                               <input type="checkbox" onchange="toggleCheckbox(this)" id="9" name="at" value="9">
-                                                  <label for="9">Local Strolling, WindowShopping</label>
-                                                  </div>
+                                                  <label for="9">Local_Stroll</label>
+                                           </div>
                                       </div>
 								  </div>
-
-								  <div class="row uniform 50%">
+								  <h5 align="left">User Filter By: Season</h5>
+								  <!--div class="row uniform 50%">
 									  <div class="2u 12u$(3)">									
 										  <input type="checkbox" id="season" name="seasons" onchange="button_click()">
 										  <label for="season">Season</label>
 									  </div>
-								  </div>
+								  </div-->
 								  <div id="season_buttons">
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">		
+									  <div class="row">
+										  <div class="2u 12u$(medium)" align="left">		
 											  <input type="checkbox"  onchange="toggleCheckbox(this)" id="season_1" name="season" value="dec_feb" >
-											  <label for="season_1">December-February</label>
+											  <label for="season_1">Winter</label>
 										  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">		
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="season_2" name="season" value="mar_may">
-											  <label for="season_2">March-May</label>
+											  <label for="season_2">Spring</label>
 										  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">		
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="season_3" name="season" value="jun_aug">
-											  <label for="season_3">June-August</label>
+											  <label for="season_3">Summer</label>
 										  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="season_4" name="season" value="sep_nov">
-												  <label for="season_4">September-November</label>
+												  <label for="season_4">Fall</label>
 										  </div>
 									  </div>
 								  </div>
-								  
-								  
-								  <div class="row uniform 50%">
+								  <h5 align="left">User Filter By: Traveler Type</h5>
+								  <!--div class="row uniform 50%">
 									  <div class="2u 12u$(3)">
 										  <input type="checkbox" id="traveler" onchange="button_click_tt()">
 										  <label for="traveler">Traveler Type</label>
 									  </div>
-								  </div>
+								  </div-->
 								  <div id="traveler_buttons">
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+									  <div class="row">
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="fam" name="tt" value="family" >
 												  <label for="fam">Family</label>
 										  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
-											  <input type="checkbox" onchange="toggleCheckbox(this)" id="cou" name="tt" value="couple">
+										  <div class="2u 12u$(medium)" align="left">
+										      <input type="checkbox" onchange="toggleCheckbox(this)" id="cou" name="tt" value="couple">
 												  <label for="cou">Couple</label>
 										  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="fri" name="tt" value="friend">
 												  <label for="fri">Friend</label>
 										  </div>
-									  </div>
-
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="bus" name="tt" value="business">
 												  <label for="bus">Business</label>
 										  </div>
-									  </div>
-									  <div class="row uniform 50%">
-										  <div class="2u 12u$(3)">
+										  <div class="2u 12u$(medium)" align="left">
 											  <input type="checkbox" onchange="toggleCheckbox(this)" id="sol" name="tt" value="solo">
 												  <label for="sol">Solo</label>
 										  </div>
 									  </div>
 								  </div>
 							  </form>
-							  <script>
+							  <!--script>
 								  
 								  /************ For the buttons on the dashboard *******/
 								  var button_dash = document.getElementById("season");
@@ -1097,30 +1032,26 @@
 								  }
 							  }
 
-								  
 								  /************ For the buttons on the dashboard *******/
 
-							  </script> 
+							  </script--> 
   
 						  </div>
 						</div>
 					  </div>
-					
-					
-					<div class="7u 12u$(medium)">
+										
+					<div class="6u 12u$(medium)">
 					  <div class="chart-wrapper">
-						<div class="chart-title">
+						<!--div class="chart-title">
 						  World Map
-						</div>
-						<div class="chart-stage">
-						  <!--img data-src="holder.js/100%x325/white"-->						  
-						  <div id="mapdiv" style="width: 100%; background-color:#3EEEEE; height: 255px;"></div>
+						</div-->
+						<div class="chart-stage">						  
+						  <div id="mapdiv" style="width: 100%; background-color:#ccffff; height: 220px;"></div>
 						  
 						</div>
 					  </div>
 					</div>
 				  </div>
-				  
 				  
 				  <!--2nd row-->
 				  <div class="row">
@@ -1132,25 +1063,21 @@
 						<div class="chart-stage">
 						  <!--img data-src="holder.js/100%x120/white"-->
 						  
-						  <div class="user_filter_list"></div>
+						  <div class="user_filter_list" id="user_filter_list"></div>
 						  
 						</div>
 					  </div>
 					</div>
 					<div class="2u 12u$(medium)">
-					  <div class="chart-wrapper">
+					  <div class="chart-wrapper" id="recs_comp_container">
 						<div class="chart-title" id ="rec_title">
 						  <script type="text/javascript">
 						  var graph_country_title = d3.select("#rec_title")													
 													.text("Recommendations for Selected Country")													
-													.attr("align","center");
-													
-													
+													.attr("align","center");				
 						  </script>
 						</div>
 						<div class="chart-stage" id="recs">
-						  <img data-src="holder.js/100%x120/white">
-
 						</div>
 					  </div>
 					</div>
@@ -1162,25 +1089,20 @@
 					  <div class="chart-wrapper" id="graph_container">
 						<div class="chart-title" id="graph_title">				
 						
-						
 						  <script type="text/javascript">
 						  var graph_country_title = d3.select("#graph_title")													
 													.text("Historical Graphs for Selected Country")													
 													.attr("align","center");
-													
-													
+			
 						  </script>
 						</div>
 						<div class="chart-stage" id="graphs">
 							
-						<ul id="tabs">
+						<!--ul id="tabs">
 							<li><a href="#Safety">Safety Score Information</a></li>
 							<li><a href="#Currency">Currency Score Information</a></li>
   
-							</ul>	
-							
-							
-						  
+							</ul-->	
 						</div>
 					  </div>
 					</div>
@@ -1195,9 +1117,7 @@
 						  
 						</div>
 						<div class="chart-stage" id="forecast_table">
-						  
-						  
-						  
+
 						  <script type="text/javascript" src="js/d3.min.js"></script>
 						  <script type="text/javascript">
 							
@@ -1213,7 +1133,7 @@
 										thead = table.append("thead"),
 										tbody = table.append("tbody");
 											
-							var columns = ['Category','Current Value','One Week Change','One Month Change','3 Month Change'];
+							var columns = ['Category','Current Value','1 Wk Change','1 Mnth Change','3 Mnth Change'];
 								
 							var header = thead.append("tr")
 											.selectAll("th")
@@ -1236,32 +1156,19 @@
 								.enter()
 								.append("td")
 								.html(function(d) { return d.value; });
-								
-									
+
 						  </script>
-						  
-						  
-						  
+
 						</div>
-						
-						<!--div class="chart-notes">Notes about this chart</div-->
-						  
-						
-						</div>
-						
+						</div>						
 					  </div>
 					</div>
-					
-				  </div>
-				  
-				</div>
-				
+				  </div>  
+				</div>	
 				</section>
-
-<!-- ************************* End code here for dashboard ***************************-->
 			</section>
-			
-					
+<!-- ************************* End code here for dashboard ***************************-->
+
 <!-- ************************* Supporting visuals ***************************-->			
 			<section id="two" class="wrapper style1 special">
 				<div class="container">
@@ -1295,7 +1202,6 @@
 				</div>
 			</section>
 			
-
 		<!-- Footer -->
 			<footer id="footer">
 					<div class="row">
@@ -1308,6 +1214,5 @@
 					</div>
 				</div>
 			</footer>
-
 	</body>
 </html>
