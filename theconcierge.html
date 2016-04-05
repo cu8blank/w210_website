@@ -746,6 +746,23 @@
 							}
 						});
 
+						
+					d3.select(".user_filter_list").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
+							.attr('data-title', "Country meeting user criteria");
+					d3.select(".user_filter_list").selectAll("th:nth-child(2)")  
+							.attr('data-title', "Average user rating of attractions in country");
+					d3.select(".user_filter_list").selectAll("th:nth-child(3)")  
+							.attr('data-title', "Current calculated safety score");
+					d3.select(".user_filter_list").selectAll("th:nth-child(4)")  
+							.attr('data-title', "Current cost of living score");
+					d3.select(".user_filter_list").selectAll("th:nth-child(5)")  
+							.attr('data-title', "Popular things to do in country");
+					d3.select(".user_filter_list").selectAll("th:nth-child(6)")  
+							.attr('data-title', "Visa requirements for country");
+					d3.select(".user_filter_list").selectAll("th:nth-child(7)")  
+							.attr('data-title', "Allowed duration of stay for visa");
+							
+
                     // create table body
                     table.append('tbody')
                         .selectAll('tr')
@@ -1140,7 +1157,18 @@
 											.data(columns)
 											.enter()
 											.append("th")
-												.text(function(d){ return d;})
+											.text(function(d){ return d;});
+						
+							d3.select("#forecast_table").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
+									.attr('data-title', "Safety and currency forecast data for selected country");
+							d3.select("#forecast_table").selectAll("th:nth-child(2)")
+									.attr('data-title', "Current value for each category");
+							d3.select("#forecast_table").selectAll("th:nth-child(3)")
+									.attr('data-title', "Projected one week change for each category");
+							d3.select("#forecast_table").selectAll("th:nth-child(4)")
+									.attr('data-title', "Projected one month change for each category");
+							d3.select("#forecast_table").selectAll("th:nth-child(5)")
+									.attr('data-title', "Projected three month change for each category");
 						
 							var rows = tbody.selectAll("tr")
 								.data(country_data)
