@@ -48,7 +48,7 @@
 			/************************** Display Recommendations******************************/
 				
 				/***Main data file loaded, used for everything **/
-				var data = $.getJSON('data/finalc.json', function(data) {
+				var data = $.getJSON('data/finale.json', function(data) {
 						console.log( "data_success" );				
 				
 				
@@ -98,6 +98,27 @@
 				};
 									
 					/***END Get one random safer and cheaper country**/
+                                     
+                                     
+                    // Display the Selected Country in the summary table- prepend to the top
+                   // Once filternow() is clicked, the selected country is gone
+                   if (raw_data.allowed_stay == null) {
+                            raw_data.allowed_stay = "";
+                    }
+                                     
+                    if (raw_data.price_r == null) {
+                            raw_data.price_r = "NA";
+                    }
+                                     
+                    if (raw_data.curr_week_pct_4_r == null) {
+                                     curr_week_pct_4_r = "NA";
+                    }
+                                     
+                   html_string = "";
+                   html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class = 'title' data-toggle='tooltip' title='Click on country name to deselect'>" + raw_data.Name + "<td class = 'center'>" + raw_data.attraction_rating + "</td><td class = 'center'>" + raw_data.curr_week_pct_4_r + "</td><td class = 'center'>" + raw_data.price_r + "</td><td class = 'right'>" + raw_data.att_str + "</td><td class = 'left'>" + raw_data.visa_req + "</td><td class = 'right'>" + raw_data.allowed_stay + "</td></tr>";
+                   
+                                     
+                    $(html_string).prependTo("table#sumtable > tbody");
 
 					/***Display Cheaper and Safer Country**/
 					
@@ -618,7 +639,7 @@
             } //end function
         
         function filternow(filters,filtert,filterdt){
-            d3.json("data/finalc.json", function(data2) {
+            d3.json("data/finale.json", function(data2) {
                     
                     //******* USER SEARCH FILTER*******//
                     //if all 3 filters are empty then return nothing
@@ -704,13 +725,37 @@
                     
                     var columns = [
                     { head: 'Country', cl: 'title', html: ƒ('Name') },
-                    { head: 'Fun Rating', cl: 'center', html: ƒ('fun_rating') },
-					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4') },
-					{ head: 'Value Score', cl: 'center', html: ƒ('price') },
+                    { head: 'Attraction Rating', cl: 'center', html: ƒ('attraction_rating_r') },
+					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4_r') },
+					{ head: 'Value Score', cl: 'center', html: ƒ('price_r') },
                     { head: 'Popular Activities', cl: 'right', html: ƒ('a_string') },
                     { head: 'Visa Requirements', cl: 'left', html: ƒ('visa_req') },
                     { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') }
                     ];
+                    
+                    // get the selected top rows before clearing the table
+                    top_rows = [];
+                    var sel_country = d3.select(".user_filter_list").select("table").selectAll(".saru td").each(function(){ // for each col of the sel row
+                                                 this.__data__ = d3.select(this).text(); //remove text to get the whole td
+                                                 top_rows.push(this.__data__);
+                                                                                                                
+                                                });
+                    
+                    //alert(top_rows.length);
+                    
+                    var organized_top_rows= [];
+                    for (i = 0; i <= top_rows.length; i++) {
+                            if(i % 7 === 0){
+                                    if(i != 0){
+                                        organized_top_rows.push(one_row);
+                                    }
+                    
+                                var one_row =[];
+                            }
+                        one_row.push(top_rows[i]);
+                    }
+                    
+                    
                     
                    //Clear a table if exists
                    d3.select(".user_filter_list").html("");
@@ -720,7 +765,9 @@
 				   
                     var table = d3.select(".user_filter_list")
                         .append('table')
-						.attr("class", "table table-hover table-condensed");
+                        .attr("class", "table table-hover table-condensed")
+                        .attr("id", "sumtable");
+
 
                     // create table header
                     table.append('thead').append('tr')
@@ -745,7 +792,6 @@
 								this.className = 'des';
 							}
 						});
-
 						
 					d3.select(".user_filter_list").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
 							.attr('data-title', "Country meeting user criteria");
@@ -763,11 +809,12 @@
 							.attr('data-title', "Allowed duration of stay for visa");
 							
 
-                    // create table body
+                   // create table body
                     table.append('tbody')
                         .selectAll('tr')
                         .data(filtered_dt).enter()
-                        .append('tr')
+                        .append('tr') //when tr is clicked give it a attribute
+                        .attr("id","allrows")
                         .selectAll('td')
                         .data(function(row, i) {
                               if (row['at'].length>2){
@@ -786,10 +833,32 @@
                              });
                         }).enter()
                         .append('td')
-						.on("click", function(d) {CountrySelect(countries[d.html]); console.log(countries[d.html]); map.clickMapObject(countries[d.html]);})   //when they click on the country, d.html is the country name  
+                        .attr("data-toggle","tooltip")
+                        .attr("title","Click the country name to select or anywhere else to remove from table")
+                        .on("click", function(d) {
+                           
+                                    CountrySelect(countries[d.html]); //this prepends the data to the top
+                                    console.log(countries[d.html]);
+                                    //map.clickMapObject(countries[d.html]);
+                            
+
+                        
+                        })   //when they click on the country, d.html is the country name. Also when clicked, the rows gets selected(highlighted in yellow) and is duplicated and moved to top row.
                         .html(ƒ('html'))
-                        .attr('class', ƒ('cl'));		
+                        .attr('class', ƒ('cl'));
 			        
+                    var s = (organized_top_rows.length -1);
+                    // prepend this selected country info to the newly drawn table
+                     for (var i = s; i > -1 ; i--) {
+                         html_string = "";
+                     html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class='title' data-toggle='tooltip' title='Click on country name to deselect'>" +organized_top_rows[i][0] + "<td class = 'center'>" + organized_top_rows[i][1]+ "</td><td class = 'center'>" + organized_top_rows[i][2] + "</td><td class = 'center'>" + organized_top_rows[i][3] + "</td><td class = 'right'>" + organized_top_rows[i][4] + "</td><td class = 'left'>" +organized_top_rows[i][5] + "</td><td class = 'right'>" + organized_top_rows[i][6] + "</td></tr>";
+                         
+                         
+                        $(html_string).prependTo("table#sumtable > tbody");
+
+                    }
+
+                    
                     var map_new= [];
                     
                     //highlight the filtered results in the map - pink color
@@ -828,8 +897,25 @@
                                 }
                             }
                     }
-     
+                    addRowHandlers();
               }); //end csv2
+        } //end function
+        
+        function addRowHandlers() {
+            
+            // deselect when clicked
+            var trows = $(".user_filter_list").on('click', "[class=saru]", function(e){
+                                                  //get the row and remove
+                                                  var de = $(this).remove();
+            });
+ 
+            //remove the table row that is clicked to avoid duplication
+            $(".user_filter_list").on('click', "[id=allrows]", function(e){
+                                                  //get the row and remove
+                                                  var de = $(this).remove();
+                                                  
+                                                  });
+            
         } //end function
         </script>
 				
