@@ -66,15 +66,7 @@ div.tabContent.hide { display: none; }
     }
 	
 	
-.desc {
-	font-weight: bold;
-	
-}
 
-.cty {
-	
-	
-}
 
 th:hover {
   background-color: yellow;
@@ -102,5 +94,33 @@ th[data-title]:hover:after {
   background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
   background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
   background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc); 
+  
+  
+}
+
+tr.cty {
+    color: blue;
+    text-decoration: underline;
+}
+
+td.title {
+    color: blue;
+    text-decoration: underline;
+}
+
+
+
+
+table.table.table-striped tr.graph_select td {
+    background-color: LightSteelBlue;
+	font-weight: bold;
+}
+
+table.table.table-striped tr.graph_unselect td {
+    background-color: White;	
+}
+
+table.table.table-condensed.table-striped tr.desc   {
+    background-color: White;	
 }
