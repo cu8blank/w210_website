@@ -117,7 +117,7 @@
                                      
                                      
                     // Display the Selected Country in the summary table- prepend to the top
-                   // Once filternow() is clicked, the selected country is gone
+                   
                    if (raw_data.allowed_stay == null) {
                             raw_data.allowed_stay = "";
                     }
@@ -131,10 +131,14 @@
                     }
                                      
                    html_string = "";
-                   html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class = 'title' data-toggle='tooltip' title='Click on country name to deselect'>" + raw_data.Name + "<td class = 'center'>" + raw_data.attraction_rating + "</td><td class = 'center'>" + raw_data.curr_week_pct_4_r + "</td><td class = 'center'>" + raw_data.price_r + "</td><td class = 'right'>" + raw_data.att_str + "</td><td class = 'left'>" + raw_data.visa_req + "</td><td class = 'right'>" + raw_data.allowed_stay + "</td></tr>";
+                   html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class = 'title' data-toggle='tooltip' title='Click on country name to deselect'>" + raw_data.Name + "<td class = 'center'>" + raw_data.attraction_rating + "</td><td class = 'center'>" + raw_data.curr_week_pct_4_r + "</td><td class = 'center'>" + raw_data.price_r + "</td><td class = 'right'>" + raw_data.att_str + "</td><td class = 'left'>" + raw_data.visa_req + "</td><td class = 'right'>" + raw_data.allowed_stay + "</td><td><input type='button' class='remove' value='x'></td></tr>";
                    
                                      
                     $(html_string).prependTo("table#sumtable > tbody");
+                                     
+                                     
+                    // Add rowhandler
+                    addRowHandlers();
 
 					/***Display Cheaper and Safer Country**/
 					
@@ -177,7 +181,11 @@
 								.append("tr")
 								.text(function(d){return d[0]})
 								.attr("class", function(d){return d[1]})
-								.on("click", function(d) {CountrySelect(countries[d[0]]);map.clickMapObject(map.getObjectById(countries[d[0]]));});
+								.on("click", function(d) {
+                                    CountrySelect(countries[d[0]]);
+                                    map.clickMapObject(map.getObjectById(countries[d[0]]));
+                                    
+                                });
 								
 					/***END Display Cheaper and Safer Country**/							
 						
@@ -244,7 +252,7 @@
 							rows.enter().append("tr")										
 									.selectAll("td")
 									.data(function(d) { return d; })
-								.enter()
+								    .enter()
 									.append("td");
 						 
 							// insert/update existing rows
@@ -288,13 +296,8 @@
 					var footer = d3.select("#forecast_footer")
 							.text('')							
 							.attr("text-anchor", "middle");	
-					}
-					
-					
-					;
-							
-
-				
+                    };
+	
 					
 				//***Helper function to get the data for the selected country**//	
 				function get_data_gdelt_hist(name, data) {
@@ -508,9 +511,7 @@
 						.attr('stroke', 'red')
 						.style("stroke-dasharray", ("3, 3"))
 						.attr('stroke-width', '1.5px');
-						
-					
-					
+
 				});
 				}
 				
@@ -562,10 +563,8 @@
 					
 					
 						for (var i = raw_data_curr.values.length - back, len = raw_data_curr.values.length; i < len; i++) {
-												
 							week = new Date(raw_data_curr.values[i].date);							
 							rate = raw_data_curr.values[i].USD_rate;
-									
 							curr_curr_scores.push({'Currency':raw_data_curr.values[i].currency_type, 'Week':week,'Rate':rate})									
 										
 							}
@@ -573,11 +572,7 @@
 				} else {
 				curr_curr_scores = ['No Historical Currency Data']
 				};
-				
-				
-				
-				
-				
+
 				var dataset=['Switch to Safety History'];
 
 				//begin chart vis
@@ -631,12 +626,7 @@
 									})
 							.on('click', function(d,i){ safety_graph(); graph_select = 'Safety';  });
 					
-						
-					
-					
-					
-					
-					
+
 					
 					if (curr_curr_scores !='No Historical Currency Data') {
 					
@@ -724,10 +714,7 @@
 							.attr("text-anchor", "middle")							
 							.style("font-weight","bold")
 							.style("font-size","20px");
-				
-				
-				
-				}	;
+				};
 
 				
 				
@@ -956,6 +943,7 @@
  'Zambia': 'ZM',
  'Zimbabwe': 'ZW'};
 			
+            
 			
             // SARUS CODE
             function toggleCheckbox(element)
@@ -1089,12 +1077,13 @@
                     
                     var columns = [
                     { head: 'Country', cl: 'title', html: ƒ('Name') },
-                    { head: 'Attraction Rating', cl: 'center', html: ƒ('attraction_rating_r') },
+                    { head: 'Attraction Rating', cl: 'center', html: ƒ('attraction_rating') },
 					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4_r') },
 					{ head: 'Value Score', cl: 'center', html: ƒ('price_r') },
                     { head: 'Popular Activities', cl: 'right', html: ƒ('a_string') },
                     { head: 'Visa Requirements', cl: 'left', html: ƒ('visa_req') },
-                    { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') }
+                    { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') },
+                    {head: 'Remove', cl: 'left', html: null }
                     ];
                     
                     // get the selected top rows before clearing the table
@@ -1103,13 +1092,13 @@
                                                  this.__data__ = d3.select(this).text(); //remove text to get the whole td
                                                  top_rows.push(this.__data__);
                                                                                                                 
-                                                });
+                    });
                     
                     //alert(top_rows.length);
                     
                     var organized_top_rows= [];
                     for (i = 0; i <= top_rows.length; i++) {
-                            if(i % 7 === 0){
+                            if(i % 8 === 0){ // change to number of columns
                                     if(i != 0){
                                         organized_top_rows.push(one_row);
                                     }
@@ -1174,7 +1163,7 @@
 							
 
                    // create table body
-                    table.append('tbody')
+                   table.append('tbody')
                         .selectAll('tr')
                         .data(filtered_dt).enter()
                         .append('tr') //when tr is clicked give it a attribute
@@ -1198,24 +1187,47 @@
                         }).enter()
                         .append('td')
                         .attr("data-toggle","tooltip")
-                        .attr("title","Click the country name to select or anywhere else to remove from table")
-                        .on("click", function(d) {
-                           
-                                    CountrySelect(countries[d.html]); //this prepends the data to the top
-                                    console.log(countries[d.html]);
-                                    map.clickMapObject(map.getObjectById(countries[d.html]));
+                        .attr("title","Click the country name to select")
+                        .on("click", function(d) { // when clicking any td, copy/past row info to top of row and delete the orig
                             
+                                    //CountrySelect(countries[d.html]); //this prepends the data to the top
+                                    console.log(countries[d.html]);
+                            
+                                    map.clickMapObject(map.getObjectById(countries[d.html])); // this will also select and highlight the clicked row's data
+                                    // delete the row to avoid duplications
+                                    //remove the table row that is clicked to avoid duplication
+                                    //alert("DEleting FILTER!!!!");
+                                    $(this).parent().remove();
 
+                            
+                                    /*
+                                    $(".user_filter_list").on('click', "[id=allrows]", function(e){
+                                                      //get the row and remove
+                                                      //alert(this.remove);
+                                                      var de = $(this).remove();
+                                                      
+                                                      });
+                                    */
+                            
+                            
                         
                         })   //when they click on the country, d.html is the country name. Also when clicked, the rows gets selected(highlighted in yellow) and is duplicated and moved to top row.
                         .html(ƒ('html'))
                         .attr('class', ƒ('cl'));
+                    
+                    // for all the rows, get the last td and append delete button
+                    d3.selectAll('#allrows').each(function(d,i){
+                                        var firstChild = this.firstChild,
+                                        lastChild = this.lastChild; // this is the last column for delete the row
+                                        d3.select(lastChild).html("<input type='button' class='remove' value='x'>");
+                                        
+                    });
 			        
-                    var s = (organized_top_rows.length -1);
+                     var s = (organized_top_rows.length -1);
                     // prepend this selected country info to the newly drawn table
                      for (var i = s; i > -1 ; i--) {
                          html_string = "";
-                     html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class='title' data-toggle='tooltip' title='Click on country name to deselect'>" +organized_top_rows[i][0] + "<td class = 'center'>" + organized_top_rows[i][1]+ "</td><td class = 'center'>" + organized_top_rows[i][2] + "</td><td class = 'center'>" + organized_top_rows[i][3] + "</td><td class = 'right'>" + organized_top_rows[i][4] + "</td><td class = 'left'>" +organized_top_rows[i][5] + "</td><td class = 'right'>" + organized_top_rows[i][6] + "</td></tr>";
+                     html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class='title' data-toggle='tooltip' title='Click on country name to deselect'>" +organized_top_rows[i][0] + "<td class = 'center'>" + organized_top_rows[i][1]+ "</td><td class = 'center'>" + organized_top_rows[i][2] + "</td><td class = 'center'>" + organized_top_rows[i][3] + "</td><td class = 'right'>" + organized_top_rows[i][4] + "</td><td class = 'left'>" +organized_top_rows[i][5] + "</td><td class = 'right'>" + organized_top_rows[i][6] + "</td><td><input type='button' class='remove' value='x'></td></tr>";
                          
                          
                         $(html_string).prependTo("table#sumtable > tbody");
@@ -1265,22 +1277,37 @@
               }); //end csv2
         } //end function
         
+        
         function addRowHandlers() {
-            
-            // deselect when clicked
-            var trows = $(".user_filter_list").on('click', "[class=saru]", function(e){
-                                                  //get the row and remove
-                                                  var de = $(this).remove();
+            // the input box to remove the row
+            $('.remove').click(function(){
+                           
+                $(this).parent().parent().remove(); //Deleting the Row (tr) Element
             });
- 
-            //remove the table row that is clicked to avoid duplication
-            $(".user_filter_list").on('click', "[id=allrows]", function(e){
-                                                  //get the row and remove
-                                                  var de = $(this).remove();
-                                                  
-                                                  });
             
+            
+            var existing_countries = [];
+            $('#sumtable tr').each(function(){
+            
+                      var first_td = $(this).find("td:first").text();
+                      
+                      if(existing_countries.indexOf(first_td) > -1){ //if the td name is in existing, then delete row
+                                   $(this).remove();
+                                   
+                      }else{
+                          //if not exist in table,push
+                          existing_countries.push(first_td);
+                                   
+                      }
+                       
+            });
+                           
+
         } //end function
+        
+        
+        
+        
         </script>
 				
 	</head>
