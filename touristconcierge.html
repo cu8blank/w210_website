@@ -47,7 +47,11 @@
 		}
 		
 		#midpage {
-			height: 300px;
+			height: 350px;
+		}
+		
+		#bottompage p {
+			text-align: left;
 		}
 		
 		#safety-table {
@@ -115,8 +119,8 @@
 
 		<!-- Banner -->
 			<section id="banner">
-				<h2>Welcome to the Tourist Concierge.</h2>
-				<p>Guiding you to your dream destination.</p>
+				<h2>Welcome to the Tourist Concierge!</h2>
+				<p>An intelligent data analytics platform for selecting your next travel destination."</p>
 				<ul class="actions">
 					<li>
 						<a href="theconcierge.html#start_dashboard" class="button big">Take me to the Tourist Concierge</a>
@@ -162,7 +166,7 @@
 								<!--i class="icon big rounded color9 fa-desktop"></i-->
 								<img src="images/03_currencyexchange.jpg" alt="" width=25%/>
 								<h3>Currency Prediction</h3>
-								<p>Analyzing International Monetary Fund (IMF) currency data to help identify the countries where your money will go the furthest.</p>
+								<p>Analyzing International Monetary Fund (IMF) currency data and Cost of Living indices to identify the countries where your money will go the furthest. We use an ARIMA model to predict future international currency values.</p>
 
 							</section>
 						</div>
@@ -189,7 +193,7 @@
 					<hr class="featurette-divider">
 					
 					<div class="row">
-						<div class="7u 12u$(medium)">
+						<div class="7u 12u$(medium)" id="bottompage">
 								<h2>Safety and Stability Prediction</h2>
 								<p>Using the <a href="http://gdeltproject.org/">GDELT dataset</a> we are able to predict the safety and stability of a country using a machine learning algorithm.  The safety for a
 									country is defined as follows;</p>
@@ -233,7 +237,7 @@
 									
 							</div>
 						</section>
-						<div class="7u 12u$(medium)">
+						<div class="7u 12u$(medium)" id="bottompage">
 							<h2>Currency Prediction</h2>
 							<p>We analyze currency exchange rate data from the International Monetary Fund (IMF). By applying an ARIMA model to each dataset, we forecast Special Drawing Right (SDR) data for all currencies tracked by the IMF. We provide the user with 7-day, 30-day, and 90-day forecasts.</p>
 							<img src="images/pred_7daycurr.png" alt="" width=100%>
@@ -241,7 +245,7 @@
 					</div>
 					<hr class="featurette-divider">
 					<div class="row">
-						<div class="7u 12u$(medium)">
+						<div class="7u 12u$(medium)" id="bottompage">
 							<h2>Country Information Prediction</span></h2>
 							<p>Using data from Tripadvisor and Wikipedia's Visa Requirements for US Tourists to filter destination countries based on user preferences. The data from Tripadvisor helps us
                             to create topics on all the countries user review comments. Additionally, we performed another unsupervised learning algorithm to cluster similar countries together based on descriptive attributes.  
@@ -282,6 +286,7 @@
 								<img src="images/profile_placeholder.gif" alt="" />
 								<h4>Julian</h4>
 								<p>MIDS Student</p>
+								<a class="icon rounded fa-linkedin" href="https://www.linkedin.com/"  target="_blank"><span class="label">LinkedIn</span></a>
 							</section>
 							<section class="4u 6u$(medium) 12u$(xsmall) profile">
 								<img src="images/profile_placeholder.gif" alt="" />
@@ -289,7 +294,7 @@
 								<p>MIDS Student</p>
 							</section>
 							<section class="4u 6u(medium) 12u$(xsmall) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
+								<img src="images/al.jpg" alt="" width=25%/>
 								<h4>Al</h4>
 								<p>MIDS Student</p>
 							</section>
@@ -297,7 +302,7 @@
 					</section>
 					<footer>
 						<h2>Tourist Concierge</h2>
-						<h4>Guiding you to your dream destination</h4>
+						<h4>Guiding you to your next dream destination</h4>
 						<ul class="actions">
 							<li>
 								<a href="theconcierge.html#start_dashboard" class="button big">Take Me to the Tourist Concierge</a>
