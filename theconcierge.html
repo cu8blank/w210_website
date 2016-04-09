@@ -6,7 +6,8 @@
 -->
 <html lang="en">
 	<head>
-
+    
+        
 		<meta charset="UTF-8">
 		<title>Tourist Concierge</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -35,10 +36,13 @@
         <!-- map file should be included after ammap.js -->
 		<link rel="stylesheet" type="text/css" href="css/ammap.css" />
         <script src="js/ammap.js" type="text/javascript"></script>			
-		<script src="js/worldLow.js" type="text/javascript"></script>		
+		<script src="js/worldLow.js" type="text/javascript"></script>
+  
 		
 		<script src="js/map.js"></script>
+    
         <script type="text/javascript">
+        
 
 			//*****Main function that drives the graphs and forecasts....
 			
@@ -1145,6 +1149,8 @@
 								this.className = 'des';
 							}
 						});
+                    
+                
 						
 					d3.select(".user_filter_list").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
 							.attr('data-title', "Country meeting user criteria");
@@ -1222,7 +1228,36 @@
                                         d3.select(lastChild).html("<input type='button' class='remove' value='x'>");
                                         
                     });
-			        
+                    
+                     // make the table have fixed headers
+                    /*
+                    var iStart = new Date().getTime();
+                    var oTable = $('#sumtable').dataTable(
+                                 {
+                                 "sScrollY": "300px",
+                                 "sScrollX": "100%",
+                                 "sScrollXInner": "150%",
+                                 "bScrollCollapse": true,
+                                 "bPaginate": false,
+                                 "bFilter": false
+                    });
+                    
+                    new FixedColumns( oTable);
+                    
+                    */
+     
+                    var ftable = $('#sumtable').DataTable({
+                                paging: false,
+                                //fixedHeader: true
+                                                          
+                                            
+                    });
+			       
+                    
+                                                   
+                    
+                    
+                    
                      var s = (organized_top_rows.length -1);
                     // prepend this selected country info to the newly drawn table
                      for (var i = s; i > -1 ; i--) {
@@ -1301,7 +1336,9 @@
                       }
                        
             });
-                           
+            
+            
+            
 
         } //end function
         
@@ -1725,4 +1762,8 @@
 				</div>
 			</footer>
 	</body>
-</html>
+    </html>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/jqc-1.12.0,dt-1.10.11,af-2.1.1,fc-3.2.1,fh-3.1.1/datatables.min.css"/>
+
+<script type="text/javascript" src="https://cdn.datatables.net/t/dt/jqc-1.12.0,dt-1.10.11,af-2.1.1,fc-3.2.1,fh-3.1.1/datatables.min.js"></script>
