@@ -54,7 +54,7 @@
 			/************************** Display Recommendations******************************/
 				
 				/***Main data file loaded, used for everything **/
-				var data = $.getJSON('data/finale.json', function(data) {
+				var data = $.getJSON('data/finaljson.json', function(data) {
 						console.log( "data_success" );				
 				
 				
@@ -147,7 +147,7 @@
 					/***Display Cheaper and Safer Country**/
 					
 					var country_title = d3.select("#rec_title")													
-													.text(" Similar to " + raw_data.Name + "....")												
+													.text("Want the same experience as " + raw_data.Name + "?")												
 													.attr("align","center")
 													.style("font-style","italic");
 
@@ -155,7 +155,7 @@
 					var output = [];
 					
 					if (randsafe_name  != null) {
-						output.push(["...but safer.", "desc"]);
+						output.push(["...but SAFER!", "desc"]);
 						output.push([randsafe_name[0], "cty"]);
 					if (randsafe_name.length ==2) {
 						output.push([randsafe_name[1], "cty"]);
@@ -164,7 +164,7 @@
 					};
 										
 					if (randcheap_name  != 'No Data') {
-						output.push(["...but cheaper.", "desc"]);
+						output.push(["...but CHEAPER!", "desc"]);
 						output.push([randcheap_name[0], "cty"])	
 					if (randcheap_name.length ==2) {
 						output.push([randcheap_name[1], "cty"]);
@@ -229,7 +229,7 @@
 								};
 							
 		
-								if (currpred[i] == null) {
+								if (currpred[i] == "") {
 									curr.push('No Data')																
 								}else if ( (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) <= 0.025 ) && (((raw_data.rate_curr - currpred[i]) / raw_data.rate_curr  ) >= - 0.025 )) {
 									curr.push('Minimal Change')	
@@ -285,11 +285,9 @@
 					
 					
 					
-					if (raw_data.currency != null) {
-					
-					var curr_type = raw_data.currency;				
-					var curr_parse =  curr_type.substring(curr_type.length-4,curr_type.length-1);
-					var footer =  "FXRate: " + curr_parse + " to USD";
+					if (raw_data.currency != "") {
+										
+					var footer =  "FXRate: " + raw_data.currency_key + " to USD";
 												
 					var footer = d3.select("#forecast_footer")
 							.text(footer)							
@@ -359,7 +357,7 @@
 				
 				//Title
 				var graph_title = d3.select("#graph_title")													
-													.text("Historical Safety Graph for " + raw_data.Name )												
+													.text("How safe has " + raw_data.Name +" been?")												
 													.attr("align","center")	;
 				//dataset for the selected country
 				var raw_data_gdelt = get_data_gdelt_hist(tar_country, dataGroup);
@@ -428,7 +426,8 @@
 								return d;
 							})
 							.attr("y",15)
-							.attr("x",5)		
+							.attr("x",5)	
+							.attr("id", "click_rect")
 							.style("font-weight","bold")						
 							.on("mouseover", function() {
 								d3.select("#click_rect")
@@ -459,8 +458,8 @@
 								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week]),
 						yScale = d3.scale.linear()
 								.range([height - MARGINS.top, MARGINS.bottom])
-								.domain([0, d3.max(curr_stab_scores.concat(med_scores), function(d) {
-							return d.Score;})]),
+								.domain([d3.min(curr_stab_scores.concat(med_scores), function(d) {
+							return d.Score;}),100]),
 						
 						xAxis = d3.svg.axis()
 							.scale(xScale)
@@ -542,7 +541,7 @@
 				
 				//Title
 				var graph_title = d3.select("#graph_title")													
-													.text("Historical Currency Graph for " + raw_data.Name )												
+													.text(raw_data.currency + " against US Dollar in " + raw_data.Name + "in Past Six Months")												
 													.attr("align","center")	;
 				//dataset for the selected country
 				
@@ -615,7 +614,8 @@
 								return d;
 							})
 							.attr("y",15)
-							.attr("x",5)		
+							.attr("x",5)
+							.attr("id", "click_rect")							
 							.style("font-weight","bold")						
 							.on("mouseover", function() {
 								d3.select("#click_rect")
@@ -992,7 +992,7 @@
             } //end function
         
         function filternow(filters,filtert,filterdt){
-            d3.json("data/finale.json", function(data2) {
+            d3.json("data/finaljson.json", function(data2) {
                     
                     //******* USER SEARCH FILTER*******//
                     //if all 3 filters are empty then return nothing
@@ -1345,7 +1345,7 @@
 							  <!--img data-src="holder.js/100%x120/white"-->
 
 							  <form method="post" action="#" id="filter_buttons">
-								  <h5 align="left">User Filter By: Activity</h5>
+								  <h5 align="left">What do you enjoy? Pick an activity!</h5>
 								  <!--div class="row">
 									  <div class="2u 12u$(3)">
 										  <input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
@@ -1398,7 +1398,7 @@
                                            </div>
                                       </div>
 								  </div>
-								  <h5 align="left">User Filter By: Season</h5>
+								  <h5 align="left">What time of year is your favorite?</h5>
 								  <!--div class="row uniform 50%">
 									  <div class="2u 12u$(3)">									
 										  <input type="checkbox" id="season" name="seasons" onchange="button_click()">
@@ -1425,7 +1425,7 @@
 										  </div>
 									  </div>
 								  </div>
-								  <h5 align="left">User Filter By: Traveler Type</h5>
+								  <h5 align="left">Who are you traveling with?</h5>
 								  <!--div class="row uniform 50%">
 									  <div class="2u 12u$(3)">
 										  <input type="checkbox" id="traveler" onchange="button_click_tt()">

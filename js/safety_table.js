@@ -1,7 +1,7 @@
 
 										
 									
-								var jqXHR = $.getJSON('data/finalc.json');
+								var jqXHR = $.getJSON('data/finaljson.json');
 									jqXHR.complete(function(response) {
 												
 								countries = (response.responseJSON);
@@ -18,6 +18,7 @@
 										safetypred=[countries[i].pred_1_week,  countries[i].pred_1_month ,  countries[i].pred_3_months];
 										
 										
+
 										
 										//one week pred		
 										if ((countries[i].curr_week_pct_4/10).toFixed(0)-safetypred[0] == 0){

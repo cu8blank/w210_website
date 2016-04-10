@@ -1,5 +1,5 @@
 
-										var jqXHR = $.getJSON('data/finalc.json');
+										var jqXHR = $.getJSON('data/finaljson.json');
 											jqXHR.complete(function(response) {
 												
 											countries = (response.responseJSON);
@@ -8,7 +8,7 @@
 										var inc_curr = []
 										for (var i = 0, len = countries.length; i < len; i++) {
 										
-										if ((countries[i].currency != null) && !(inc_curr.indexOf(countries[i].currency) >=0)) {
+										if ((countries[i].currency != "") && !(inc_curr.indexOf(countries[i].currency) >=0)) {
 											var curr_rate =  parseFloat(countries[i].rate_curr);
 										
 										
@@ -63,7 +63,8 @@
 							
 							};
 								
-										
+							
+
 										
 																					
 										var svg = d3.select("body").append("svg")

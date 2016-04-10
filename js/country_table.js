@@ -1,10 +1,9 @@
 	
-								var jqXHR = $.getJSON('data/finalc.json');
+								var jqXHR = $.getJSON('data/finaljson.json');
 									jqXHR.complete(function(response) {
 												
-								countries = (response.responseJSON);
+								countries = (response.responseJSON);								
 								
-								console.log(countries);
 									
 								var country_list = [];
 								

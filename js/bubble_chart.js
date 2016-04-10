@@ -5,7 +5,7 @@ function create_bubble_chart() {
         $.ajax({
             'async': false,
             'global': false,
-            'url': 'data/finalc.json',
+            'url': 'data/finaljson.json',
             'dataType': "json",
             'success': function (data) {
                 json = data;
