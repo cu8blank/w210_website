@@ -1134,36 +1134,9 @@
 											
 							header.attr('class', 'header');
 	   
-							if (sortAscending) { 
-								rows.sort(function(a, b) { 
-								return d3.ascending(a[d], b[d]); });
-								sortAscending = false;
-								this.className = 'aes';
-	 
-							} else {
-								rows.sort(function(a, b) { return d3.descending(a[d], b[d]); });
-								sortAscending = true;
-								this.className = 'des';
-							}
-						});
+                        });
                     
                 
-						
-					d3.select(".user_filter_list").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
-							.attr('data-title', "Country meeting user criteria");
-					d3.select(".user_filter_list").selectAll("th:nth-child(2)")  
-							.attr('data-title', "Average user rating of attractions in country");
-					d3.select(".user_filter_list").selectAll("th:nth-child(3)")  
-							.attr('data-title', "Current calculated safety score");
-					d3.select(".user_filter_list").selectAll("th:nth-child(4)")  
-							.attr('data-title', "Current cost of living score");
-					d3.select(".user_filter_list").selectAll("th:nth-child(5)")  
-							.attr('data-title', "Popular things to do in country");
-					d3.select(".user_filter_list").selectAll("th:nth-child(6)")  
-							.attr('data-title', "Visa requirements for country");
-					d3.select(".user_filter_list").selectAll("th:nth-child(7)")  
-							.attr('data-title', "Allowed duration of stay for visa");
-							
 
                    // create table body
                    table.append('tbody')
@@ -1202,17 +1175,6 @@
                                     //alert("DEleting FILTER!!!!");
                                     $(this).parent().remove();
 
-                            
-                                    /*
-                                    $(".user_filter_list").on('click', "[id=allrows]", function(e){
-                                                      //get the row and remove
-                                                      //alert(this.remove);
-                                                      var de = $(this).remove();
-                                                      
-                                                      });
-                                    */
-                            
-                            
                         
                         })   //when they click on the country, d.html is the country name. Also when clicked, the rows gets selected(highlighted in yellow) and is duplicated and moved to top row.
                         .html(ƒ('html'))
@@ -1226,35 +1188,27 @@
                                         
                     });
                     
-                     // make the table have fixed headers
-                    /*
-                    var iStart = new Date().getTime();
-                    var oTable = $('#sumtable').dataTable(
-                                 {
-                                 "sScrollY": "300px",
-                                 "sScrollX": "100%",
-                                 "sScrollXInner": "150%",
-                                 "bScrollCollapse": true,
-                                 "bPaginate": false,
-                                 "bFilter": false
-                    });
-                    
-                    new FixedColumns( oTable);
-                    
-                    */
-     
                     var ftable = $('#sumtable').DataTable({
                                 paging: false,
-                                //fixedHeader: true
-                                                          
-                                            
+                               //fixedHeader: true
                     });
-			       
                     
-                                                   
-                    
-                    
-                    
+                    d3.select(".user_filter_list").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
+							.attr('data-title', "Country meeting user criteria");
+					d3.select(".user_filter_list").selectAll("th:nth-child(2)")  
+							.attr('data-title', "Average user rating of attractions in country");
+					d3.select(".user_filter_list").selectAll("th:nth-child(3)")  
+							.attr('data-title', "Current calculated safety score");
+					d3.select(".user_filter_list").selectAll("th:nth-child(4)")  
+							.attr('data-title', "Current cost of living score");
+					d3.select(".user_filter_list").selectAll("th:nth-child(5)")  
+							.attr('data-title', "Popular things to do in country");
+					d3.select(".user_filter_list").selectAll("th:nth-child(6)")  
+							.attr('data-title', "Visa requirements for country");
+					d3.select(".user_filter_list").selectAll("th:nth-child(7)")  
+							.attr('data-title', "Allowed duration of stay for visa");
+
+
                      var s = (organized_top_rows.length -1);
                     // prepend this selected country info to the newly drawn table
                      for (var i = s; i > -1 ; i--) {
@@ -1522,9 +1476,7 @@
 				  <div class="row">
 					<div class="10u 12u$(medium)">
 					  <div class="chart-wrapper" id="filter_results_container">
-						<div class="chart-title">
-						  Summary of user selection
-						</div>
+						
 						<div class="chart-stage">
 						  
 						  <div class="user_filter_list" id="user_filter_list"></div>
