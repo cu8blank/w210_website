@@ -13,7 +13,7 @@ function create_bubble_chart() {
         });
         return json;
     })();
-    
+    //console.log(countries[0])
     ////////////////////////////////////////////////////////////
     //////////////////////// Set-up ////////////////////////////
     ////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ function create_bubble_chart() {
     
     //Scatterplot
     var margin = {left: 30, top: 20, right: 20, bottom: 20},
-        width = Math.min($("#chart").width(), 800) - margin.left - margin.right,
+        width = Math.min($("#chart").width(), 635) - margin.left - margin.right,
         height = width*2/3;
                 
     var svg = d3.select("#chart").append("svg")
@@ -33,6 +33,10 @@ function create_bubble_chart() {
     var wrapper = svg.append("g").attr("class", "chordWrapper")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
+    // Define the div for the tooltip
+    var div = d3.select("body").append("div")	
+        .attr("class", "tooltip")				
+        .style("opacity", 0); 
     
     //////////////////////////////////////////////////////
     ///////////// Initialize Axes & Scales ///////////////
@@ -47,7 +51,17 @@ function create_bubble_chart() {
     //Set the new x axis range
     var xScale = d3.scale.linear()
         .range([0, width])
-        .domain(d3.extent(countries, function(d) {return d.curr_week_pct_4 == null ? 0 : d.curr_week_pct_4;}))
+        .domain(d3.extent(countries, function(d) {
+            
+            if (d.curr_week_pct_4 > 150) {  //there was an outlier in the data
+                d.curr_week_pct_4 = d.curr_week_pct_4;
+            } else if (d.curr_week_pct_4 == null) {
+                d.curr_week_pct_4 == 0;
+            } else {
+                return d.curr_week_pct_4;
+            }
+        }))
+
         .nice();
     
     //Set new x-axis	
@@ -79,7 +93,7 @@ function create_bubble_chart() {
     //Scale for the bubble size
     var rScale = d3.scale.linear()
                 .range([mobileScreen ? 1 : 2, mobileScreen ? 10 : 16])
-                .domain(d3.extent(countries, function(d) {return d.at.length == null ? 1 : d.at.length;}));
+                .domain(d3.extent(countries, function(d) {return d.attraction_rating == null ? 1 : Math.sqrt(d.attraction_rating * 100);}));
             
     ////////////////////////////////////////////////////////////	
     /////////////////// Scatterplot Circles ////////////////////
@@ -91,14 +105,14 @@ function create_bubble_chart() {
         
     //Place the country circles	
     wrapper.selectAll("countries")
-        .data(countries.sort(function(a,b) { return b.at.length > a.at.length; })) //Sort so the biggest circles are below
+        .data(countries.sort(function(a,b) { return Math.sqrt(b.attraction_rating * 100) > Math.sqrt(a.attraction_rating * 100); })) //Sort so the biggest circles are below
         .enter().append("circle")
             .attr("class", "countries")
             .style("opacity", opacityCircles)
             .style("fill", function(d) {return color(cValue(d));})
             .attr("cx", function(d) {return xScale(d.curr_week_pct_4);})
             .attr("cy", function(d) {return yScale(d.price);})
-            .attr("r", function(d) {return rScale(d.at.length);})
+            .attr("r", function(d) {return rScale(Math.sqrt(d.attraction_rating * 100));})
             .on("mouseover", showTooltip)
             .on("mouseout", removeTooltip);
     
@@ -122,7 +136,8 @@ function create_bubble_chart() {
         .attr("text-anchor", "end")
         .style("font-size", (mobileScreen ? 8 : 12) + "px")
         .attr("transform", "translate(18, 0) rotate(-90)")
-        .text("Cheapness - Big Mac Price [US $]");
+        .text("Cost Score");
+
         
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// Create the Legend////////////////////////////////
@@ -131,8 +146,8 @@ function create_bubble_chart() {
     if (!mobileScreen) {
         //Legend			
         var	legendMargin = {left: 5, top: 10, right: 5, bottom: 10},
-            legendWidth = 160,
-            legendHeight = 360;
+            legendWidth = 180,
+            legendHeight = 380;
             
         var svgLegend = d3.select("#legend").append("svg")
                     .attr("width", (legendWidth + legendMargin.left + legendMargin.right))
@@ -173,38 +188,24 @@ function create_bubble_chart() {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////// Hover functions of the circles ////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    
-    //Hide the tooltip when the mouse moves away
-    function removeTooltip() {
-    
-        //Fade out the circle to normal opacity
-        d3.select(this).style("opacity", opacityCircles);
-        
-        //Hide tooltip
-        $('.popover').each(function() {
-            $(this).remove();
-        }); 
-    
-    }//function removeTooltip
+ 
+    function removeTooltip() {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);
+    };
     
     //Show the tooltip on the hovered over slice
-    function showTooltip(d) {
-        
-        //Define and show the tooltip
-        $(this).popover({
-            placement: 'auto top',
-            container: '#chart',
-            trigger: 'manual',
-            html : true,
-            content: function() { 
-                return "<span style='font-size: 11px; text-align: center;'>" + d.Name + ", " + d.cluster_id  + "</span>"; }
-        });
-        $(this).popover('show');
-    
-        //Make chosen circle more visible
-        d3.select(this).style("opacity", 1);
-                        
-    }//function showTooltip
+    function showTooltip(d) {		
+            div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            div	.html("<strong> Country: </strong>" + d.Name + "<br/>" + "<strong> Safety Score: </strong>" + parseFloat(d.curr_week_pct_4).toFixed(2) + "<br/>" + "<strong> Cost Score: </strong>" + parseFloat(d.price).toFixed(2) + "<br/>"
+                      + "<strong> Attraction Rating: </strong>" + parseFloat(d.attraction_rating).toFixed(2) + "<br/>" + "<strong> Cluster ID: </strong>" + d.cluster_id + "<br/>")	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 130) + "px");
+ 
+    };
     
     //iFrame handler
     var pymChild = new pym.Child();
