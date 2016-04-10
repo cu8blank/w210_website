@@ -408,16 +408,16 @@
 						.attr("y", 0)
 						.attr("width", 175)
 						.attr("height", 20)
-						.attr("fill", "teal")
+						.attr("fill", "darkgray")
 						.attr("id", "click_rect")						
 						.on('click', function(d,i){ currency_graph(); graph_select = 'Currency'; })
 						.on("mouseover", function() {
 							d3.select(this)
-									.attr("fill", "yellow");
+									.attr("fill", "lightgray");
 									})
 						.on("mouseleave", function() {
 							d3.select(this)
-									.attr("fill", "teal");
+									.attr("fill", "darkgray");
 									});
 	
 						svg.selectAll("text")
@@ -428,15 +428,16 @@
 								return d;
 							})
 							.attr("y",15)
-							.attr("x",5)		
+							.attr("x",5)	
+							.attr("id", "click_text")								
 							.style("font-weight","bold")						
 							.on("mouseover", function() {
 								d3.select("#click_rect")
-									.attr("fill", "yellow");
+									.attr("fill", "lightgray");
 									})
 							.on("mouseleave", function() {
 								d3.select("#click_rect")
-									.attr("fill", "teal");
+									.attr("fill", "darkgray");
 									})
 							.on('click', function(d,i){ currency_graph(); graph_select = 'Currency';  });
 	
@@ -446,7 +447,7 @@
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
 							top: 15,
-							right: 0,
+							right: 30,
 							bottom: 30,
 							left: 50
 							},	
@@ -515,7 +516,10 @@
 						.attr('stroke', 'red')
 						.style("stroke-dasharray", ("3, 3"))
 						.attr('stroke-width', '1.5px');
+						
+					
 
+					
 				});
 				}
 				
@@ -567,8 +571,10 @@
 					
 					
 						for (var i = raw_data_curr.values.length - back, len = raw_data_curr.values.length; i < len; i++) {
+												
 							week = new Date(raw_data_curr.values[i].date);							
 							rate = raw_data_curr.values[i].USD_rate;
+									
 							curr_curr_scores.push({'Currency':raw_data_curr.values[i].currency_type, 'Week':week,'Rate':rate})									
 										
 							}
@@ -576,7 +582,11 @@
 				} else {
 				curr_curr_scores = ['No Historical Currency Data']
 				};
-
+				
+				
+				
+				
+				
 				var dataset=['Switch to Safety History'];
 
 				//begin chart vis
@@ -598,16 +608,16 @@
 						.attr("y", 0)
 						.attr("width", 160)
 						.attr("height", 20)
-						.attr("fill", "teal")
+						.attr("fill", "darkgray")
 						.attr("id", "click_rect")						
 						.on('click', function(d,i){ safety_graph(); graph_select = 'Safety';  })
 						.on("mouseover", function() {
 							d3.select(this)
-									.attr("fill", "yellow");
+									.attr("fill", "lightgray");
 									})
 						.on("mouseleave", function() {
 							d3.select(this)
-									.attr("fill", "teal");
+									.attr("fill", "darkgray");
 									});
 	
 						svg.selectAll("text")
@@ -618,19 +628,25 @@
 								return d;
 							})
 							.attr("y",15)
-							.attr("x",5)		
+							.attr("x",5)
+							.attr("id", "click_text")								
 							.style("font-weight","bold")						
 							.on("mouseover", function() {
 								d3.select("#click_rect")
-									.attr("fill", "yellow");
+									.attr("fill", "lightgray");
 									})
 							.on("mouseleave", function() {
 								d3.select("#click_rect")
-									.attr("fill", "teal");
+									.attr("fill", "darkgray");
 									})
 							.on('click', function(d,i){ safety_graph(); graph_select = 'Safety';  });
 					
-
+						
+					
+					
+					
+					
+					
 					
 					if (curr_curr_scores !='No Historical Currency Data') {
 					
@@ -645,7 +661,7 @@
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
 							top: 15,
-							right: 0,
+							right: 30,
 							bottom: 30,
 							left: 50
 							},	
@@ -718,7 +734,10 @@
 							.attr("text-anchor", "middle")							
 							.style("font-weight","bold")
 							.style("font-size","20px");
-				};
+				
+				
+				
+				}	;
 
 				
 				

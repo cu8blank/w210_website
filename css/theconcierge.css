@@ -124,3 +124,11 @@ table.table.table-striped tr.graph_unselect td {
 table.table.table-condensed.table-striped tr.desc   {
     background-color: White;	
 }
+
+rect#click_rect {
+    cursor: pointer;
+}
+
+text#click_text {
+    cursor: pointer;
+}
