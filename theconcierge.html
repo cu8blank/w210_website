@@ -289,7 +289,7 @@
 					
 					var curr_type = raw_data.currency;				
 					var curr_parse =  curr_type.substring(curr_type.length-4,curr_type.length-1);
-					var footer =  "Exchange Rate represents " + curr_parse + " to USD";
+					var footer =  "FXRate: " + curr_parse + " to USD";
 												
 					var footer = d3.select("#forecast_footer")
 							.text(footer)							
@@ -445,7 +445,7 @@
 	
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
-							top: 15,
+							top: 0,
 							right: 0,
 							bottom: 30,
 							left: 50
@@ -453,17 +453,14 @@
 						 width = parseInt(d3.select('#graphs').style('width')),
 						 width = width - MARGINS.left - MARGINS.right,
 						 height = parseInt(d3.select('#graphs').style('height')) ,
-						 height = height - MARGINS.top - MARGINS.bottom,
+						 height = height - MARGINS.top - MARGINS.bottom - 40,
 						 xScale = d3.time.scale()
 								.range([MARGINS.left, width - MARGINS.right])
-								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week])
-								
-								,
+								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week]),
 						yScale = d3.scale.linear()
 								.range([height - MARGINS.top, MARGINS.bottom])
 								.domain([0, d3.max(curr_stab_scores.concat(med_scores), function(d) {
-							return d.Score;
-						})]),
+							return d.Score;})]),
 						
 						xAxis = d3.svg.axis()
 							.scale(xScale)
@@ -488,7 +485,7 @@
 					//y axis label
 					var y_label = vis.append("text")
 					.attr("text-anchor", "middle")  
-					.attr("transform", "translate("+ (MARGINS.left/2) +","+(height/2)+")rotate(-90)") 
+					.attr("transform", "translate("+ (MARGINS.left/2) +","+((height+20)/2)+")rotate(-90)") 
 					
 					.text("Safety Score");
 						
@@ -644,7 +641,7 @@
 	
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
-							top: 15,
+							top: 0,
 							right: 0,
 							bottom: 30,
 							left: 50
@@ -652,7 +649,7 @@
 						 width = parseInt(d3.select('#graphs').style('width'), 10),
 						 width = width - MARGINS.left - MARGINS.right,
 						 height = parseInt(d3.select('#graphs').style('height'), 10) ,
-						 height = height - MARGINS.top - MARGINS.bottom,
+						 height = height - MARGINS.top - MARGINS.bottom - 40,
 						 xScale = d3.time.scale()
 								.range([MARGINS.left, width - MARGINS.right])
 								.domain([curr_curr_scores[0].Week,curr_curr_scores[back-1].Week])
@@ -672,7 +669,7 @@
 						yAxis = d3.svg.axis()
 							.scale(yScale)
 							.orient("left");			
-						
+					
 					var x_axis = vis.append("svg:g")
                         .attr("class", "x axis")
                         .attr("transform", "translate(0," + (height) + ")")
@@ -686,7 +683,7 @@
 					//y axis label
 					var y_label = vis.append("text")
 					.attr("text-anchor", "middle")  
-					.attr("transform", "translate("+ (MARGINS.left/4) +","+(height/2)+")rotate(-90)") 
+					.attr("transform", "translate("+ (MARGINS.left/4) +","+((height+20)/2)+")rotate(-90)") 
 					
 					.text(yaxislabel);
 						
@@ -1505,78 +1502,14 @@
 										  </div>
 									  </div>
 								  </div>
-							  </form>
-							  <!--script>
-								  
-								  /************ For the buttons on the dashboard *******/
-								  var button_dash = document.getElementById("season");
-								  var buttons = document.getElementById("season_buttons");
-								  
-								  var button_dash_at = document.getElementById("activity");
-								  var buttons_at = document.getElementById("activity_buttons");
-								  
-								  var button_dash_tt = document.getElementById("traveler");
-								  var buttons_tt = document.getElementById("traveler_buttons");
-								  
-								  function button_click() {
-									  //code
-									  if (button_dash.checked==true) {
-										  //code
-										  button_dash.style.display="none";
-										  buttons.style.display="block";
-
-									  }
-									  else {
-										  button_dash.style.display="inline-block";
-										  buttons.style.display="none";
-									  }
-								  }
-								  
-								  function button_click_at() {
-									  //code
-									  if (button_dash_at.checked==true) {
-										  
-										  //code
-										  button_dash_at.style.display="none";
-										  buttons_at.style.display="block";
-										  
-									  }
-									  else {
-										  
-										  button_dash_at.style.display="inline-block";
-										  buttons_at.style.display="none";
-									  }
-								  }
-							  
-							  function button_click_tt() {
-								  
-								  //code
-								  if (button_dash_tt.checked==true) {
-									  //code
-									  button_dash_tt.style.display="none";
-									  buttons_tt.style.display="block";
-									  
-								  }
-								  else {
-								  
-									  button_dash_tt.style.display="inline-block";
-									  buttons_tt.style.display="none";
-								  }
-							  }
-
-								  /************ For the buttons on the dashboard *******/
-
-							  </script--> 
-  
+							  </form>  
 						  </div>
 						</div>
 					  </div>
 										
 					<div class="6u 12u$(medium)">
 					  <div class="chart-wrapper">
-						<!--div class="chart-title">
-						  World Map
-						</div-->
+
 						<div class="chart-stage">						  
 						  <div id="mapdiv" style="width: 100%; background-color:#ccffff; height: 220px;"></div>
 						  
@@ -1593,7 +1526,6 @@
 						  Summary of user selection
 						</div>
 						<div class="chart-stage">
-						  <!--img data-src="holder.js/100%x120/white"-->
 						  
 						  <div class="user_filter_list" id="user_filter_list"></div>
 						  
@@ -1618,27 +1550,6 @@
 				  <!--3rd row-->
 				  <div class="row">
 					<div class="6u 12u$(medium)">
-					  <div class="chart-wrapper" id="graph_container">
-						<div class="chart-title" id="graph_title">				
-						
-						  <script type="text/javascript">
-						  var graph_country_title = d3.select("#graph_title")													
-													.text("Historical Graphs for Selected Country")													
-													.attr("align","center");
-			
-						  </script>
-						</div>
-						<div class="chart-stage" id="graphs">
-							
-						<!--ul id="tabs">
-							<li><a href="#Safety">Safety Score Information</a></li>
-							<li><a href="#Currency">Currency Score Information</a></li>
-  
-							</ul-->	
-						</div>
-					  </div>
-					</div>
-					<div class="6u 12u$(medium)">
 					  <div class="chart-wrapper" id="country_results_container">
 						<div class="chart-title" id="forecast_table_title">
 						  <script type="text/javascript">
@@ -1649,7 +1560,6 @@
 						  
 						</div>
 						<div class="chart-stage" id="forecast_table">
-
 						  <script type="text/javascript" src="js/d3.min.js"></script>
 						  <script type="text/javascript">
 							
@@ -1666,7 +1576,7 @@
 										tbody = table.append("tbody"),
 										ttail = table.append("ttail");
 											
-							var columns = ['Category','Current Value','1 Wk Change','1 Mnth Change','3 Mnth Change'];
+							var columns = ['Category','Current Value','1 Wk Change','1 Mon Change','3 Mon Change'];
 								
 							var header = thead.append("tr")
 											.selectAll("th")
@@ -1700,15 +1610,38 @@
 								.enter()
 								.append("td")
 								.html(function(d) { return d.value; });
-								
+							
 							var footer = ttail.attr("id","forecast_footer")
-												.text('Currency Info');
-
+												.text('Currency Info')
+												.style('white-space','nowrap');
 						  </script>
-
 						</div>
+						<!--div id="forecast_footer"></div-->
 						</div>						
 					  </div>
+
+					<div class="6u 12u$(medium)">
+					  <div class="chart-wrapper" id="graph_container">
+						<div class="chart-title" id="graph_title">				
+						
+						  <script type="text/javascript">
+						  var graph_country_title = d3.select("#graph_title")													
+													.text("Historical Graphs for Selected Country")													
+													.attr("align","center");
+			
+						  </script>
+						</div>
+						<div class="chart-stage" id="graphs">
+							
+						<!--ul id="tabs">
+							<li><a href="#Safety">Safety Score Information</a></li>
+							<li><a href="#Currency">Currency Score Information</a></li>
+  
+							</ul-->	
+						</div>
+					  </div>
+					</div>
+
 					</div>
 				  </div>  
 				</div>	
