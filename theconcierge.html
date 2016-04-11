@@ -445,12 +445,12 @@
 					var vis = d3.select("#visualisation"),						
 						MARGINS = {
 							top: 0,
-							right: 100,
+							right: 0,
 							bottom: 30,
 							left: 50
 							},	
 						 width = parseInt(d3.select('#graphs').style('width')),
-						 
+						 width = width - MARGINS.left - MARGINS.right,
 						 height = parseInt(d3.select('#graphs').style('height')) ,
 						 height = height - MARGINS.top - MARGINS.bottom - 40,
 						 xScale = d3.time.scale()
@@ -458,9 +458,8 @@
 								.domain([curr_stab_scores[0].Week,curr_stab_scores[back-1].Week]),
 						yScale = d3.scale.linear()
 								.range([height - MARGINS.top, MARGINS.bottom])
-								.domain([
-									100-1.2*(100-(d3.min(curr_stab_scores.concat(med_scores), function(d) {
-							return d.Score;}))),100]),
+								.domain([d3.min(curr_stab_scores.concat(med_scores), function(d) {
+							return d.Score;}),100]),
 						
 						xAxis = d3.svg.axis()
 							.scale(xScale)
@@ -485,7 +484,7 @@
 					//y axis label
 					var y_label = vis.append("text")
 					.attr("text-anchor", "middle")  
-					.attr("transform", "translate("+ (MARGINS.left/3) +","+((height+20)/2)+")rotate(-90)") 
+					.attr("transform", "translate("+ (MARGINS.left/2) +","+((height+20)/2)+")rotate(-90)") 
 					
 					.text("Safety Score");
 						
@@ -512,56 +511,6 @@
 						.attr('stroke', 'red')
 						.style("stroke-dasharray", ("3, 3"))
 						.attr('stroke-width', '1.5px');
-						
-					
-					var line_padding = 25;
-						
-					//legend....
-					var blue_line = vis.append("line")
-										.attr("x1", width - MARGINS.right +line_padding)
-										.attr("x2", width-line_padding)
-										.attr("y1", height/3)
-										.attr("y2", height/3)
-										.attr("stroke-width", 2)
-										.attr("stroke", 'steelblue');
-										
-					var red_line = vis.append("line")
-										.attr("x1", width - MARGINS.right +line_padding)
-										.attr("x2", width-line_padding)
-										.attr("y1", 2*height/3)
-										.attr("y2", 2*height/3)
-										.attr('stroke', 'red')
-										.style("stroke-dasharray", ("3, 3"))
-										.attr('stroke-width', '1.5px');
-						
-						
-					var legend_box =  vis.append("rect")						
-						.attr("x", width - MARGINS.right +line_padding/2)
-						.attr("y", (height/3-line_padding/2))
-						.attr("width", MARGINS.right-line_padding )
-						.attr("height", height - line_padding*1.5)
-						.style("fill", "transparent")
-						.style("stroke-width", '1px')
-						.style("stroke", "black")
-						;
-						
-					var country_text = svg.append("text")
-							.text(function(d) {
-								return raw_data.Name;
-							})
-							.attr("y",height/3+line_padding/2)
-							.attr("x",(width - MARGINS.right +line_padding/2)+(MARGINS.right-line_padding)/2)
-							.attr("text-anchor", "middle")
-							.style("font-size", "10px");	
-
-					var media_text = svg.append("text")
-							.text(function(d) {
-								return 'Median';
-							})
-							.attr("y",2*height/3+line_padding/2)
-							.attr("x",(width - MARGINS.right +line_padding/2)+(MARGINS.right-line_padding)/2)
-							.attr("text-anchor", "middle")
-							.style("font-size", "10px");
 
 				});
 				}
@@ -1130,8 +1079,8 @@
                     var columns = [
                     { head: 'Country', cl: 'title', html: ƒ('Name') },
                     { head: 'Attraction Rating', cl: 'center', html: ƒ('attraction_rating') },
-					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4_r') },
-					{ head: 'Value Score', cl: 'center', html: ƒ('price_r') },
+					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4-r') },
+					{ head: 'Cost Score', cl: 'center', html: ƒ('price-r') },
                     { head: 'Popular Activities', cl: 'right', html: ƒ('a_string') },
                     { head: 'Visa Requirements', cl: 'left', html: ƒ('visa_req') },
                     { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') },
