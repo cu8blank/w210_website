@@ -38,6 +38,8 @@
         height:165px;
         background: #f5f5dc;
         outline: #4c4cff dotted;
+        overflow:scroll;
+        overflow-x: hidden;
     }
     
     #forecast_table  {
