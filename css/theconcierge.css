@@ -174,3 +174,11 @@ div.tooltip {
     border-radius: 8px;			
     pointer-events: none;			
 }
+
+.recs_table tr.desc{ 
+	background: lightsteelblue;
+}
+	
+.recs_table tr.cty{
+	background: transparent;
+}

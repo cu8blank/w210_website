@@ -13,7 +13,7 @@
 									
 											
 									cty = {"Country" : countries[i].Name,
-											"Attraction Rating" : countries[i].average,
+											"Attraction Rating" : countries[i].attraction_rating,
 											"Attractions" : countries[i].att_str,
 											"Cluster ID" : countries[i].cluster_id										
 										
