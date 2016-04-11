@@ -98,7 +98,7 @@
 
 				//get list of safer countries
 				var safer = $.grep(data, function( n, i ) {
-					return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 < raw_data.curr_week_pct_4 && raw_data.Name != randcheap_name[0] 
+					return n.cluster_id == raw_data.cluster_id && n.curr_week_pct_4 > raw_data.curr_week_pct_4 && raw_data.Name != randcheap_name[0] 
 				});
 						
 				//randomly select two countries
@@ -1523,7 +1523,7 @@
 							  <!--img data-src="holder.js/100%x120/white"-->
 
 							  <form method="post" action="#" id="filter_buttons">
-								  <h5 align="left">What do you enjoy? Pick an activity!</h5>
+								  <h5 align="left">What do you enjoy? Pick an activity or activities!</h5>
 								  <!--div class="row">
 									  <div class="2u 12u$(3)">
 										  <input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
