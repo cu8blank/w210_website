@@ -117,11 +117,13 @@ th[data-title]:hover:after {
 tr.cty {
     color: blue;
     text-decoration: underline;
+	cursor: pointer;
 }
 
 td.title {
     color: blue;
     text-decoration: underline;
+	cursor: pointer;
 }
 
 
