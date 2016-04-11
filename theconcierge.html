@@ -47,6 +47,7 @@
 			//*****Main function that drives the graphs and forecasts....
 			
 			var graph_select = 'Safety';
+			var preds_select = 'Table';
 			
 			function CountrySelect (tar_country) {			
 			
@@ -204,6 +205,137 @@
 						
 						};
 			
+			
+			function preds_legend(){
+			d3.selectAll("#forecast_table > *").remove();
+			
+			var country_title = d3.select("#forecast_table_title")													
+													.text("Legend for Predictions Table")													
+													.attr("align","center");
+			
+			var country_data = [["Safety Score","Change within +-5%","Change Between +5 and +10%","Change Between -5 and -10%","Change Greater than 10%","Change Less than -10%"],
+			["Exchange Rate","Change within +-2.5%","Change Between +2.5% and +5%","Change Between -2.5% and -5%","Change Greater than 5%","Change Less than -5"]];   //initialize table
+							
+							
+									
+							var table = d3.select("#forecast_table")
+										.append("table")
+										.attr("class", "table table-condensed table-striped"),
+										thead = table.append("thead"),
+										tbody = table.append("tbody"),
+										tfoot = table.append("tfoot");
+											
+							var columns = ['Category','Minimal Change','Increase','Decrease','Large Increase','Large Decrease'];
+								
+							var header = thead.append("tr")
+											.selectAll("th")
+											.data(columns)
+											.enter()
+											.append("th")
+											.text(function(d){ return d;});
+						
+							
+									
+									
+							var rows = tbody.selectAll("tr")
+								.data(country_data)
+								.enter()
+								.append("tr");
+								
+							var cells = rows.selectAll("td")
+								.data(function(row) {
+									return columns.map(function(column) {
+									return {column: column, value: row[columns.indexOf(column)]};
+										});
+										})
+								.enter()
+								.append("td")
+								.html(function(d) { return d.value; });
+							
+				var footer = tfoot.append("tr")
+										.attr("id","forecast_legend")
+										.text('Click for Table')									
+										
+										.style("font-size","12px")
+										.on('click', function(d,i){ preds_table(); preds_select = 'Table'; })									
+				
+			
+			
+			
+			
+			}
+			;
+			
+			
+			function preds_table(){
+			
+						//reset the table space to what it was in the original HTML
+			
+							d3.selectAll("#forecast_table > *").remove()			
+					
+							var country_data = [["Safety Score","","","",""],["Exchange Rate","","","",""]];   //initialize table
+							
+							
+									
+							var table = d3.select("#forecast_table")
+										.append("table")
+										.attr("class", "table table-condensed table-striped"),
+										thead = table.append("thead"),
+										tbody = table.append("tbody"),
+										tfoot = table.append("tfoot");
+											
+							var columns = ['Category','Current Value','1 Wk Change','1 Mon Change','3 Mon Change'];
+								
+							var header = thead.append("tr")
+											.selectAll("th")
+											.data(columns)
+											.enter()
+											.append("th")
+											.text(function(d){ return d;});
+						
+							d3.select("#forecast_table").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
+									.attr('data-title', "Safety and currency forecast data for selected country");
+							d3.select("#forecast_table").selectAll("th:nth-child(2)")
+									.attr('data-title', "Current value for each category");
+							d3.select("#forecast_table").selectAll("th:nth-child(3)")
+									.attr('data-title', "Projected one week change for each category");
+							d3.select("#forecast_table").selectAll("th:nth-child(4)")
+									.attr('data-title', "Projected one month change for each category");
+							d3.select("#forecast_table").selectAll("th:nth-child(5)")
+									.attr('data-title', "Projected three month change for each category");
+									
+									
+							var rows = tbody.selectAll("tr")
+								.data(country_data)
+								.enter()
+								.append("tr");
+								
+							var cells = rows.selectAll("td")
+								.data(function(row) {
+									return columns.map(function(column) {
+									return {column: column, value: row[columns.indexOf(column)]};
+										});
+										})
+								.enter()
+								.append("td")
+								.html(function(d) { return d.value; });
+							
+														
+							
+							var footer = tfoot.append("tr")
+										.attr("id","forecast_legend")
+										.text('Click for Legend')										
+										.style("font-size","12px")
+										.on('click', function(d,i){ preds_legend(); preds_select = 'Legend'; });		
+												
+							
+						
+				//end reset		
+					
+								
+	
+				
+			
 						//Function returns data in format to be used by table
 						function format_data(country,data) {
 							var raw_data = data;
@@ -245,6 +377,7 @@
 							
 							};
 							
+														
 							var country_data =[safety,curr];
 							  
 							var table = d3.select("#forecast_table")
@@ -280,25 +413,11 @@
 													
 													
 													
-					//parse currency to put in footer
 					
 					
-					
-					
-					if (raw_data.currency != "") {
-										
-					var footer =  "FXRate: " + raw_data.currency_key + " to USD";
-												
-					var footer = d3.select("#forecast_footer")
-							.text(footer)							
-							.attr("text-anchor", "middle");							
-							
-					
-					} else {
-					var footer = d3.select("#forecast_footer")
-							.text('')							
-							.attr("text-anchor", "middle");	
-                    };
+					}
+	
+	
 	
 					
 				//***Helper function to get the data for the selected country**//	
@@ -728,6 +847,13 @@
 				} else {
 				currency_graph();
 				};
+				
+				if (preds_select == 'Table'){
+				preds_table();
+				} else {
+				preds_key();
+				};
+				
 						
 					})
 						.done(function() {
@@ -1318,13 +1444,14 @@
 				<div class="container">
 
 					<header class="major">
+					<p id=start_dashboard></p>	
 						<h2>Tourist Concierge - Try it Now!</h2>
 						<p>Guiding you to your dream destination.</p>
 						<p><strong>To begin using the Tourist Concierge: </strong><br>Use the customized filters or select a country on the map. <br> The grayed out countries are currently unavailable for analysis.</p>
 					</header>
 
 <!-- ************************ Start code here for dashboard ***************************-->
-				<p id=start_dashboard></p>	
+				
 				<section class="application">
 					<!--script type="text/javascript" src="js/jquery.min.js"></script>
 					<script type="text/javascript" src="js/bootstrap.min.js"></script-->

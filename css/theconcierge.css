@@ -182,3 +182,16 @@ div.tooltip {
 .recs_table tr.cty{
 	background: transparent;
 }
+
+ table tfoot tr#forecast_legend {
+    background-color: darkgray;
+    font-weight: bold;
+	cursor: pointer;
+	color:black
+}
+
+ table tfoot tr#forecast_legend:hover {
+    background-color: lightgray;
+    font-weight: bold;
+	cursor: pointer;
+}
