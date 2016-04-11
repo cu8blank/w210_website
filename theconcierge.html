@@ -131,12 +131,12 @@
                             raw_data.price_r = "NA";
                     }
                                      
-                    if (raw_data.curr_week_pct_4_r == null) {
+                    if (raw_data.curr_week_pct_4 == null) {
                                      curr_week_pct_4_r = "NA";
                     }
                                      
                    html_string = "";
-                   html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class = 'title' data-toggle='tooltip' title='Click on country name to deselect'>" + raw_data.Name + "<td class = 'center'>" + raw_data.attraction_rating + "</td><td class = 'center'>" + raw_data.curr_week_pct_4_r + "</td><td class = 'center'>" + raw_data.price_r + "</td><td class = 'right'>" + raw_data.att_str + "</td><td class = 'left'>" + raw_data.visa_req + "</td><td class = 'right'>" + raw_data.allowed_stay + "</td><td><input type='button' class='remove' value='x'></td></tr>";
+                   html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class = 'title' data-toggle='tooltip' title='Click on name to select'>" + raw_data.Name + "<td class = 'center'>" + raw_data.attraction_rating + "</td><td class = 'center'>" + raw_data.curr_week_pct_4_r + "</td><td class = 'center'>" + raw_data.price_r + "</td><td class = 'right'>" + raw_data.att_str + "</td><td class = 'left'>" + raw_data.visa_req + "</td><td class = 'right'>" + raw_data.allowed_stay + "</td><td><input type='button' class='remove' value='x'></td></tr>";
                    
                                      
                     $(html_string).prependTo("table#sumtable > tbody");
@@ -1255,8 +1255,8 @@
                     var columns = [
                     { head: 'Country', cl: 'title', html: ƒ('Name') },
                     { head: 'Attraction Rating', cl: 'center', html: ƒ('attraction_rating') },
-					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4-r') },
-					{ head: 'Cost Score', cl: 'center', html: ƒ('price-r') },
+					{ head: 'Safety Score', cl: 'center', html: ƒ('curr_week_pct_4_r') },
+					{ head: 'Cost Score', cl: 'center', html: ƒ('price_r') },
                     { head: 'Popular Activities', cl: 'right', html: ƒ('a_string') },
                     { head: 'Visa Requirements', cl: 'left', html: ƒ('visa_req') },
                     { head: 'Allowed Stay', cl: 'left', html: ƒ('allowed_stay') },
@@ -1372,11 +1372,11 @@
                     d3.select(".user_filter_list").selectAll("th:nth-child(1)")  //******* adding hover over table explanation
 							.attr('data-title', "Country meeting user criteria");
 					d3.select(".user_filter_list").selectAll("th:nth-child(2)")  
-							.attr('data-title', "Average user rating of attractions in country");
+							.attr('data-title', "Probability user rated attraction in this country as excellent");
 					d3.select(".user_filter_list").selectAll("th:nth-child(3)")  
-							.attr('data-title', "Current calculated safety score");
+							.attr('data-title', "Current calculated safety score (0-100)");
 					d3.select(".user_filter_list").selectAll("th:nth-child(4)")  
-							.attr('data-title', "Current cost of living score");
+							.attr('data-title', "Current cost of living score (0-100)");
 					d3.select(".user_filter_list").selectAll("th:nth-child(5)")  
 							.attr('data-title', "Popular things to do in country");
 					d3.select(".user_filter_list").selectAll("th:nth-child(6)")  
@@ -1389,7 +1389,7 @@
                     // prepend this selected country info to the newly drawn table
                      for (var i = s; i > -1 ; i--) {
                          html_string = "";
-                     html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class='title' data-toggle='tooltip' title='Click on country name to deselect'>" +organized_top_rows[i][0] + "<td class = 'center'>" + organized_top_rows[i][1]+ "</td><td class = 'center'>" + organized_top_rows[i][2] + "</td><td class = 'center'>" + organized_top_rows[i][3] + "</td><td class = 'right'>" + organized_top_rows[i][4] + "</td><td class = 'left'>" +organized_top_rows[i][5] + "</td><td class = 'right'>" + organized_top_rows[i][6] + "</td><td><input type='button' class='remove' value='x'></td></tr>";
+                     html_string += "<tr class='saru' style= 'background-color:#ffffaa;'><td class='title' data-toggle='tooltip' title='Click on name to select'>" +organized_top_rows[i][0] + "<td class = 'center'>" + organized_top_rows[i][1]+ "</td><td class = 'center'>" + organized_top_rows[i][2] + "</td><td class = 'center'>" + organized_top_rows[i][3] + "</td><td class = 'right'>" + organized_top_rows[i][4] + "</td><td class = 'left'>" +organized_top_rows[i][5] + "</td><td class = 'right'>" + organized_top_rows[i][6] + "</td><td><input type='button' class='remove' value='x'></td></tr>";
                          
                          
                         $(html_string).prependTo("table#sumtable > tbody");
@@ -1523,7 +1523,7 @@
 							  <!--img data-src="holder.js/100%x120/white"-->
 
 							  <form method="post" action="#" id="filter_buttons">
-								  <h5 align="left">What do you enjoy? Pick an activity or activities!</h5>
+								  <h5 align="left">Choose activities to explore on vakay</h5>
 								  <!--div class="row">
 									  <div class="2u 12u$(3)">
 										  <input type="checkbox" id="activity" name="activity" onchange="button_click_at()">
@@ -1576,7 +1576,7 @@
                                            </div>
                                       </div>
 								  </div>
-								  <h5 align="left">What time of year is your favorite?</h5>
+								  <h5 align="left">Choose travel season</h5>
 								  <!--div class="row uniform 50%">
 									  <div class="2u 12u$(3)">									
 										  <input type="checkbox" id="season" name="seasons" onchange="button_click()">
