@@ -102,7 +102,17 @@
       content: "\21E7";
     }
 		
-		
+	/********** instructions tab **********/
+	#instr-img1, #instr-img2, #instr-img3, #instr-img4, #instr-img5, #instr-img6 {
+	   /*border:1px solid #fff;*/
+	}
+	
+	#instr-img1:hover, #instr-img2:hover, #instr-img3:hover, #instr-img4:hover, #instr-img5:hover, #instr-img6:hover {
+	   border:2px solid #0000FF;
+	}
+	
+	#instructions1 img { display: block; }
+
         </style>
 		
 	</head>
@@ -134,6 +144,7 @@
 		<!-- One -->
 			<section id="one" class="wrapper style1 special">
 				<div class="container">
+
 					<header class="major">
 						<h2>About the Tourist Concierge</h2>
 						
@@ -153,7 +164,8 @@
 								<img src="images/dashboard1.jpg" alt="" width=100%>
 							</section>
 						</div>
-					</div>					
+					</div>
+
 					<hr class="featurette-divider">
 					<div class="row 150%">
 						<div class="4u 12u$(medium)">
@@ -183,6 +195,162 @@
 						</div>
 					</div>
 				</div>
+				
+					
+			<div class="container">
+				<header class="major">
+					<h2>Instructions for Using the Tourist Concierge</h2>
+					<p>Hover over each part of our dashboard image below to learn more.</p>
+				</header>
+				<section class="box" id="instructions1">
+				<div class="row 0%">
+					<div class="7u">
+					  <div class="row 0%">
+						<div class="6u" id="instr-img1">
+						  <img src="images/img1.jpg" alt="" width="100%" height="100%">
+						  <!--img data-src="holder.js/100%x120/white"-->
+						</div>
+						<div class="6u" id="instr-img2">
+						  <img src="images/img2.jpg" alt="" width="100%" height="100%">
+						</div>
+					  </div>
+					  <div class="row 0%">
+						<div class="10u" id="instr-img3">
+						  <img src="images/img3.jpg" alt="" width="100%" height="100%">
+						</div>
+						<div class="2u" id="instr-img4">
+						  <img src="images/img4.jpg" alt="" width="100%" height="100%">
+						</div>
+					  </div>
+					  <div class="row 0%">
+						<div class="6u" id="instr-img5">
+						  <img src="images/img5.jpg" alt="" width="100%" height="100%">
+						</div>
+						<div class="6u" id="instr-img6">
+						  <img src="images/img6.jpg" alt="" width="100%" height="100%">
+						</div>
+					  </div>
+					</div>
+					<div class="5u" id="instr-text">
+					  <span><br><br><br><br><h2 align=center>Overview of the Tourist Concierge</h2><br><br><h4>Hover over each section to the right to learn more about<br> our dashboard.</h4></span>
+					</div>
+				  </div>
+				</section>
+			</div>
+			<script>
+            $(document).ready(function(){ //start of instructions display
+
+              $( "#instr-img1" ).hover(  //User Filter Buttons
+                      function() {
+                        $( "#instr-text" ).find( "span:last" ).remove();
+
+                        var url = "http://abyun.github.io/w210_website/theconcierge.html#start_dashboard";
+                        $( "#instr-text" ).append( $( "<span>\
+                                             <h3>User Filter Buttons</h3>\
+                                             <p><strong>To begin using this tool, </strong>use the filters buttons to customize your search. \
+                                             Users can filter countries by: activity type, travel season, travel group.</p>\
+											 <p>Once a filter is selected, the map on the right will highlight recommended countries in pink \
+											 and will also present more country data in the table below.</p><p></p>\
+                                             <p>Click the link below to start using the Concierge now!:</p><p><strong><a href=" + url + " target='_blank'><mark>Take me to the Tourist Concierge</mark></a></strong></p>\
+                                             </span>" ) );
+
+                      }
+              );
+
+              $( "#instr-img2" ).hover(  //African countries
+                      function() {
+
+                        $( "#instr-text" ).find( "span:last" ).remove();
+
+                        var url = "http://abyun.github.io/w210_website/theconcierge.html#start_dashboard";
+
+                        $( "#instr-text" ).append( $( "<span>\
+                                             <h3>Country Map Selection</h3>\
+                                             <p><strong>To begin using this tool, </strong>select a country of interest to get started. \
+                                             The map will zoom into your selection and the rest of the dashboard will update. Colors for each country include: Yellow (selectable country), Pink (countries meeting filter criteria), Red (current selected country), and Gray (unavailable in this version).</p>\
+											 <p>Once a country is selected, the summary table in the center will present data about your selected country. \
+											 Additionally, the Concierge will recommend similar countries below and present predictions and analysis on the Safety and Cost information for that country.</p><p></p>\
+                                             <p>Click the link below to start using the Concierge now!:</p><p><strong><a href=" + url + " target='_blank'><mark>Take me to the Tourist Concierge</mark></a></strong></p>\
+                                             </span>" ) );
+
+                      }
+              );
+
+              $( "#instr-img3" ).hover(  //immunization rates
+                      function() {
+
+                        $( "#instr-text" ).find( "span:last" ).remove();
+						
+						var url = "http://abyun.github.io/w210_website/theconcierge.html#start_dashboard";
+
+                        $( "#instr-text" ).append( $( "<span>\
+                                             <h3>Country Information Table</h3>\
+                                             <p><strong>After using the filter buttons above or selecting a country on the map, </strong>this user table will display important information for your countries of interest. \
+                                             Countries selected via the map will be highlighted in beige and countries selected via filter will be highlighted in white.</p>\
+											 <p>For each country of interest, this table presents data on the current Attraction Rating, Safety Score, and Cost of Living Score. It also presents data on the most popular activites to do in that country and visa information. \
+											 Users can interact with this table by selecting the country name in the row to update the rest of the dashboard, deleting countries from the table, sorting each column, and searching for a country in the table.</p><p></p>\
+                                             <p>Click the link below to start using the Concierge now!:</p><p><strong><a href=" + url + " target='_blank'><mark>Take me to the Tourist Concierge</mark></a></strong></p>\
+                                             </span>" ) );
+                      }
+              );
+
+              $( "#instr-img4" ).hover(  //incidence rates
+                      function() {
+
+                        $( "#instr-text" ).find( "span:last" ).remove();
+
+                        var url = "http://abyun.github.io/w210_website/theconcierge.html#start_dashboard";
+
+                        $( "#instr-text" ).append( $( "<span>\
+                                             <h3>Discovering Similar Countries</h3>\
+                                             <p><strong>Once a country of interest is selected via the map or the table to the left, </strong>this table will help you to discover more countries. \
+                                             The Tourist Concierge will find countries with similar attributes, but recommend safer and/or more cost affordable countries to visit.</p>\
+											 <p>Users can click on the country name in this table to update the rest of the dashboard and learn more about that country of interest.</p><p></p>\
+                                             <p>Click the link below to start using the Concierge now!:</p><p><strong><a href=" + url + " target='_blank'><mark>Take me to the Tourist Concierge</mark></a></strong></p>\
+                                             </span>" ) );
+                      }
+              );
+			  
+			  $( "#instr-img5" ).hover(  //incidence rates
+                      function() {
+
+                        $( "#instr-text" ).find( "span:last" ).remove();
+
+                        var url = "http://abyun.github.io/w210_website/theconcierge.html#start_dashboard";
+
+                        $( "#instr-text" ).append( $( "<span>\
+                                             <h3>The Power of Prediction</h3>\
+                                             <p><strong>Once a country of interest is selected via the map or the table above, </strong>this table will arm you with the power of prediction. \
+                                             The Tourist Concierge will calculate forecasts for the Safety Score and Currency Exchange rate for one week, one month, and three months into the future.</p>\
+											 <p>Users can click on Legend to learn more about the definitions for the different sizes of changes.</p><p></p>\
+                                             <p>Click the link below to start using the Concierge now!:</p><p><strong><a href=" + url + " target='_blank'><mark>Take me to the Tourist Concierge</mark></a></strong></p>\
+                                             </span>" ) );
+                      }
+              );
+			  
+			  $( "#instr-img6" ).hover(  //incidence rates
+                      function() {
+
+                        $( "#instr-text" ).find( "span:last" ).remove();
+
+                        var url = "http://abyun.github.io/w210_website/theconcierge.html#start_dashboard";
+
+                        $( "#instr-text" ).append( $( "<span>\
+                                             <h3>Historical Safety and Currency Data</h3>\
+                                             <p><strong>Once a country of interest is selected via the map or the table above, </strong>this chart will provide historical Safety Score and Currency Exchange Rate information for the country of interest. \
+											 The Safety Score chart also has a comparison between the median safety score for all countries.</p>\
+											 <p>Users can toggle between the historical Safety information and the Currency Exchange Rate information using the Swich button.</p><p></p>\
+                                             <p>Click the link below to start using the Concierge now!:</p><p><strong><a href=" + url + " target='_blank'><mark>Take me to the Tourist Concierge</mark></a></strong></p>\
+                                             </span>" ) );
+                      }
+              );
+            })//end of instructions display
+
+
+          </script>
+			<!--************ end of instructions-->
+
+
 			</section>
 
 
@@ -320,7 +488,7 @@
 				<div class="row">
 					<div class="8u 12u$(medium)">
 						<ul class="copyright">
-							<li>&copy; Untitled. All rights reserved.</li>
+							<li>&copy; The Tourist Concierge. All rights reserved.</li>
 							<li></li>
 						</ul>
 					</div>
