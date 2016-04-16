@@ -473,5 +473,7 @@
 					selectedColor: "#CC0000"  //******* change this color for the zoomed in country *******//
 				},
 
-				smallMap: {}
+				smallMap: {
+					enabled: false
+				}
 			});

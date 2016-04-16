@@ -21,7 +21,8 @@
     }
     
     #user_filter_list {
-        font-size:11px;   
+        font-size:11px;
+        text-align: center;
     }
     
     #recs_comp_container {
@@ -36,8 +37,8 @@
     #country_results_container  {
         margin: 0px;
         height:165px;
-        background: #f5f5dc;
-        outline: #4c4cff dotted;
+        /*background: #f5f5dc;
+        outline: #4c4cff dotted;*/
         overflow:scroll;
         overflow-x: hidden;
     }
@@ -89,12 +90,17 @@ th:hover {
   position: relative;
 }
 
+th[data-title] {
+  text-align: center;
+}
+
 th[data-title]:hover:after {
   content: attr(data-title);
   padding: 4px 4px;
   color: #333;
   font-size: 11px;
   position: absolute;
+  text-align: center;
   left: 0;
   top: 100%;
   opacity: 0.74;
