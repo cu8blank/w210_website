@@ -13,7 +13,11 @@ function create_bubble_chart() {
         });
         return json;
     })();
-    //console.log(countries[0])
+    for (var i=0; i < countries.length; i++) {
+        if (countries[i].price > 100) {
+            console.log(countries[i])
+        }
+    }
     ////////////////////////////////////////////////////////////
     //////////////////////// Set-up ////////////////////////////
     ////////////////////////////////////////////////////////////
@@ -74,11 +78,11 @@ function create_bubble_chart() {
         .attr("class", "x axis")
         .attr("transform", "translate(" + 0 + "," + height + ")")
         .call(xAxis);
-            
+        
     //Set the new y axis range
     var yScale = d3.scale.linear()
         .range([height,0])
-        .domain(d3.extent(countries, function(d) {return d.price == null ? 0 : d.price;}))
+        .domain(d3.extent(countries, function(d) {return d.price == null ? 0 : +d.price;}))
         .nice();	
     var yAxis = d3.svg.axis()
         .orient("left")
