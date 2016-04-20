@@ -272,15 +272,19 @@
 					<div class="row">
 						<div class="7u 12u$(medium)" id="bottompage">
 							<h2>Country Information Prediction</span></h2>
-							<p>Using data from Tripadvisor and Wikipedia's Visa Requirements for US Tourists to filter destination countries based on user preferences. The data from Tripadvisor helps us
-                            to create topics on all the countries user review comments. Additionally, we performed another unsupervised learning algorithm to cluster similar countries together based on descriptive attributes.  <b> Similar countries have the same cluster ID.</b>  
-							Finally, the average attraction rating for the country was calculated.</p>
-							<img src="images/country_info.png" alt="" width=90%>
+                            <p>In order to recommend similar countries for US tourists, we collected and processed data from Tripadvisor and Wikipedia's Visa Requirements.
+                            Using the user review comments from Tripadvisor, we auto generated activity tags for each country listed in our app. Additionally, we performed another unsupervised learning algorithm, to cluster similar countries together based on descriptive attributes.  <b> Similar countries have the same cluster ID.</b>
+							Furthermore, our app displays the calculated average attraction rating for each country, which is the probability that a user would rate this country as having excellent attractions.</p>
+                            <p><b>More info on Machine learning Algorithms used for our reccomendation process:</b><br><a href="http://scikit-learn.org/stable/modules/clustering.html#k-means">1. K means</a><br><a href="http://derekgreene.com/nmf-topic/">2. NMF Topic Modeling</a></p>
+							<img src="images/country_info2.png" alt="" width=90% align="left">
+                            
 						</div>
+                        
 						<section class="box">
 							<div class="5u$ 12u$(medium)">
 							
 							<!--img class="featurette-image img-responsive center-block" data-src="holder.js/400x400/auto" alt=""-->
+                            
 								<h4 id="country-title">Country Information</h4>
 								<div id="country-table"></div>
 							
@@ -471,7 +475,7 @@
 								<a class="icon rounded fa-linkedin" href="https://www.linkedin.com/in/julianphillips222"  target="_blank"><span class="label">LinkedIn</span></a>
 							</section>
 							<section class="4u 6u$(medium) 12u$(xsmall) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
+								<img src="images/saru.jpg" alt="" width="108" height="102"/>
 								<h4>Saru</h4>
 								<p>MIDS Student</p>
 							</section>
