@@ -1,0 +1,175 @@
+country_code,country_x,currency,currency_key,missing_curr,date,price,rate_curr,curr_date,rate_7,rate_30,rate_90
+AFG,Afghanistan,,,AFN,,,,,,,
+ALB,Albania,,,ALL,2016-01-01 00:00:00,20.98,,,,,
+DZA,Algeria,ALGERIAN DINAR   (DZD),ALGERIAN DINAR   (DZD),,2016-01-01 00:00:00,18.42,109.1,2016-04-24 00:00:00,109.31,108.28,109.59
+AGO,Angola,,,AOA,,,,,,,
+ATG,Antigua and Barbuda,,,XCD,,,,,,,
+ARG,Argentina,,,ARS,2016-01-01 00:00:00,41.97,,,,,
+ARM,Armenia,,,AMD,2016-01-01 00:00:00,23.13,,,,,
+AUS,Australia,Australian dollar   (AUD),Australian dollar   (AUD),,2016-01-01 00:00:00,60.43,0.78,2016-04-24 00:00:00,0.78,0.77,0.76
+AUT,Austria,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,47.16,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+AZE,Azerbaijan,,,AZN,2016-01-01 00:00:00,20.35,,,,,
+BHS,Bahamas,,,BSD,2016-01-01 00:00:00,74.22,,,,,
+BHR,Bahrain,Bahrain dinar   (BHD),Bahrain dinar   (BHD),,2016-01-01 00:00:00,41.25,0.38,2016-04-24 00:00:00,0.38,0.38,0.38
+BGD,Bangladesh,,,BDT,2016-01-01 00:00:00,20.99,,,,,
+BRB,Barbados,,,BBD,,,,,,,
+BLR,Belarus,,,BYR,2016-01-01 00:00:00,26.86,,,,,
+BEL,Belgium,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,54.28,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+BLZ,Belize,,,BZD,2016-01-01 00:00:00,36.57,,,,,
+BEN,Benin,,,XOF,,,,,,,
+BMU,Bermuda,,,BMD,2016-01-01 00:00:00,127.17,,,,,
+BTN,Bhutan,,,BTN,,,,,,,
+BOL,Bolivia,,,BOB,2016-01-01 00:00:00,24.27,,,,,
+BWA,Botswana,Botswana pula   (BWP),Botswana pula   (BWP),,2016-01-01 00:00:00,23.64,0.09,2016-04-24 00:00:00,0.09,0.09,0.09
+BRA,Brazil,Brazilian real   (BRL),Brazilian real   (BRL),,2016-01-01 00:00:00,26.1,3.55,2016-04-24 00:00:00,3.57,3.58,3.66
+BRN,Brunei Darussalam,Brunei dollar   (BND),Brunei dollar   (BND),,2016-01-01 00:00:00,36.68,1.35,2016-04-24 00:00:00,1.35,1.34,1.35
+BGR,Bulgaria,,,BGN,2016-01-01 00:00:00,22.95,,,,,
+BFA,Burkina Faso,,,XOF,,,,,,,
+BDI,Burundi,,,BIF,,,,,,,
+KHM,Cambodia,,,KHR,2016-01-01 00:00:00,30.5,,,,,
+CMR,Cameroon,,,XAF,,,,,,,
+CAN,Canada,Canadian dollar   (CAD),Canadian dollar   (CAD),,2016-01-01 00:00:00,46.56,1.27,2016-04-24 00:00:00,1.27,1.28,1.29
+CAF,Central African Republic,,,XAF,,,,,,,
+TCD,Chad,,,XAF,,,,,,,
+CHL,Chile,Chilean peso   (CLP),Chilean peso   (CLP),,2016-01-01 00:00:00,29.1,662.24,2016-04-24 00:00:00,659.18,671.2,677.64
+CHN,China,Chinese yuan   (CNY),Chinese yuan   (CNY),,2016-01-01 00:00:00,36.15,6.48,2016-04-24 00:00:00,6.48,6.46,6.46
+COL,Columbia,Colombian peso   (COP),Colombian peso   (COP),,2016-01-01 00:00:00,19.74,2947.21,2016-04-24 00:00:00,2931.17,3027.97,3068.2
+COM,Comoros,,,KMF,,,,,,,
+COD,Democratic Republic of the Congo,,,XAF,,,,,,,
+COG,People's Republic of the Congo,,,XAF,,,,,,,
+CRI,Costa Rica,,,CRC,2016-01-01 00:00:00,37.76,,,,,
+CIV,Ivory Coast,,,XOF,,,,,,,
+HRV,Croatia,,,HRK,2016-01-01 00:00:00,29.7,,,,,
+CUB,Cuba,,,CUC,,,,,,,
+CYP,Cyprus,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,35.9,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+CZE,Czech Republic,Czech koruna   (CZK),Czech koruna   (CZK),,2016-01-01 00:00:00,28.66,23.85,2016-04-24 00:00:00,23.86,23.84,24.04
+DNK,Denmark,Danish krone   (DKK),Danish krone   (DKK),,2016-01-01 00:00:00,58.9,6.56,2016-04-24 00:00:00,6.56,6.54,6.58
+DJI,Djibouti,,,DJF,,,,,,,
+DOM,Dominican Republic,,,DOP,2016-01-01 00:00:00,58.9,,,,,
+TMP,East Timor,,,IDR,,,,,,,
+ECU,Ecuador,U.S. dollar   (USD),U.S. dollar   (USD),,2016-01-01 00:00:00,32.49,1,2016-04-24 00:00:00,1,1,1
+EGY,Egypt,,,EGP,2016-01-01 00:00:00,23.69,,,,,
+SLV,El Salvador,,,SVC,2016-01-01 00:00:00,26.79,,,,,
+GNQ,Equatorial Guinea,,,XAF,,,,,,,
+ERI,Eritrea,,,ERN,,,,,,,
+EST,Estonia,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,31.91,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+ETH,Ethiopia,,,ETB,2016-01-01 00:00:00,33.23,,,,,
+FJI,Fiji,,,FJD,2016-01-01 00:00:00,30.2,,,,,
+FIN,Finland,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,52.05,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+FRA,France,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,51.72,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+GAB,Gabon,,,XAF,,,,,,,
+GMB,Gambia,,,GMD,,,,,,,
+GEO,Georgia,,,GEL,2016-01-01 00:00:00,20.02,,,,,
+DEU,Germany,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,45.58,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+GHA,Ghana,,,GHS,2016-01-01 00:00:00,58.59,,,,,
+GRC,Greece,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,32.82,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+GRD,Grenada,,,XCD,,,,,,,
+GTM,Guatemala,,,GTQ,2016-01-01 00:00:00,28.38,,,,,
+GIN,Guinea,,,GNF,,,,,,,
+GNB,Guinea-Bissau,,,XAF,,,,,,,
+GUY,Guyana,,,GYD,,,,,,,
+HTI,Haiti,,,HTG,,,,,,,
+VAT,Vatican City,euro   (EUR),euro   (EUR),,,,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+HND,Honduras,,,HNL,2016-01-01 00:00:00,29.48,,,,,
+HUN,Hungary,Hungarian forint   (HUF),Hungarian forint   (HUF),,2016-01-01 00:00:00,26.51,274.14,2016-04-24 00:00:00,274.21,275.21,277.67
+ISL,Iceland,Icelandic krona   (ISK),Icelandic krona   (ISK),,2016-01-01 00:00:00,67.13,123.93,2016-04-24 00:00:00,123.94,123.55,123.77
+IND,India,Indian rupee   (INR),Indian rupee   (INR),,2016-01-01 00:00:00,15.6,66.47,2016-04-24 00:00:00,66.55,66.7,67.5
+IDN,Indonesia,Indonesian rupiah   (IDR),Indonesian rupiah   (IDR),,2016-01-01 00:00:00,23.61,13167.6,2016-04-24 00:00:00,13186.11,13246.55,13404.17
+IRN,Iran,Iranian rial   (IRR),Iranian rial   (IRR),,2016-01-01 00:00:00,29.23,30294.8,2016-04-24 00:00:00,30377.81,30784.94,31851.45
+IRQ,Iraq,,,IQD,2016-01-01 00:00:00,34.63,,,,,
+IRL,Ireland,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,58.73,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+ISR,Israel,Israeli new sheqel   (ILS),Israeli new sheqel   (ILS),,2016-01-01 00:00:00,52.21,3.76,2016-04-24 00:00:00,3.76,3.76,3.77
+ITA,Italy,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,46.05,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+JAM,Jamaica,,,JMD,2016-01-01 00:00:00,34.97,,,,,
+JPN,Japan,Japanese yen   (JPY),Japanese yen   (JPY),,2016-01-01 00:00:00,56.5,109.08,2016-04-24 00:00:00,109.24,108.97,109.83
+JOR,Jordan,,,JOD,2016-01-01 00:00:00,33.35,,,,,
+KAZ,Kazakhstan,Kazakhstani tenge   (KZT),Kazakhstani tenge   (KZT),,2016-01-01 00:00:00,18.52,336.49,2016-04-24 00:00:00,339.37,339.94,348.91
+KEN,Kenya,,,KES,2016-01-01 00:00:00,26.78,,,,,
+PRK,North Korea,,,KPW,,,,,,,
+KOR,South Korea,Korean won   (KRW),Korean won   (KRW),,2016-01-01 00:00:00,54.55,1141.9,2016-04-24 00:00:00,1139.7,1136.24,1136.65
+KWT,Kuwait,Kuwaiti dinar   (KWD),Kuwaiti dinar   (KWD),,2016-01-01 00:00:00,60.78,0.3,2016-04-24 00:00:00,0.3,0.3,0.3
+KGZ,Kyrgyzstan,,,KGS,,,,,,,
+LAO,Laos,,,LAK,,,,,,,
+LVA,Latvia,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,30.57,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+LBN,Lebanon,,,LBP,2016-01-01 00:00:00,49.61,,,,,
+LSO,Lesotho,,,LSL,,,,,,,
+LBR,Liberia,,,LRD,,,,,,,
+LBY,Libya,Libyan dinar   (LYD),Libyan dinar   (LYD),,2016-01-01 00:00:00,27.36,1.93,2016-04-24 00:00:00,1.93,1.93,1.93
+LIE,Liechtenstein,Swiss franc   (CHF),Swiss franc   (CHF),,,,0.97,2016-04-24 00:00:00,0.97,0.96,0.96
+LTU,Lithuania,,,LTL,2016-01-01 00:00:00,29.65,,,,,
+LUX,Luxembourg,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,66.08,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+MKD,Macedonia,,,MKD,2016-01-01 00:00:00,18.97,,,,,
+MDG,Madagascar,,,MGA,,,,,,,
+MWI,Malawi,,,MWK,,,,,,,
+MYS,Malaysia,Malaysian ringgit   (MYR),Malaysian ringgit   (MYR),,2016-01-01 00:00:00,24.78,3.9,2016-04-24 00:00:00,3.9,3.85,3.88
+MDV,Maldives,,,MVR,,,,,,,
+MLI,Mali,,,XOF,,,,,,,
+MLT,Malta,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,41.59,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+MRT,Mauritania,,,MRO,2016-01-01 00:00:00,32.14,,,,,
+MEX,Mexico,Mexican peso   (MXN),Mexican peso   (MXN),,2016-01-01 00:00:00,22.93,17.38,2016-04-24 00:00:00,17.38,17.71,17.92
+FSM,Micronesia,U.S. dollar   (USD),U.S. dollar   (USD),,,,1,2016-04-24 00:00:00,1,1,1
+MDA,Moldova,,,MDL,2016-01-01 00:00:00,16.77,,,,,
+MCO,Monaco,euro   (EUR),euro   (EUR),,,,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+MNG,Mongolia,,,MNT,,,,,,,
+MAR,Morocco,,,MAD,2016-01-01 00:00:00,23.12,,,,,
+MOZ,Mozambique,,,MZN,,,,,,,
+MMR,Myanmar,,,MMK,2016-01-01 00:00:00,36.49,,,,,
+NAM,Namibia,,,NAD,2016-01-01 00:00:00,28.65,,,,,
+NPL,Nepal,Nepalese rupee   (NPR),Nepalese rupee   (NPR),,2016-01-01 00:00:00,15.64,106.33,2016-04-24 00:00:00,106.43,106.73,108.03
+NLD,Netherlands,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,52.72,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+NZL,New Zealand,New Zealand dollar   (NZD),New Zealand dollar   (NZD),,2016-01-01 00:00:00,54.88,0.7,2016-04-24 00:00:00,0.7,0.69,0.69
+NIC,Nicaragua,,,NIO,,,,,,,
+NER,Niger,,,XOF,,,,,,,
+NGA,Nigeria,,,NGN,2016-01-01 00:00:00,35.5,,,,,
+NOR,Norway,Norwegian krone   (NOK),Norwegian krone   (NOK),,2016-01-01 00:00:00,69.64,8.17,2016-04-24 00:00:00,8.17,8.21,8.3
+OMN,Oman,rial Omani   (OMR),rial Omani   (OMR),,2016-01-01 00:00:00,39.48,0.38,2016-04-24 00:00:00,0.38,0.38,0.38
+PAK,Pakistan,Pakistani rupee   (PKR),Pakistani rupee   (PKR),,2016-01-01 00:00:00,16.11,104.77,2016-04-24 00:00:00,104.83,104.94,105.59
+PAN,Panama,,,PAB,2016-01-01 00:00:00,41.98,,,,,
+PNG,Papua New Guinea,,,PGK,,,,,,,
+PRY,Paraguay,,,PYG,,,,,,,
+PER,Peru,NUEVO SOL   (PEN),NUEVO SOL   (PEN),,2016-01-01 00:00:00,26.04,3.26,2016-04-24 00:00:00,3.22,3.35,3.36
+PHL,Philippines,PHILIPPINE PESO   (PHP),PHILIPPINE PESO   (PHP),,2016-01-01 00:00:00,21.27,46.18,2016-04-24 00:00:00,46.2,46.09,46.15
+POL,Poland,Polish zloty   (PLN),Polish zloty   (PLN),,2016-01-01 00:00:00,26.52,3.8,2016-04-24 00:00:00,3.81,3.77,3.8
+PRT,Portugal,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,33.23,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+QAT,Qatar,Qatar riyal   (QAR),Qatar riyal   (QAR),,2016-01-01 00:00:00,72.16,3.64,2016-04-24 00:00:00,3.64,3.64,3.64
+ROM,Romania,,,RON,2016-01-01 00:00:00,22.22,,,,,
+RUS,Russia,Russian ruble   (RUB),Russian ruble   (RUB),,2016-01-01 00:00:00,28.22,66.24,2016-04-24 00:00:00,66.19,67.17,67.6
+RWA,Rwanda,,,RWF,,,,,,,
+KNA,Saint Kitts-Nevis,,,XCD,,,,,,,
+LCA,Saint Lucia,,,XCD,,,,,,,
+SAU,Saudi Arabia,Saudi Arabian riyal   (SAR),Saudi Arabian riyal   (SAR),,2016-01-01 00:00:00,31.35,3.75,2016-04-24 00:00:00,3.75,3.75,3.75
+SEN,Senegal,,,XOF,,,,,,,
+SRB,Serbia,,,RSD,2016-01-01 00:00:00,20.65,,,,,
+SLE,Sierra Leone,,,SLL,,,,,,,
+SGP,Singapore,Singapore dollar   (SGD),Singapore dollar   (SGD),,2016-01-01 00:00:00,78.97,1.35,2016-04-24 00:00:00,1.35,1.34,1.35
+SVK,Slovakia,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,30.57,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+SOM,Somalia,,,SOS,,,,,,,
+ZAF,South Africa,South African rand   (ZAR),South African rand   (ZAR),,2016-01-01 00:00:00,24.38,14.33,2016-04-24 00:00:00,14.32,14.62,14.97
+ESP,Spain,euro   (EUR),euro   (EUR),,2016-01-01 00:00:00,38.21,1.13,2016-04-24 00:00:00,1.13,1.14,1.13
+LKA,Sri Lanka,Sri Lanka rupee   (LKR),Sri Lanka rupee   (LKR),,2016-01-01 00:00:00,21.85,143.9,2016-04-24 00:00:00,144,144.27,145.46
+SDN,Sudan,,,SDG,,,,,,,
+SUR,Suriname,,,SRD,,,,,,,
+SWZ,Swaziland,,,SZL,,,,,,,
+SWE,Sweden,Swedish krona   (SEK),Swedish krona   (SEK),,2016-01-01 00:00:00,51.44,8.11,2016-04-24 00:00:00,8.11,8.1,8.14
+CHE,Switzerland,Swiss franc   (CHF),Swiss franc   (CHF),,2016-01-01 00:00:00,90.44,0.97,2016-04-24 00:00:00,0.97,0.96,0.96
+SYR,Syria,,,SYP,2016-01-01 00:00:00,20.35,,,,,
+TWN,Taiwan,,,TWD,2016-01-01 00:00:00,36.07,,,,,
+TJK,Tajikistan,,,TJS,,,,,,,
+TZA,Tanzania,,,TZS,2016-01-01 00:00:00,38.07,,,,,
+THA,Thailand,Thai baht   (THB),Thai baht   (THB),,2016-01-01 00:00:00,28.08,35,2016-04-24 00:00:00,35.01,35.09,35.24
+TGO,Togo,,,XOF,,,,,,,
+TTO,Trinidad and Tobago,Trinidad and Tobago dollar   (TTD),Trinidad and Tobago dollar   (TTD),,2016-01-01 00:00:00,39.71,6.62,2016-04-24 00:00:00,6.61,6.59,6.6
+TUN,Tunisia,TUNISIAN DINAR   (TND),TUNISIAN DINAR   (TND),,2016-01-01 00:00:00,19.32,2.01,2016-04-24 00:00:00,2.01,2.01,2.03
+TUR,Turkey,,,TRY,2016-01-01 00:00:00,28.43,,,,,
+TKM,Turkmenistan,,,TMT,,,,,,,
+UGA,Uganda,,,UGX,,,,,,,
+UKR,Ukraine,,,UAH,2016-01-01 00:00:00,19.39,,,,,
+ARE,United Arab Emirates,U.A.E. dirham   (AED),U.A.E. dirham   (AED),,2016-01-01 00:00:00,67.13,3.67,2016-04-24 00:00:00,3.67,3.67,3.67
+GBR,United Kingdom,U.K. pound sterling   (GBP),U.K. pound sterling   (GBP),,2016-01-01 00:00:00,59.53,1.43,2016-04-24 00:00:00,1.44,1.42,1.42
+URY,Uruguay,PESO URUGUAYO   (UYU),PESO URUGUAYO   (UYU),,2016-01-01 00:00:00,36.49,31.81,2016-04-24 00:00:00,31.93,31.31,31.75
+UZB,Uzbekistan,,,UZS,2016-01-01 00:00:00,29.23,,,,,
+VEN,Venezuela,BOLIVAR FUERTE   (VEF),BOLIVAR FUERTE   (VEF),,2016-01-01 00:00:00,36.71,9.97,2016-04-24 00:00:00,10.25,12.89,13.23
+VNM,Vietnam,,,VND,2016-01-01 00:00:00,27.22,,,,,
+YEM,Yemen,,,YER,,,,,,,
+ZMB,Zambia,,,ZMW,2016-01-01 00:00:00,33.88,,,,,
+ZWE,Zimbabwe,U.S. dollar   (USD),U.S. dollar   (USD),,2016-01-01 00:00:00,35.32,1,2016-04-24 00:00:00,1,1,1
